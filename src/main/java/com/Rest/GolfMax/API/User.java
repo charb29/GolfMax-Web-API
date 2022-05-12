@@ -6,9 +6,14 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(name = "username", nullable = false)
     private String username;
+    @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "email", nullable = false)
     private String email;
 
     public User() {
@@ -21,8 +26,7 @@ public class User {
         this.email = email;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public long getId() {
         return id;
     }

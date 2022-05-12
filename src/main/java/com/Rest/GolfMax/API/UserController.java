@@ -30,6 +30,7 @@ public class UserController {
         }
     }
 
+
     @PostMapping("/")
     public void add(@RequestBody User user) {
         userService.saveUser(user);
