@@ -37,5 +37,4 @@ public class UserService {
     public User getStoredPassword(String password) {
         return userRepository.findByPassword(password);
     }
-
 }
