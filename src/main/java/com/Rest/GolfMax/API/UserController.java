@@ -30,12 +30,6 @@ public class UserController {
         }
     }
 
-
-    @PostMapping("/")
-    public void addNewUser(@RequestBody User user) {
-        userService.saveUser(user);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<?> updateExistingUser(@RequestBody User user,
                                     @PathVariable Long id) {
