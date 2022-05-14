@@ -47,7 +47,7 @@ public class UserController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         }
-    }
+    }   
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
