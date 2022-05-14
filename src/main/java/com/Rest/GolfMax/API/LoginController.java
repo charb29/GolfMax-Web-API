@@ -5,6 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/users")
@@ -14,7 +18,8 @@ public class LoginController {
     UserService userService;
 
     @GetMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
+    public ResponseEntity<?> login(@RequestBody User user) {
+
         User storedUsername = userService.getStoredUsername(user.getUsername());
         User storedPassword = userService.getStoredPassword(user.getPassword());
 
@@ -22,10 +27,10 @@ public class LoginController {
             return new ResponseEntity<User> (storedUsername, HttpStatus.OK);
         }
         else if (storedUsername == null) {
-            return new ResponseEntity<User> (HttpStatus.NOT_FOUND);
+            return ResponseEntity.badRequest().body("Login failed. Invalid username or password.");
         }
         else {
-            return new ResponseEntity<User> (HttpStatus.NOT_FOUND);
+            return ResponseEntity.badRequest().body("Login failed. Invalid username or password.");
         }
     }
 }
