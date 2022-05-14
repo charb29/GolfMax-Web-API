@@ -14,16 +14,6 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    /**@GetMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        try {
-            User storedUsernamePassword = userService.getUsername(user.getUsername());
-            return new ResponseEntity<User> (storedUsernamePassword, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<User> (HttpStatus.NOT_FOUND);
-        }
-    } **/
-
     @GetMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
         User storedUsername = userService.getStoredUsername(user.getUsername());
