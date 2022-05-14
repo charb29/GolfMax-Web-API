@@ -36,4 +36,8 @@ public class UserService {
     public User getStoredPassword(String password) {
         return userRepository.findByPassword(password);
     }
+
+    public User getStoredEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
