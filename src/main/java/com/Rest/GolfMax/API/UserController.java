@@ -16,14 +16,14 @@ public class UserController {
     UserService userService;
 
     @GetMapping("")
-    public List<User> list() {
-        return userService.listAllUser();
+    public List<User> getAllUsers() {
+        return userService.listAllUsers();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> get(@PathVariable Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
         try {
-            User user = userService.getUser(id);
+            User user = userService.getUserById(id);
             return new ResponseEntity<User> (user, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<User> (HttpStatus.NOT_FOUND);
@@ -32,15 +32,15 @@ public class UserController {
 
 
     @PostMapping("/")
-    public void add(@RequestBody User user) {
+    public void addNewUser(@RequestBody User user) {
         userService.saveUser(user);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody User user,
+    public ResponseEntity<?> updateExistingUser(@RequestBody User user,
                                     @PathVariable Long id) {
         try {
-            User existUser = userService.getUser(id);
+            User existingUser = userService.getUserById(id);
             user.setId(id);
             userService.saveUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
 }

@@ -2,7 +2,6 @@ package com.Rest.GolfMax.API;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -12,7 +11,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-    public List<User> listAllUser() {
+
+    public List<User> listAllUsers() {
         return userRepository.findAll();
     }
 
@@ -20,11 +20,15 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User getUser(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).get();
     }
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public User getUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }
