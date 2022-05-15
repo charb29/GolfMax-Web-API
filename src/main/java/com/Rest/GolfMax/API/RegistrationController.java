@@ -12,19 +12,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class RegistrationController {
-
+public class RegistrationController 
+{
     @Autowired
     UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User newUser) {
+    public ResponseEntity<?> registerUser(@RequestBody User newUser) 
+    {
         List<User> allUsers = userService.listAllUsers();
 
-        if (allUsers.contains(newUser)) {
+        if (allUsers.contains(newUser)) 
+        {
             return ResponseEntity.badRequest().body("Registration failed. User already exists.");
         }
-        else {
+        else 
+        {
             userService.saveUser(newUser);
             return new ResponseEntity<User> (newUser, HttpStatus.OK);
         }
