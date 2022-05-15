@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/users")
@@ -16,7 +18,15 @@ public class RegistrationController {
     UserService userService;
 
     @PostMapping("/register")
-    public void registerUser(@RequestBody User user) {
-        userService.saveUser(user);
+    public ResponseEntity<?> registerUser(@RequestBody User newUser) {
+        List<User> allUsers = userService.listAllUsers();
+
+        if (allUsers.contains(newUser)) {
+            return ResponseEntity.badRequest().body("Registration failed. User already exists.");
+        }
+        else {
+            userService.saveUser(newUser);
+            return new ResponseEntity<User> (newUser, HttpStatus.OK);
+        }
     }
 }
