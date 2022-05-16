@@ -10,25 +10,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-public class RegistrationController 
-{
+public class RegistrationController {
+    
     @Autowired
     UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) 
-    {
-        User registerUser = userService.getStoredUsername(user.getUsername());
-        User registerEmail = userService.getStoredEmail(user.getEmail());
+    public ResponseEntity<User> authenticateUser(@RequestBody User user) {
+        User existingEmail = userService.getStoredEmail(user.getEmail());
 
-        if ((registerUser != null) && (registerEmail != null)) 
-        {
-            return ResponseEntity.badRequest().body("Registration failed. User already exists.");
+        if (existingEmail != null) {
+            return null;
         }
-        else 
-        {
+        else {
             userService.saveUser(user);
-            return new ResponseEntity<User> (user, HttpStatus.OK);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
         }
     }
 }

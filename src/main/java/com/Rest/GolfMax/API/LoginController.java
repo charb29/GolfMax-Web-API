@@ -7,22 +7,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-public class LoginController 
-{
+public class LoginController {
+    
     @Autowired
     UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        User storedUser = userService.getStoredUsername(user.getUsername());
+        User storedUsername = userService.getStoredUsername(user.getUsername());
+        User storedPassword = userService.getStoredEmail(user.getEmail());
 
-        if (storedUser == userService.getStoredUsername(user.getUsername())) 
-        {
-            return new ResponseEntity<User> (storedUser, HttpStatus.OK);
+        if (storedUsername != storedPassword) {
+        return ResponseEntity.badRequest().body("Login failed. Invalid credentials.");
         }
-        else 
-        {
-            return ResponseEntity.badRequest().body("Login failed. Invalid credentials.");
+        else {
+            return new ResponseEntity<User> (user, HttpStatus.OK);
         }
     }
 }

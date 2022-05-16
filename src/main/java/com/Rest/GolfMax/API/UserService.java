@@ -7,43 +7,36 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserService 
-{
+public class UserService {
+    
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> listAllUsers() 
-    {
+    public List<User> listAllUsers() {
         return userRepository.findAll();
     }
 
-    public void saveUser(User user) 
-    {
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 
-    public User getUserById (Long id) 
-    {
+    public User getUserById (Long id) {
         return userRepository.findById(id).get();
     }
 
-    public void deleteUser(Long id) 
-    {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    public User getStoredUsername(String username) 
-    {
+    public User getStoredUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public User getStoredPassword(String password) 
-    {
+    public User getStoredPassword(String password) {
         return userRepository.findByPassword(password);
     }
 
-    public User getStoredEmail(String email) 
-    {
+    public User getStoredEmail(String email) {
         return userRepository.findByEmail(email);
     }
 }
