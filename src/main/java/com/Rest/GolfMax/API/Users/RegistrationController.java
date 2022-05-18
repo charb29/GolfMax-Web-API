@@ -13,7 +13,7 @@ public class RegistrationController {
     UserRepository userRepository;
 
     @PostMapping("/register")
-    public ResponseEntity<?> authenticateUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())) {
             return new ResponseEntity<>("Username or email is already taken.", HttpStatus.BAD_REQUEST);
         }
@@ -25,6 +25,6 @@ public class RegistrationController {
 
         userRepository.save(registerUser);
 
-        return new ResponseEntity<>("User registered successfully.", HttpStatus.OK);
+        return new ResponseEntity<>("User registered successfully.", HttpStatus.CREATED);
     }
 }
