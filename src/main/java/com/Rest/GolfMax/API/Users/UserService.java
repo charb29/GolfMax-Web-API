@@ -12,6 +12,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     public List<User> listAllUsers() {
         return userRepository.findAll();
     }
@@ -38,5 +39,9 @@ public class UserService {
 
     public User getStoredEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User getStoredUserData(String username, String password, String email) {
+        return userRepository.findUserData(username, password, email);
     }
 }
