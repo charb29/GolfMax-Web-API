@@ -18,10 +18,10 @@ public class LoginController {
         User storedUser = userService.getStoredUserData(user.getUsername(), user.getPassword(), user.getEmail());
 
         if (storedUser == null) {
-            return new ResponseEntity<>("Invalid username.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
         }
         else {
-            return new ResponseEntity<User> (user, HttpStatus.OK);
+            return new ResponseEntity<User> (storedUser, HttpStatus.OK);
         }
     }
 }

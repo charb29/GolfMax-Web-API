@@ -15,7 +15,7 @@ public class RegistrationController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())) {
-            return new ResponseEntity<>("Username or email is already taken.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
         }
 
         User registerUser = new User();
