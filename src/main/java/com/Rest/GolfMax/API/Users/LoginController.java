@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class LoginController {
 
-
     @Autowired
     UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
+
         User storedUser = userService.getStoredUserData(user.getUsername(), user.getPassword(), user.getEmail());
 
         if (storedUser == null) {

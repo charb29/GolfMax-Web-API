@@ -16,11 +16,13 @@ public class UserController {
 
     @GetMapping("")
     public List<User> getAllUsers() {
+        
         return userService.listAllUsers();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
+
         try {
             User user = userService.getUserById(id);
             return new ResponseEntity<User> (user, HttpStatus.OK);
@@ -32,6 +34,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateExistingUser(@RequestBody User user,
                                     @PathVariable Long id) {
+
         try {
             User existingUser = userService.getUserById(id);
             user.setId(id);
@@ -44,6 +47,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
+
         userService.deleteUser(id);
     }
 }
