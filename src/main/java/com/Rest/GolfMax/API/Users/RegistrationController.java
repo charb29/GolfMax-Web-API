@@ -25,6 +25,6 @@ public class RegistrationController {
 
         userRepository.save(registerUser);
 
-        return new ResponseEntity<>("User registered successfully.", HttpStatus.CREATED);
+        return new ResponseEntity<>(registerUser, HttpStatus.CREATED);
     }
 }
