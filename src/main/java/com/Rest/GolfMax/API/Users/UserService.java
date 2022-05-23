@@ -48,8 +48,8 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public User getStoredUserData(String username, String password, String email) {
+    public User getStoredUserData(String username, String password) {
         
-        return userRepository.findUserData(username, password, email);
+        return userRepository.findUserData(username, password);
     }
 }

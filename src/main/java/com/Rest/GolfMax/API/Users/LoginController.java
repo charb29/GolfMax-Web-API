@@ -15,7 +15,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
 
-        User storedUser = userService.getStoredUserData(user.getUsername(), user.getPassword(), user.getEmail());
+        User storedUser = userService.getStoredUserData(user.getUsername(), user.getPassword());
 
         if (storedUser == null) {
             return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
