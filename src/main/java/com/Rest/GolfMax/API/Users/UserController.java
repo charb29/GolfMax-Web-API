@@ -1,7 +1,6 @@
 package com.Rest.GolfMax.API.Users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +18,6 @@ public class UserController {
     public List<User> getAllUsers() {
         
         return userService.listAllUsers();
-    }
-
-    @GetMapping("/id/{username}")
-    public ResponseEntity<User> getIdByUsername(@PathVariable String username) {
-
-        try {
-            User user = userService.getIdByUsername(username);
-            return new ResponseEntity<User> (user, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<User> (HttpStatus.NOT_FOUND);
-        }
     }
 
     @GetMapping("/{id}")
