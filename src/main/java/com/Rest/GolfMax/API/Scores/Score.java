@@ -9,19 +9,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.Rest.GolfMax.API.Users.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "scores")
 public class Score {
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @Autowired
+    User user;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "userId", nullable = false, unique = true)
-    private long id;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private User user;
+    @Column(name = "scoreId", nullable = false, unique = true)
+    private long scoreId;
 
     @Column(name = "courseName", nullable = false)
     private String courseName;
@@ -35,13 +37,21 @@ public class Score {
     @Column(name = "slopeRating", nullable = false)
     private double slopeRating;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Score() {
 
     }
 
-    public Score(long id, String courseName, int userScore, double courseRating, double slopeRating) {
+    public Score(long scoreId, String courseName, int userScore, double courseRating, double slopeRating) {
 
-        this.id = id;
+        this.scoreId = scoreId;
         this.courseName = courseName;
         this.userScore = userScore;
         this.courseRating = courseRating;
@@ -50,7 +60,7 @@ public class Score {
 
     public long getId() {
 
-        return id;
+        return scoreId;
     }
 
     public String getCourseName() {
@@ -75,7 +85,7 @@ public class Score {
     
     public void setId(long id) {
 
-        this.id = id;
+        this.scoreId = scoreId;
     }
 
     public void setCourseName(String courseName) {

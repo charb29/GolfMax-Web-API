@@ -40,7 +40,7 @@ public class ScoreController {
         }
     }
 
-    @PostMapping("/add_score")
+    @PostMapping("/add/score")
     public ResponseEntity<?> addScore(@RequestBody Score score) {
         score.setCourseName(score.getCourseName());
         score.setScore(score.getUserScore());
