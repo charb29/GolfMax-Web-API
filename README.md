@@ -16,7 +16,7 @@
 - OpenID and OAuth 2.0 for a more secure authorization
 - Password hashing
 - Spring Security
-- Trasnferring the database to Docker
+- Transferring the database to Docker
 
 ### Routes
 #### Scores
