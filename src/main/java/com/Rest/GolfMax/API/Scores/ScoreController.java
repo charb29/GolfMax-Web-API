@@ -25,13 +25,11 @@ public class ScoreController {
 
     @GetMapping("")
     public List<Score> getAllScores() {
-
         return scoreService.listAllScores();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Score> getScoresById(@PathVariable Long id) {
-
         try {
             Score score = scoreService.getScoreById(id);
             return new ResponseEntity<Score> (score, HttpStatus.OK);
@@ -41,20 +39,14 @@ public class ScoreController {
     }
 
     @PostMapping("/add/score")
-    public ResponseEntity<?> addScore(@RequestBody Score score) {
-        score.setCourseName(score.getCourseName());
-        score.setScore(score.getUserScore());
-        score.setCourseRating(score.getCourseRating());
-        score.setSlopeRating(score.getSlopeRating());
-
+    public ResponseEntity<Score> addScore(@RequestBody Score score) {
         scoreRepository.save(score);
 
-        return new ResponseEntity<>(score, HttpStatus.CREATED);
+        return new ResponseEntity<Score>(score, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public void deleteScore(@PathVariable Long id) {
-
         scoreService.deleteScore(id);
     }
 

@@ -13,15 +13,15 @@ public class LoginController {
     UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
+    public ResponseEntity<User> login(@RequestBody User user) {
 
         User storedUser = userService.getStoredUserData(user.getUsername(), user.getPassword());
 
         if (storedUser == null) {
-            return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
         else {
-            return new ResponseEntity<User> (storedUser, HttpStatus.OK);
+            return new ResponseEntity<User>(storedUser, HttpStatus.OK);
         }
     }
 }

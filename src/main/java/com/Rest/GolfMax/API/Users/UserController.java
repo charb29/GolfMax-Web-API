@@ -16,13 +16,11 @@ public class UserController {
 
     @GetMapping("")
     public List<User> getAllUsers() {
-        
         return userService.listAllUsers();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-
         try {
             User user = userService.getUserById(id);
             return new ResponseEntity<User> (user, HttpStatus.OK);
@@ -32,22 +30,19 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateExistingUser(@RequestBody User user,
-                                    @PathVariable Long id) {
-
+    public ResponseEntity<User> updateExistingUser(@RequestBody User user, @PathVariable Long id) {
         try {
             User existingUser = userService.getUserById(id);
             user.setId(id);
             userService.saveUser(user);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<User>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<> (HttpStatus.NOT_FOUND);
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
     }   
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
-
         userService.deleteUser(id);
     }
 }

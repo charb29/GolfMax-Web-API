@@ -13,18 +13,12 @@ public class RegistrationController {
     UserRepository userRepository;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())) {
             return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
         }
+        userRepository.save(user);
 
-        User registerUser = new User();
-        registerUser.setUsername(user.getUsername());
-        registerUser.setPassword(user.getPassword());
-        registerUser.setEmail(user.getEmail());
-
-        userRepository.save(registerUser);
-
-        return new ResponseEntity<>(registerUser, HttpStatus.CREATED);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 }
