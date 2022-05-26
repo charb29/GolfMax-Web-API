@@ -1,7 +1,7 @@
 # GolfMax-Web-API
 
 ### Current features
-- Authentication
+- Authentication - very basic and not secure yet, will improve later
 - Updating the users information
 - Get user by id
 - Get all users
