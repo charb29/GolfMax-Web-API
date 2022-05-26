@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/users/scores")
+@RequestMapping("/scores")
 public class ScoreController {
     
     @Autowired
@@ -38,7 +38,7 @@ public class ScoreController {
         }
     }
 
-    @PostMapping("/add/score")
+    @PostMapping("/add")
     public ResponseEntity<Score> addScore(@RequestBody Score score) {
         scoreRepository.save(score);
 
