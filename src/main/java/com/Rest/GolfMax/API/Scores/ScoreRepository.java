@@ -12,4 +12,5 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     public Score findByCourseRating(double courseRating);
 
     public Score findBySlopeRating(double slopeRating);
+    
 }
