@@ -1,21 +1,14 @@
 package com.Rest.GolfMax.API.Scores;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import com.Rest.GolfMax.API.Users.User;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "scores")
 public class Score {
 
-    @ManyToOne
+    /**@ManyToOne
     @JoinColumn(name = "user_id")
     @Autowired
     User user;
@@ -23,7 +16,14 @@ public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "scoreId", nullable = false, unique = true)
-    private long scoreId;
+    private long scoreId;**/
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "score_generator")
+    private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
+    private User user;
 
     @Column(name = "courseName", nullable = false)
     private String courseName;
@@ -37,31 +37,31 @@ public class Score {
     @Column(name = "slopeRating", nullable = false)
     private double slopeRating;
 
-    public User getUser() {
+    /**public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }**/
 
     public Score() {
 
     }
 
-    public Score(long scoreId, String courseName, int userScore, double courseRating, double slopeRating) {
+    public Score(String courseName, int userScore, double courseRating, double slopeRating) {
 
-        this.scoreId = scoreId;
+        //this.scoreId = scoreId;
         this.courseName = courseName;
         this.userScore = userScore;
         this.courseRating = courseRating;
         this.slopeRating = slopeRating;
     }
 
-    public long getId() {
+    /**public long getId() {
 
         return scoreId;
-    }
+    }**/
 
     public String getCourseName() {
 
@@ -83,10 +83,10 @@ public class Score {
         return slopeRating;
     }
     
-    public void setId(long id) {
+    /**public void setId(long id) {
 
         this.scoreId = scoreId;
-    }
+    }**/
 
     public void setCourseName(String courseName) {
 

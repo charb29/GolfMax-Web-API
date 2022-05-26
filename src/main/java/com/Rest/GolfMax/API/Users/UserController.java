@@ -33,7 +33,7 @@ public class UserController {
     public ResponseEntity<User> updateExistingUser(@RequestBody User user, @PathVariable Long id) {
         try {
             User existingUser = userService.getUserById(id);
-            user.setId(id);
+            // user.setId(id);
             userService.saveUser(user);
             return new ResponseEntity<User>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
