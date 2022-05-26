@@ -8,16 +8,6 @@ import com.Rest.GolfMax.API.Users.User;
 @Table(name = "scores")
 public class Score {
 
-    /**@ManyToOne
-    @JoinColumn(name = "user_id")
-    @Autowired
-    User user;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "scoreId", nullable = false, unique = true)
-    private long scoreId;**/
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "score_generator")
     private Long id;
@@ -36,32 +26,18 @@ public class Score {
 
     @Column(name = "slopeRating", nullable = false)
     private double slopeRating;
-
-    /**public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }**/
-
+    
     public Score() {
 
     }
 
     public Score(String courseName, int userScore, double courseRating, double slopeRating) {
 
-        //this.scoreId = scoreId;
         this.courseName = courseName;
         this.userScore = userScore;
         this.courseRating = courseRating;
         this.slopeRating = slopeRating;
     }
-
-    /**public long getId() {
-
-        return scoreId;
-    }**/
 
     public String getCourseName() {
 
@@ -83,11 +59,6 @@ public class Score {
         return slopeRating;
     }
     
-    /**public void setId(long id) {
-
-        this.scoreId = scoreId;
-    }**/
-
     public void setCourseName(String courseName) {
 
         this.courseName = courseName;
