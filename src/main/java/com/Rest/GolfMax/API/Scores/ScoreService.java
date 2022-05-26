@@ -52,4 +52,5 @@ public class ScoreService {
 
         return scoreRepository.findBySlopeRating(slopeRating);
     }
+    
 }
