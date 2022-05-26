@@ -2,7 +2,7 @@
 
 ### Current features
 - Authentication - very basic and not secure yet, will improve later
-- Updating the users information
+- Updating the user's information
 - Get user by id
 - Get all users
 - Delete user
@@ -16,7 +16,7 @@
 - OpenID and OAuth 2.0 for a more secure authorization
 - Password hashing
 - Spring Security
-- Transferring the database to Docker
+- Deploying the API as a Docker container
 
 ### Routes
 #### Scores
