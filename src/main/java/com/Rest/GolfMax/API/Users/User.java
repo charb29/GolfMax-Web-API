@@ -1,18 +1,22 @@
 package com.Rest.GolfMax.API.Users;
 
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.Rest.GolfMax.API.Scores.Score;
 
 @Entity
 @Table(name = "users")
 public class User {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private long id;
     
-    /**@OneToMany(mappedBy = "user")
-    private List<Score> scores;**/
+    @OneToMany(mappedBy = "user")
+    private List<Score> scores;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -26,7 +30,7 @@ public class User {
     public User() {
     }
 
-    public User (String username, String password, String email) {
+    public User (long id, String username, String password, String email) {
 
         this.id = id;
         this.username = username;
