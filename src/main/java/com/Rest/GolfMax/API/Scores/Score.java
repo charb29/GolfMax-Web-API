@@ -14,6 +14,9 @@ public class Score {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private User user;
+    
+    /**@ManyToOne(mappedBy = "user")
+    private User user;
 
     @Column(name = "courseName", nullable = false)
     private String courseName;
