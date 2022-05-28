@@ -33,6 +33,7 @@ public class Score {
     }
 
     public Score(long id, String courseName, int userScore, double courseRating, double slopeRating) {
+        
         this.id = id;
         this.courseName = courseName;
         this.userScore = userScore;
