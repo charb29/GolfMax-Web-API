@@ -12,7 +12,7 @@ public class RegistrationController {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping("/register")
+    @PostMapping("/account")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getEmail())) {
             return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
