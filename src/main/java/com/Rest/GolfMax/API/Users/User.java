@@ -10,6 +10,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
     @Column(name = "id", nullable = false, unique = true)
     private long id;
+    
+    /**@OneToMany
+    private List<Score> scores;**/
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
