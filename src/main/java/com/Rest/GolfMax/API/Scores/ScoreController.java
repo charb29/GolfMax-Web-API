@@ -38,7 +38,7 @@ public class ScoreController {
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseEntity<Score> addScore(@RequestBody Score score) {
         scoreRepository.save(score);
 
