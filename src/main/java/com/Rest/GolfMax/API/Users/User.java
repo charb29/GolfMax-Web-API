@@ -11,7 +11,7 @@ public class User {
     @Column(name = "id", nullable = false, unique = true)
     private long id;
     
-    /**@OneToMany
+    /**@OneToMany(mappedBy = "user")
     private List<Score> scores;**/
 
     @Column(name = "username", nullable = false, unique = true)
