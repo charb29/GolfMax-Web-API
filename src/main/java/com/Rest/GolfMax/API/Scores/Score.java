@@ -32,13 +32,23 @@ public class Score {
 
     }
 
-    public Score(long id, String courseName, int userScore, double courseRating, double slopeRating) {
+    public Score(long id, String courseName, int userScore, double courseRating, double slopeRating, User user) {
         
         this.id = id;
         this.courseName = courseName;
         this.userScore = userScore;
         this.courseRating = courseRating;
         this.slopeRating = slopeRating;
+        this.user = user;
+    }
+
+    public User getUser() {
+
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getCourseName() {
