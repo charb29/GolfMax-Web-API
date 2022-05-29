@@ -1,4 +1,5 @@
 package com.Rest.GolfMax.API.Scores;
+import com.Rest.GolfMax.API.Users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +16,7 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     public Score findBySlopeRating(double slopeRating);
 
-    @Query("Select u from Score u WHERE u.user = :user_id")
-    public Score findScoreByUserId(@Param("user_id") long id);
+    @Query("Select u from Score u WHERE u.user = :user")
+    public Score findScoreByUser(@Param("user") Long id);
     
 }

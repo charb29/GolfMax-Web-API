@@ -2,6 +2,7 @@ package com.Rest.GolfMax.API.Scores;
 
 import javax.transaction.Transactional;
 
+import com.Rest.GolfMax.API.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -45,8 +46,8 @@ public class ScoreService {
         return scoreRepository.findBySlopeRating(slopeRating);
     }
 
-    public Score getScoreByUserId(long id) {
-        return scoreRepository.findScoreByUserId(id);
+    public Score getScoreByUser(Long id) {
+        return scoreRepository.findScoreByUser(id);
     }
     
 }

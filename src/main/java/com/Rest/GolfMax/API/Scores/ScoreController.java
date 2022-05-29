@@ -1,5 +1,6 @@
 package com.Rest.GolfMax.API.Scores;
 
+import com.Rest.GolfMax.API.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class ScoreController {
     @GetMapping("/user/{id}")
     public ResponseEntity<Score> getScoresByUserId(@PathVariable Long id){
         try {
-            Score scores = scoreService.getScoreByUserId(id);
+            Score scores = scoreService.getScoreByUser(id);
             return new ResponseEntity<Score> (scores, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Score> (HttpStatus.NOT_FOUND);
