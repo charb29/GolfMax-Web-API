@@ -14,7 +14,6 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
-
         User storedUser = userService.getStoredUserData(user.getUsername(), user.getPassword());
 
         if (storedUser == null) {

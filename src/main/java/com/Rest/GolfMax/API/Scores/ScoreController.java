@@ -38,6 +38,16 @@ public class ScoreController {
         }
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Score> getScoresByUserId(@PathVariable Long id){
+        try {
+            Score scores = scoreService.getScoreByUserId(id);
+            return new ResponseEntity<Score> (scores, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Score> (HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<Score> addScore(@RequestBody Score score) {
         scoreRepository.save(score);

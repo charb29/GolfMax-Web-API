@@ -33,7 +33,6 @@ public class Score {
     }
 
     public Score(long id, String courseName, int userScore, double courseRating, double slopeRating, User user) {
-        
         this.id = id;
         this.courseName = courseName;
         this.userScore = userScore;
@@ -43,61 +42,50 @@ public class Score {
     }
 
     public User getUser() {
-
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getCourseName() {
-
         return courseName;
     }
 
     public long getId() {
-        
         return id;
     }
 
     public int getUserScore() {
-
         return userScore;
     }
 
     public double getCourseRating() {
-        
         return courseRating;
     }
 
     public double getSlopeRating() {
-
         return slopeRating;
     }
     
     public void setCourseName(String courseName) {
-
         this.courseName = courseName;
     }
 
     public void setId(long id) {
-        
         this.id = id;
     }
 
     public void setScore(int userScore) {
-
         this.userScore = userScore;
     }
 
-    public void setCourseRating(double courseRating) { 
-        
+    public void setCourseRating(double courseRating) {
         this.courseRating = courseRating;
     }
 
     public void setSlopeRating(double slopeRating) {
-
         this.slopeRating = slopeRating;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
