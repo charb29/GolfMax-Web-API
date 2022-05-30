@@ -1,6 +1,5 @@
 package com.Rest.GolfMax.API.Scores;
 
-import com.Rest.GolfMax.API.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,27 +39,15 @@ public class ScoreController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<Score> getScoresByUserId(@PathVariable Long id){
-        try {
-            Score scores = scoreService.getScoreByUser(id);
-            return new ResponseEntity<Score> (scores, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<Score> (HttpStatus.NOT_FOUND);
-        }
+    public Score getScoresByUserId(@PathVariable Long id){
+        
+        return scoreService.getScoreByUserId(id);
     }
 
     @PostMapping("")
-    public ResponseEntity<Score> saveNewScore(@RequestBody ScoreDTO scoreDTO) {
-        Score score = new Score();
-
-        score.setCourseName(scoreDTO.getCourseName());
-        score.setScore(scoreDTO.getScore());
-        score.setCourseRating(scoreDTO.getCourseRating());
-        score.setSlopeRating(scoreDTO.getSlopeRating());
-        score.setUser(scoreDTO.getUser());
-
+    public ResponseEntity<Score> addScore(@RequestBody Score score) {
         scoreRepository.save(score);
-        return new ResponseEntity<Score>(score, HttpStatus.OK);
+        return new ResponseEntity<Score>(score, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
