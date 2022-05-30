@@ -50,10 +50,17 @@ public class ScoreController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Score> addScore(@RequestBody Score score) {
-        scoreRepository.save(score);
+    public ResponseEntity<Score> saveNewScore(@RequestBody ScoreDTO scoreDTO) {
+        Score score = new Score();
 
-        return new ResponseEntity<Score>(score, HttpStatus.CREATED);
+        score.setCourseName(scoreDTO.getCourseName());
+        score.setScore(scoreDTO.getScore());
+        score.setCourseRating(scoreDTO.getCourseRating());
+        score.setSlopeRating(scoreDTO.getSlopeRating());
+        score.setUser(scoreDTO.getUser());
+
+        scoreRepository.save(score);
+        return new ResponseEntity<Score>(score, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
