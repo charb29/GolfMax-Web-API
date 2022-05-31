@@ -45,8 +45,8 @@ public class ScoreController {
 
     @PostMapping("")
     public ResponseEntity<Score> addScore(@RequestBody Score score) {
-        scoreRepository.save(score);
-        return new ResponseEntity<Score>(score, HttpStatus.CREATED);
+            scoreRepository.save(score);
+            return new ResponseEntity<Score>(score, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

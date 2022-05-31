@@ -22,23 +22,23 @@ public class Score {
     @Column(name = "score", nullable = false)
     private int userScore;
 
-    @Column(name = "tee", nullable = false)
-    private String tee;
+    @Column(name = "courseRating", nullable = false)
+    private double courseRating;
+
+    @Column(name = "slopeRating", nullable = false)
+    private double slopeRating;
     
     public Score() {
 
     }
 
-    public Score(long id, String courseName, int userScore, String tee, User user) {
+    public Score(long id, String courseName, int userScore, double courseRating, double slopeRating, User user) {
         this.id = id;
         this.courseName = courseName;
         this.userScore = userScore;
-        this.tee = tee;
+        this.courseRating = courseRating;
+        this.slopeRating = slopeRating;
         this.user = user;
-    }
-
-    public String getTee() {
-        return tee;
     }
 
     public User getUser() {
@@ -56,13 +56,17 @@ public class Score {
     public int getUserScore() {
         return userScore;
     }
+
+    public double getCourseRating() {
+        return courseRating;
+    }
+
+    public double getSlopeRating() {
+        return slopeRating;
+    }
     
     public void setCourseName(String courseName) {
         this.courseName = courseName;
-    }
-
-    public void setTee(String tee) {
-        this.tee = tee;
     }
 
     public void setId(long id) {
@@ -71,6 +75,14 @@ public class Score {
 
     public void setScore(int userScore) {
         this.userScore = userScore;
+    }
+
+    public void setCourseRating(double courseRating) {
+        this.courseRating = courseRating;
+    }
+
+    public void setSlopeRating(double slopeRating) {
+        this.slopeRating = slopeRating;
     }
 
     public void setUser(User user) {
