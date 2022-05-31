@@ -46,7 +46,7 @@ public class ScoreService {
         return scoreRepository.findBySlopeRating(slopeRating);
     }
 
-    public Score getScoreByUserId(Long userId) {
+    public List<Score> getScoreByUserId(long userId) {
         return scoreRepository.findByUserId(userId);
     }
     

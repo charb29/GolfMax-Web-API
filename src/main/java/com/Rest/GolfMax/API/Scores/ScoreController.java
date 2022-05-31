@@ -39,8 +39,7 @@ public class ScoreController {
     }
 
     @GetMapping("/user/{id}")
-    public Score getScoresByUserId(@PathVariable Long id){
-        
+    public List<Score> getScoresByUserId(@PathVariable long id){
         return scoreService.getScoreByUserId(id);
     }
 
