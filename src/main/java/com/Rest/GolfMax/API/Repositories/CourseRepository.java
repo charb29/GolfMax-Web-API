@@ -1,17 +1,14 @@
 package com.Rest.GolfMax.API.Repositories;
 
-import com.Rest.GolfMax.API.Models.Course;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.Rest.GolfMax.API.Models.Course;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
-    public Course findByCourseId(long courseId);
-    public Boolean existsByCourseName(String courseName);
+    
+    public List<Course> getCourseNameById(long id);
 
-    @Query("SELECT courseName FROM Course")
-    public List<String> findAllCourseNames();
+    public Boolean existsByCourseName(String courseName);
 }
