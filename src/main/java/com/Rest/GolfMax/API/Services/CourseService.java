@@ -1,12 +1,10 @@
 package com.Rest.GolfMax.API.Services;
-
-import com.Rest.GolfMax.API.Models.Course;
-import com.Rest.GolfMax.API.Repositories.CourseRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
+import com.Rest.GolfMax.API.Models.Course;
+import com.Rest.GolfMax.API.Repositories.CourseRepository;
 
 @Service
 @Transactional
@@ -19,19 +17,19 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public List<String> listAllCourseNames() {
-        return courseRepository.findAllCourseNames();
+    public void addNewCourse(Course course) {
+        courseRepository.save(course);
     }
 
+    public Course getCourseById(Long id) {
+        return courseRepository.findById(id).get();
+    }
+    
     public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
     }
 
-    public void saveCourse(Course course) {
-        courseRepository.save(course);
-    }
-
-    public Course getCourseByCourseId(long courseId) {
-        return courseRepository.findByCourseId(courseId);
+    public List<Course> getCourseNameById(Long id) {
+        return courseRepository.getCourseNameById(id);
     }
 }
