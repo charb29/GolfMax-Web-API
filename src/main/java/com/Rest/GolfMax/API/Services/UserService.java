@@ -1,5 +1,7 @@
-package com.Rest.GolfMax.API.Users;
+package com.Rest.GolfMax.API.Services;
 
+import com.Rest.GolfMax.API.Repositories.UserRepository;
+import com.Rest.GolfMax.API.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;

@@ -1,10 +1,10 @@
-package com.Rest.GolfMax.API.Users;
+package com.Rest.GolfMax.API.Models;
 
 import java.util.List;
 
 import javax.persistence.*;
 
-import com.Rest.GolfMax.API.Scores.Score;
+import com.Rest.GolfMax.API.Models.Score;
 
 @Entity
 @Table(name = "users")

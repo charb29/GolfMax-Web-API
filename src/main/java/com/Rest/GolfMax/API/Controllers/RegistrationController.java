@@ -1,5 +1,7 @@
-package com.Rest.GolfMax.API.Users;
+package com.Rest.GolfMax.API.Controllers;
 
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
