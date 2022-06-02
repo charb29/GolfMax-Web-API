@@ -42,12 +42,12 @@ public class ScoreController {
     }
 
     @GetMapping("/user/{id}")
-    public List<Score> getScoresByUserId(@PathVariable long id){
+    public List<Score> getScoresByUserId(@PathVariable long id) {
         return scoreService.getScoreByUserId(id);
     }
 
     @PostMapping("")
-    public ResponseEntity<Score> addScore(@RequestBody Score score) {
+    public ResponseEntity<?> addScore(@RequestBody Score score) {
             scoreRepository.save(score);
             return new ResponseEntity<Score>(score, HttpStatus.CREATED);
     }

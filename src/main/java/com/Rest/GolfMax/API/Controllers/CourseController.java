@@ -53,4 +53,9 @@ public class CourseController {
     public void deleteUser(@PathVariable Long id) {
         courseService.deleteCourse(id);
     }
+
+    @GetMapping("/course_attributes/{id}")
+    public List<String> getCourseAttributesById(@PathVariable Long id) {
+        return courseService.getCourseNameAndAttributesById(id);
+    }
 }

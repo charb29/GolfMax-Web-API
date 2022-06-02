@@ -30,6 +30,10 @@ public class CourseService {
     }
 
     public List<Course> getCourseNameById(Long id) {
-        return courseRepository.getCourseNameById(id);
+        return courseRepository.getCourseById(id);
+    }
+
+    public List<String> getCourseNameAndAttributesById(Long id) {
+        return courseRepository.getCourseNameAndRatingsById(id);
     }
 }
