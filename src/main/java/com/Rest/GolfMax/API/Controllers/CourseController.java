@@ -54,8 +54,8 @@ public class CourseController {
         courseService.deleteCourse(id);
     }
 
-    @GetMapping("/course_name/{id}")
-    public List<String> getCourseNameById(@PathVariable Long id) {
-        return courseService.getCourseNameById(id);
+    @GetMapping("/course_names")
+    public List<String> getCourseNameById() {
+        return courseService.getCourseNames();
     }
 }

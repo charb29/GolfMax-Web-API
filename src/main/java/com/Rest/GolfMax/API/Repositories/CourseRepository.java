@@ -14,6 +14,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     public Boolean existsByCourseName(String courseName);
 
-    @Query("select course.courseName from Course course where course.id = :id")
-    public List<String> getCourseNameById(@Param("id") long id);
+    @Query("select course.courseName from Course course")
+    public List<String> getCourseNames();
 }
