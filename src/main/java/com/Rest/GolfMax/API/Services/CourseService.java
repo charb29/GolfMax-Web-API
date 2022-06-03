@@ -29,11 +29,7 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
-    public List<Course> getCourseNameById(Long id) {
-        return courseRepository.getCourseById(id);
-    }
-
-    public List<String> getCourseNameAndAttributesById(Long id) {
-        return courseRepository.getCourseNameAndRatingsById(id);
+    public List<String> getCourseNameById(long id) {
+        return courseRepository.getCourseNameById(id);
     }
 }
