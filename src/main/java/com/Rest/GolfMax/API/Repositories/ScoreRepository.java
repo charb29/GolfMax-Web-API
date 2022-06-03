@@ -14,7 +14,5 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     public List<Score> findByUserId(long userId);
 
-    @Query("select score.userScore from Score score where score.id = :id")
-    public List<Integer> getScoreById(@Param("id") long id);
     
 }

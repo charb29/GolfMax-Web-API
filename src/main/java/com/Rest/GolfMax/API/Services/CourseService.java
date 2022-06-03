@@ -29,7 +29,8 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
-    public List<String> getCourseNames() {
-        return courseRepository.getCourseNames();
+    public List<Course> getCourseName() {
+
+        return courseRepository.findAll();
     }
 }

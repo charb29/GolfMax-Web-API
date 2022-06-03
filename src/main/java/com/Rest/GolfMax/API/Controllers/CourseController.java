@@ -55,7 +55,7 @@ public class CourseController {
     }
 
     @GetMapping("/course_names")
-    public List<String> getCourseNameById() {
-        return courseService.getCourseNames();
+    public List<Course> getCourseNames() {
+        return courseService.getCourseName();
     }
 }

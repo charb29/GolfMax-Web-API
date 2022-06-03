@@ -29,8 +29,8 @@ public class ScoreService {
         scoreRepository.deleteById(id);
     }
 
-    public List<Integer> getScoreByUserId(long userId) {
-        return scoreRepository.getScoreById(userId);
+    public List<Score> getScoreByUserId(long userId) {
+        return scoreRepository.findByUserId(userId);
     }
     
 }
