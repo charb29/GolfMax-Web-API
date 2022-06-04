@@ -15,6 +15,9 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private CourseImageFile courseImageFile;
+
     @Column(name = "courseName", nullable = false)
     private String courseName;
 
@@ -87,7 +90,7 @@ public class Course {
 
     public Course(long id, String courseName, double courseRating, double slopeRating, int overalPar, int hole1,
             int hole2, int hole3, int hole4, int hole5, int hole6, int hole7, int hole8, int hole9, int hole10,
-            int hole11, int hole12, int hole13, int hole14, int hole15, int hole16, int hole17, int hole18) {
+            int hole11, int hole12, int hole13, int hole14, int hole15, int hole16, int hole17, int hole18, CourseImageFile courseImageFile) {
         this.id = id;
         this.courseName = courseName;
         this.courseRating = courseRating;
@@ -111,6 +114,7 @@ public class Course {
         this.hole16 = hole16;
         this.hole17 = hole17;
         this.hole18 = hole18;
+        this.courseImageFile = courseImageFile;
     }
 
     public long getId() {
@@ -295,5 +299,13 @@ public class Course {
 
     public void setHole18(int hole18) {
         this.hole18 = hole18;
+    }
+
+    public CourseImageFile getCourseImageFile() {
+        return courseImageFile;
+    }
+
+    public void setCourseImageFile(CourseImageFile courseImageFile) {
+        this.courseImageFile = courseImageFile;
     }
 }

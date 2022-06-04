@@ -39,7 +39,7 @@ public class CourseImageController {
                 .toUriString();
 
         return new UploadFileResponse(courseImageFile.getFileName(), fileDownloadUri,
-                file.getContentType(), file.getSize());
+                file.getContentType(), file.getSize(), courseImageFile.getImageId());
     }
 
     @GetMapping("/download_file/{imageId}")

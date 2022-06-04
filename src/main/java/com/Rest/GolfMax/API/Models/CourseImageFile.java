@@ -1,6 +1,8 @@
 package com.Rest.GolfMax.API.Models;
 
 
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -12,6 +14,9 @@ public class CourseImageFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long imageId;
+
+    @OneToMany(mappedBy = "courseImageFile")
+    private List<Course> course;
 
     @Column(name = "fileName", nullable = false)
     private String fileName;
