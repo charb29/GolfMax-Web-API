@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "courses")
 public class Course {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -24,8 +24,8 @@ public class Course {
     @Column(name = "slopeRating", nullable = false)
     private double slopeRating;
 
-    @Column(name = "overallPar", nullable = false)
-    private int overallPar;
+    @Column(name = "overalPar", nullable = false)
+    private int overalPar;
 
     @Column(name = "hole1", nullable = false)
     private int hole1;
@@ -81,18 +81,18 @@ public class Course {
     @Column(name = "hole18", nullable = true)
     private int hole18;
 
-    public Course() {}
+    public Course() {
 
+    }    
 
-    public Course(long id, String courseName, double courseRating, double slopeRating,
-            int overallPar, int hole1, int hole2, int hole3, int hole4, int hole5, int hole6, int hole7, int hole8,
-            int hole9, int hole10, int hole11, int hole12, int hole13, int hole14, int hole15, int hole16, int hole17,
-            int hole18) {
+    public Course(long id, String courseName, double courseRating, double slopeRating, int overalPar, int hole1,
+            int hole2, int hole3, int hole4, int hole5, int hole6, int hole7, int hole8, int hole9, int hole10,
+            int hole11, int hole12, int hole13, int hole14, int hole15, int hole16, int hole17, int hole18) {
         this.id = id;
         this.courseName = courseName;
         this.courseRating = courseRating;
         this.slopeRating = slopeRating;
-        this.overallPar = overallPar;
+        this.overalPar = overalPar;
         this.hole1 = hole1;
         this.hole2 = hole2;
         this.hole3 = hole3;
@@ -145,12 +145,12 @@ public class Course {
         this.slopeRating = slopeRating;
     }
 
-    public int getOverallPar() {
-        return overallPar;
+    public int getOveralPar() {
+        return overalPar;
     }
 
-    public void setOverallPar(int overallPar) {
-        this.overallPar = overallPar;
+    public void setOveralPar(int overalPar) {
+        this.overalPar = overalPar;
     }
 
     public int getHole1() {
@@ -224,7 +224,6 @@ public class Course {
     public void setHole9(int hole9) {
         this.hole9 = hole9;
     }
-
 
     public int getHole10() {
         return hole10;
