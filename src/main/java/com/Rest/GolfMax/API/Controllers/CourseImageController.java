@@ -1,6 +1,5 @@
 package com.Rest.GolfMax.API.Controllers;
 
-import com.Rest.GolfMax.API.Models.Course;
 import com.Rest.GolfMax.API.Models.CourseImageFile;
 import com.Rest.GolfMax.API.Services.CourseImageService;
 import org.slf4j.Logger;
