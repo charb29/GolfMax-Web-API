@@ -13,6 +13,4 @@ import java.util.List;
 public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     public List<Score> findByUserId(long userId);
-
-    
 }

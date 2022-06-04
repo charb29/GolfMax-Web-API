@@ -1,5 +1,8 @@
 package com.Rest.GolfMax.API.Models;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "scores")
@@ -34,28 +37,28 @@ public class Score {
         return scoreId;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public int getUserScore() {
-        return userScore;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
     public void setScoreId(long scoreId) {
         this.scoreId = scoreId;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public int getUserScore() {
+        return userScore;
     }
 
     public void setUserScore(int userScore) {
