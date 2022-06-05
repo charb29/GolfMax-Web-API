@@ -1,8 +1,5 @@
 package com.Rest.GolfMax.API.Models;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "scores")
