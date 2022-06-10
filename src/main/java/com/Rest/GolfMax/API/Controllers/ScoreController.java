@@ -57,4 +57,8 @@ public class ScoreController {
         scoreService.deleteScore(id);
     }
 
+    @GetMapping("/course/{id}")
+    public List<Score> getScoresByCourseId(@PathVariable long id) {
+        return scoreService.getScoreByCourseId(id);
+    }
 }
