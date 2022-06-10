@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,7 +43,7 @@ public class ScoreController {
         }
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/{id}?sort=score")
     public List<Score> getScoresByUserId(@PathVariable long id) {
         return scoreService.getScoreByUserId(id);
     }
