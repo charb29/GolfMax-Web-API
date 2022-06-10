@@ -15,9 +15,6 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private CourseImageFile courseImageFile;
-
     @Column(name = "courseName", nullable = false)
     private String courseName;
 
@@ -27,8 +24,8 @@ public class Course {
     @Column(name = "slopeRating", nullable = false)
     private double slopeRating;
 
-    @Column(name = "overalPar", nullable = false)
-    private int overalPar;
+    @Column(name = "overallPar", nullable = false)
+    private int overallPar;
 
     @Column(name = "hole1", nullable = false)
     private int hole1;
@@ -88,14 +85,14 @@ public class Course {
 
     }    
 
-    public Course(long id, String courseName, double courseRating, double slopeRating, int overalPar, int hole1,
+    public Course(long id, String courseName, double courseRating, double slopeRating, int overallPar, int hole1,
             int hole2, int hole3, int hole4, int hole5, int hole6, int hole7, int hole8, int hole9, int hole10,
-            int hole11, int hole12, int hole13, int hole14, int hole15, int hole16, int hole17, int hole18, CourseImageFile courseImageFile) {
+            int hole11, int hole12, int hole13, int hole14, int hole15, int hole16, int hole17, int hole18) {
         this.id = id;
         this.courseName = courseName;
         this.courseRating = courseRating;
         this.slopeRating = slopeRating;
-        this.overalPar = overalPar;
+        this.overallPar = overallPar;
         this.hole1 = hole1;
         this.hole2 = hole2;
         this.hole3 = hole3;
@@ -114,7 +111,6 @@ public class Course {
         this.hole16 = hole16;
         this.hole17 = hole17;
         this.hole18 = hole18;
-        this.courseImageFile = courseImageFile;
     }
 
     public long getId() {
@@ -149,12 +145,12 @@ public class Course {
         this.slopeRating = slopeRating;
     }
 
-    public int getOveralPar() {
-        return overalPar;
+    public int getOverallPar() {
+        return overallPar;
     }
 
-    public void setOveralPar(int overalPar) {
-        this.overalPar = overalPar;
+    public void setOverallPar(int overallPar) {
+        this.overallPar = overallPar;
     }
 
     public int getHole1() {
@@ -299,13 +295,5 @@ public class Course {
 
     public void setHole18(int hole18) {
         this.hole18 = hole18;
-    }
-
-    public CourseImageFile getCourseImageFile() {
-        return courseImageFile;
-    }
-
-    public void setCourseImageFile(CourseImageFile courseImageFile) {
-        this.courseImageFile = courseImageFile;
     }
 }
