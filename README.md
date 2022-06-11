@@ -32,3 +32,9 @@
 - GET /users/{id}
 - PUT /users/{id}
 - DELETE /users/{id}
+
+#### Courses
+- GET /courses
+- GET /courses{id}
+- POST /courses/new_course
+- DELETE /courses/{id}
