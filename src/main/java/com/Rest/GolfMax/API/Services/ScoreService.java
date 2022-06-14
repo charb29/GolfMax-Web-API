@@ -35,8 +35,8 @@ public class ScoreService {
         return scoreRepository.findByUserId(userId, sort);
     }
 
-    public List<Score> getScoreByCourseId(long courseId) {
-        return scoreRepository.findByCourseId(courseId);
+    public List<Score> getScoreByCourseId(long courseId, Sort sort) {
+        return scoreRepository.findByCourseId(courseId, sort);
     }
 
 }

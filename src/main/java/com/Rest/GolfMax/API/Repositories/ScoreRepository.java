@@ -11,5 +11,5 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     public List<Score> findByUserId(long userId, Sort sort);
 
-    public List<Score> findByCourseId(long courseId);
+    public List<Score> findByCourseId(long courseId, Sort sort);
 }

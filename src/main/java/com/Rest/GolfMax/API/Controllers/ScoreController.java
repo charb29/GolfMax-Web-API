@@ -55,7 +55,7 @@ public class ScoreController {
     }
 
     @GetMapping("/course/{id}")
-    public List<Score> getScoresByCourseId(@PathVariable long id) {
-        return scoreService.getScoreByCourseId(id);
+    public List<Score> getScoresByCourseId(@PathVariable long id, Sort sort) {
+        return scoreService.getScoreByCourseId(id, Sort.by("userScore").ascending());
     }
 }
