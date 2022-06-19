@@ -45,5 +45,4 @@ public class UserService {
     public User getStoredUserData(String username, String password) {
         return userRepository.findUserData(username, password);
     }
-    
 }

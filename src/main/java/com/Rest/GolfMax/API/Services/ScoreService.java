@@ -28,6 +28,7 @@ public class ScoreService {
     }
 
     public void deleteScore(Long id) {
+
         scoreRepository.deleteById(id);
     }
 
@@ -38,5 +39,4 @@ public class ScoreService {
     public List<Score> getScoreByCourseId(long courseId, Sort sort) {
         return scoreRepository.findByCourseId(courseId, sort);
     }
-
 }
