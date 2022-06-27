@@ -30,19 +30,24 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User getStoredUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public User getStoredPassword(String password) {
-        return userRepository.findByPassword(password);
-    }
-
-    public User getStoredEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
     public User getStoredUserData(String username, String password) {
         return userRepository.findUserData(username, password);
+    }
+
+    public User updateUser(long id, User user) {
+        if (userRepository.findById(id).isPresent()) {
+            User existingUser = userRepository.findById(id).get();
+
+            existingUser.setUsername(user.getUsername());
+            existingUser.setPassword(user.getPassword());
+            existingUser.setEmail(user.getEmail());
+
+            User updatedUser = userRepository.save(existingUser);
+
+            return updatedUser;
+        }
+        else {
+            return null;
+        }
     }
 }
