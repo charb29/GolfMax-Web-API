@@ -1,0 +1,48 @@
+package com.Rest.GolfMax.API;
+
+import com.Rest.GolfMax.API.Controllers.RegistrationController;
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Repositories.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+
+@WebMvcTest(RegistrationController.class)
+public class RegistrationControllerTest {
+
+    @Autowired
+    MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper mapper;
+
+    @MockBean
+    UserRepository userRepository;
+
+    User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
+
+    @Test
+    public void register() throws Exception {
+        Mockito.when(userRepository.save(USER_1)).thenReturn(USER_1);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/users/account")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(USER_1));
+
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.username", is("Olivier")));
+    }
+}
