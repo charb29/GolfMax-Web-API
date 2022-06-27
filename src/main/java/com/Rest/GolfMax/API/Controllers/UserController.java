@@ -31,15 +31,10 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateExistingUser(@RequestBody User user, @PathVariable Long id) {
-        try {
-            User existingUser = userService.getUserById(id);
-            userService.saveUser(user);
-            return new ResponseEntity<User>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }
+    @PutMapping("/{id}/update")
+    public ResponseEntity<User> updateExistingUser(@RequestBody User updateUser,
+                                                   @PathVariable Long id) {
+        return new ResponseEntity<>(userService.updateUser(id, updateUser), HttpStatus.OK);
     }   
 
     @DeleteMapping("/{id}")
