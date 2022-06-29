@@ -28,7 +28,6 @@ public class ScoreService {
     }
 
     public void deleteScore(Long id) {
-
         scoreRepository.deleteById(id);
     }
 
