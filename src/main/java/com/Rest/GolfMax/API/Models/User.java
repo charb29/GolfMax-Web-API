@@ -15,6 +15,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Score> scores;
 
+    @OneToOne(mappedBy = "user")
+    private PlayerStatistics playerStatistics;
+
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
@@ -24,8 +27,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    public User() {
-    }
+    public User() {}
 
     public User (long id, String username, String password, String email) {
         this.id = id;
