@@ -1,5 +1,7 @@
 package com.Rest.GolfMax.API.Models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity
