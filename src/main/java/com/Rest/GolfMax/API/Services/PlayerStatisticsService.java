@@ -22,19 +22,17 @@ public class PlayerStatisticsService {
     ScoreService scoreService;
 
     public PlayerStatistics getStatsByUserId(long id) {
-        PlayerStatistics stats = new PlayerStatistics();
+        return repository.findByUserId(id);
+    }
+
+    public void saveStats(PlayerStatistics stats, long id) {
+
         User user = new User();
         user.setId(id);
 
         int roundsPlayed = scoreService.getScoresByUserId(user.getId(), Sort.unsorted()).size();
         stats.setUser(user);
         stats.setRoundsPlayed(roundsPlayed);
-        saveStats(stats);
-
-        return repository.findByUserId(id);
-    }
-
-    public void saveStats(PlayerStatistics statistics) {
-        repository.save(statistics);
+        repository.save(stats);
     }
 }
