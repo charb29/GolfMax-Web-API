@@ -19,9 +19,7 @@ public class Score {
     @Column(name = "score", nullable = false)
     private int userScore;
 
-    public Score() {
-
-    }
+    public Score() {}
 
     public Score(long scoreId, User user, Course course, int userScore) {
         this.scoreId = scoreId;
