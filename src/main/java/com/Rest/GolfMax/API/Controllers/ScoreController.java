@@ -1,7 +1,9 @@
 package com.Rest.GolfMax.API.Controllers;
 
+import com.Rest.GolfMax.API.Models.PlayerStatistics;
 import com.Rest.GolfMax.API.Models.Score;
 import com.Rest.GolfMax.API.Repositories.ScoreRepository;
+import com.Rest.GolfMax.API.Services.PlayerStatisticsService;
 import com.Rest.GolfMax.API.Services.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -22,6 +24,9 @@ public class ScoreController {
     @Autowired
     ScoreRepository scoreRepository;
 
+    @Autowired
+    PlayerStatisticsService playerStatisticsService;
+
     @GetMapping("")
     public List<Score> getAllScores() {
         return scoreService.listAllScores();
@@ -39,7 +44,7 @@ public class ScoreController {
 
     @GetMapping("/user/{id}")
     public List<Score> getScoresByUserId(@PathVariable long id, Sort sort) {
-        return scoreService.getScoreByUserId(id, Sort.by("userScore").ascending());
+        return scoreService.getScoresByUserId(id, Sort.by("userScore").ascending());
     }
 
     @PostMapping("")

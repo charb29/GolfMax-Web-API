@@ -44,7 +44,7 @@ public class PlayerStatisticsTest {
 
         PlayerStatistics stats = USER_1_STATS;
 
-        Mockito.when(service.getUserStats(USER_1.getId())).thenReturn(stats);
+        Mockito.when(service.getStatsByUserId(USER_1.getId())).thenReturn(stats);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/stats/user/1")

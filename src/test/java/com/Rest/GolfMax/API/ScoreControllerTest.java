@@ -90,7 +90,7 @@ public class ScoreControllerTest {
 
         List<Score> scores = new ArrayList<>(Arrays.asList(SCORE_1, SCORE_2, SCORE_3));
 
-        Mockito.when(scoreService.getScoreByUserId(USER_1.getId(), Sort.by("userScore").ascending())).thenReturn(scores);
+        Mockito.when(scoreService.getScoresByUserId(USER_1.getId(), Sort.by("userScore").ascending())).thenReturn(scores);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/scores/user/1")

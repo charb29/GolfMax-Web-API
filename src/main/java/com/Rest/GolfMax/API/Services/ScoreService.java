@@ -1,5 +1,8 @@
 package com.Rest.GolfMax.API.Services;
 import javax.transaction.Transactional;
+
+import com.Rest.GolfMax.API.Models.PlayerStatistics;
+import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Repositories.ScoreRepository;
 import com.Rest.GolfMax.API.Models.Score;
 import org.springframework.data.domain.Sort;
@@ -31,7 +34,7 @@ public class ScoreService {
         scoreRepository.deleteById(id);
     }
 
-    public List<Score> getScoreByUserId(long userId, Sort sort) {
+    public List<Score> getScoresByUserId(long userId, Sort sort) {
         return scoreRepository.findByUserId(userId, sort);
     }
 
