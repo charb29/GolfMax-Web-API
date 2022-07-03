@@ -50,4 +50,13 @@ public class UserService {
             return null;
         }
     }
+
+    public boolean userExists(String username, String email) {
+        if (userRepository.existsByUsername(username) || userRepository.existsByEmail(email)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 }

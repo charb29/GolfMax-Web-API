@@ -1,8 +1,6 @@
 package com.Rest.GolfMax.API.Controllers;
 
-import com.Rest.GolfMax.API.Models.PlayerStatistics;
 import com.Rest.GolfMax.API.Models.Score;
-import com.Rest.GolfMax.API.Repositories.CourseRepository;
 import com.Rest.GolfMax.API.Repositories.ScoreRepository;
 import com.Rest.GolfMax.API.Services.PlayerStatisticsService;
 import com.Rest.GolfMax.API.Services.ScoreService;
@@ -21,12 +19,6 @@ public class ScoreController {
     
     @Autowired
     ScoreService scoreService;
-
-    @Autowired
-    ScoreRepository scoreRepository;
-
-    @Autowired
-    PlayerStatisticsService playerStatisticsService;
 
     @GetMapping("")
     public List<Score> getAllScores() {
@@ -50,7 +42,7 @@ public class ScoreController {
 
     @PostMapping("")
     public ResponseEntity<?> addScore(@RequestBody Score score) {
-            scoreRepository.save(score);
+            scoreService.saveScore(score);
             return new ResponseEntity<Score>(score, HttpStatus.CREATED);
     }
 

@@ -11,10 +11,14 @@ import com.Rest.GolfMax.API.Repositories.CourseRepository;
 public class CourseService {
 
     @Autowired
-    private CourseRepository courseRepository;
+    CourseRepository courseRepository;
 
     public List<Course> listAllCourses() {
         return courseRepository.findAll();
+    }
+
+    public void saveCourse(Course course) {
+        courseRepository.save(course);
     }
 
     public void addNewCourse(Course course) {
@@ -27,5 +31,14 @@ public class CourseService {
     
     public void deleteCourse(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    public boolean existsByCourseName(String courseName) {
+        if (courseRepository.existsByCourseName(courseName)) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }

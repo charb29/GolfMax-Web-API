@@ -18,9 +18,6 @@ import com.Rest.GolfMax.API.Services.CourseService;
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
-    
-    @Autowired
-    CourseRepository courseRepository;
 
     @Autowired
     CourseService courseService;
@@ -32,10 +29,10 @@ public class CourseController {
 
     @PostMapping("/new_course")
     public ResponseEntity<Course> addNewCourse(@RequestBody Course course) {
-        if (courseRepository.existsByCourseName(course.getCourseName())) {
+        if (courseService.existsByCourseName(course.getCourseName())) {
             return new ResponseEntity<>(course, HttpStatus.BAD_REQUEST);
         }
-        courseRepository.save(course);
+        courseService.saveCourse(course);
         return new ResponseEntity<Course>(course, HttpStatus.CREATED);
     }
 
