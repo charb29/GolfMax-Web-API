@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.Rest.GolfMax.API.Models.Course;
 import com.Rest.GolfMax.API.Repositories.CourseRepository;
+import org.springframework.web.context.annotation.RequestScope;
+
 
 @Service
 @Transactional
+@RequestScope
 public class CourseService {
 
     @Autowired

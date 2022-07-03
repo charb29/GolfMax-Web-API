@@ -83,7 +83,7 @@ public class Course {
 
     public Course() {
 
-    }    
+    }
 
     public Course(long id, String courseName, double courseRating, double slopeRating, int overallPar, int hole1,
             int hole2, int hole3, int hole4, int hole5, int hole6, int hole7, int hole8, int hole9, int hole10,

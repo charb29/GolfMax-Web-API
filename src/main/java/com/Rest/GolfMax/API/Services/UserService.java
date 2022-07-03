@@ -4,11 +4,14 @@ import com.Rest.GolfMax.API.Repositories.UserRepository;
 import com.Rest.GolfMax.API.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @Transactional
+@RequestScope
 public class UserService {
     
     @Autowired

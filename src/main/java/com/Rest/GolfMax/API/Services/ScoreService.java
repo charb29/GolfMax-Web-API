@@ -8,11 +8,13 @@ import com.Rest.GolfMax.API.Models.Score;
 import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
 @Service
 @Transactional
+@RequestScope
 public class ScoreService {
 
     @Autowired
