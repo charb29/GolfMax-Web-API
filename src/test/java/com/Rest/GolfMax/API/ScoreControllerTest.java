@@ -55,9 +55,9 @@ public class ScoreControllerTest {
             3, 4, 4, 3,
             4, 3, 3);
 
-    Score SCORE_1 = new Score(1, USER_1, COURSE_2, 64);
-    Score SCORE_2 = new Score(2, USER_1, COURSE_1, 70);
-    Score SCORE_3 = new Score(3, USER_2, COURSE_2, 100);
+    Score SCORE_1 = new Score(1, USER_1, COURSE_2, 64, 61, 103);
+    Score SCORE_2 = new Score(2, USER_1, COURSE_1, 70, 61, 103);
+    Score SCORE_3 = new Score(3, USER_2, COURSE_2, 100, 65, 120);
 
     @Test
     public void getAllScores() throws Exception {
@@ -101,7 +101,7 @@ public class ScoreControllerTest {
 
     @Test
     public void addScore() throws Exception {
-        Score score = new Score(4, USER_1, COURSE_1, 69);
+        Score score = new Score(4, USER_1, COURSE_1, 69, 61, 103);
 
         Mockito.when(scoreRepository.save(score)).thenReturn(score);
 
