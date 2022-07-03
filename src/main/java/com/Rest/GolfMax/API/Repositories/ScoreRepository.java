@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -19,6 +18,4 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Query("SELECT s.userScore FROM Score s WHERE s.user.id = :userId")
     public List<Integer> findByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT c.courseRating, c.slopeRating, s.userScore FROM Course c INNER JOIN Score s ON s.course = c.id WHERE s.user.id = :userId ORDER BY s.userScore ASC")
-    public List<Score> getHandicapAttrs(@Param("userId") Long userId);
 }
