@@ -19,13 +19,21 @@ public class Score {
     @Column(name = "score", nullable = false)
     private int userScore;
 
+    @Column(name = "courseRating", nullable = true)
+    private double courseRating;
+
+    @Column(name = "slopeRating", nullable = true)
+    private double slopeRating;
+
     public Score() {}
 
-    public Score(long scoreId, User user, Course course, int userScore) {
+    public Score(long scoreId, User user, Course course, int userScore, double courseRating, double slopeRating) {
         this.scoreId = scoreId;
         this.userScore = userScore;
         this.user = user;
         this.course = course;
+        this.courseRating = courseRating;
+        this.slopeRating = slopeRating;
     }
 
     public long getScoreId() {
@@ -60,4 +68,19 @@ public class Score {
         this.userScore = userScore;
     }
 
+    public double getCourseRating() {
+        return courseRating;
+    }
+
+    public void setCourseRating(double courseRating) {
+        this.courseRating = courseRating;
+    }
+
+    public double getSlopeRating() {
+        return slopeRating;
+    }
+
+    public void setSlopeRating(double slopeRating) {
+        this.slopeRating = slopeRating;
+    }
 }
