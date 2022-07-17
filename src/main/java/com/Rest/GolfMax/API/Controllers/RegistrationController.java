@@ -15,13 +15,17 @@ public class RegistrationController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @PostMapping("/account")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
-        if (userService.userExists(user.getUsername(), user.getEmail())) {
+        if (userRepository.existsByUsername(user.getUsername()) || userRepository.existsByEmail(user.getUsername())) {
             return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
         }
-        userService.saveUser(user);
-
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        else {
+            userRepository.save(user);
+            return new ResponseEntity<User>(user, HttpStatus.CREATED);
+        }
     }
 }

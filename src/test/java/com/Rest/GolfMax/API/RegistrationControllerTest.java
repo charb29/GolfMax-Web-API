@@ -3,6 +3,7 @@ package com.Rest.GolfMax.API;
 import com.Rest.GolfMax.API.Controllers.RegistrationController;
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Repositories.UserRepository;
+import com.Rest.GolfMax.API.Services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -29,7 +30,10 @@ public class RegistrationControllerTest {
     @MockBean
     UserRepository userRepository;
 
-    User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
+    @MockBean
+    UserService userService;
+
+    User USER_1 = new User(1, "Dvean", "password", "dvean@gmail.com");
 
     @Test
     public void register() throws Exception {
@@ -43,6 +47,6 @@ public class RegistrationControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.username", is("Olivier")));
+                .andExpect(jsonPath("$.username", is("Dvean")));
     }
 }
