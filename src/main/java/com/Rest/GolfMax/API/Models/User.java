@@ -15,7 +15,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Score> scores;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private PlayerStatistics playerStatistics;
 
     @Column(name = "username", nullable = false, unique = true)
