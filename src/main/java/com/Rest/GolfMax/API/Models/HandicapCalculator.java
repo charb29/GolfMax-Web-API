@@ -126,6 +126,11 @@ public class HandicapCalculator {
             case 20:
                 return 8;
         }
+
+        if (averageScoreDifferentials.size() > 20) {
+            return 8;
+        }
+
         return 0;
     }
 
