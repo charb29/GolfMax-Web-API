@@ -21,8 +21,8 @@ public class PlayerStatisticsController {
     }
 
     @PostMapping("{id}")
-    public ResponseEntity<?> saveStats(@PathVariable long id, PlayerStatistics stats) {
+    public ResponseEntity<PlayerStatistics> saveStats(@PathVariable long id, PlayerStatistics stats) {
         playerStatisticsService.saveStats(stats, id);
-        return new ResponseEntity<PlayerStatistics>(stats, HttpStatus.OK);
+        return new ResponseEntity<PlayerStatistics>(stats, HttpStatus.CREATED);
     }
 }
