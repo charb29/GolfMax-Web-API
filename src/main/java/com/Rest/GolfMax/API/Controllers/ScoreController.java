@@ -41,7 +41,7 @@ public class ScoreController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addScore(@RequestBody Score score) {
+    public ResponseEntity<Score> addScore(@RequestBody Score score) {
             scoreService.saveScore(score);
             return new ResponseEntity<Score>(score, HttpStatus.CREATED);
     }
