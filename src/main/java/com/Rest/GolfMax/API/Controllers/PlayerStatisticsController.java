@@ -20,7 +20,7 @@ public class PlayerStatisticsController {
         return playerStatisticsService.getStatsByUserId(id);
     }
 
-    @PostMapping("{id}")
+    @PutMapping("{id}")
     public ResponseEntity<PlayerStatistics> saveStats(@PathVariable long id, PlayerStatistics stats) {
         playerStatisticsService.saveStats(stats, id);
         return new ResponseEntity<PlayerStatistics>(stats, HttpStatus.CREATED);

@@ -65,7 +65,7 @@ public class PlayerStatisticsTest {
 
         Mockito.when(repository.save(USER_1_STATS)).thenReturn(USER_1_STATS);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/stats/1")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/stats/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(USER_1_STATS));
