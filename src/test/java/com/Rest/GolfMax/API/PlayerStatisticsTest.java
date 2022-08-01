@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -55,6 +56,22 @@ public class PlayerStatisticsTest {
                 .get("/stats/user/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()));
+    }
+
+    @Test
+    public void updatePlayerStats() throws Exception {
+        PlayerStatistics statistics = new PlayerStatistics();
+
+        Mockito.when(repository.save(USER_1_STATS)).thenReturn(USER_1_STATS);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/stats/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(USER_1_STATS));
+
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$", notNullValue()));
     }
 }
