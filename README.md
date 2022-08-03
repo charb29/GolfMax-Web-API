@@ -33,6 +33,10 @@
 - PUT /users/{id}
 - DELETE /users/{id}
 
+#### Player Statistics
+- GET /stats/user/{id}
+- PUT /stats/{id}
+
 #### Courses
 - GET /courses
 - GET /courses{id}
