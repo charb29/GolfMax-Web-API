@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  server:
+    image: backend
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/golfmaxdb?useSSL=false
+    networks:
+      - golfmax-net
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    platform: linux/x86_64
+    image: mysql:5.7
+    networks:
+      - golfmax-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=Olivier7
+      - MYSQL_DATABASE=golfmaxdb
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Olivier7
+
+networks:
+  golfmax-net:
