@@ -1,8 +1,11 @@
-package com.Rest.GolfMax.API.Services;
+package com.Rest.GolfMax.API.PlayerStatistics;
 
-import com.Rest.GolfMax.API.Models.*;
-import com.Rest.GolfMax.API.Repositories.PlayerStatisticsRepository;
-import com.Rest.GolfMax.API.Repositories.ScoreRepository;
+import com.Rest.GolfMax.API.PlayerStatistics.HandicapCalculator;
+import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatistics;
+import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatisticsRepository;
+import com.Rest.GolfMax.API.Score.ScoreRepository;
+import com.Rest.GolfMax.API.Score.ScoreService;
+import com.Rest.GolfMax.API.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

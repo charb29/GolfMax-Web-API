@@ -1,27 +1,23 @@
 package com.Rest.GolfMax.API;
 
-import com.Rest.GolfMax.API.Controllers.PlayerStatisticsController;
-import com.Rest.GolfMax.API.Models.PlayerStatistics;
-import com.Rest.GolfMax.API.Models.User;
-import com.Rest.GolfMax.API.Repositories.PlayerStatisticsRepository;
-import com.Rest.GolfMax.API.Services.PlayerStatisticsService;
-import com.Rest.GolfMax.API.Services.ScoreService;
+import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatisticsController;
+import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatistics;
+import com.Rest.GolfMax.API.User.User;
+import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatisticsRepository;
+import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatisticsService;
+import com.Rest.GolfMax.API.Score.ScoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @WebMvcTest(PlayerStatisticsController.class)
 public class PlayerStatisticsTest {
