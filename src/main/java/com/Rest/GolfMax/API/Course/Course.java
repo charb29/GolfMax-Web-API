@@ -37,6 +37,14 @@ public class Course {
         this.id = id;
     }
 
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
+    }
+
     public String getCourseName() {
         return courseName;
     }
