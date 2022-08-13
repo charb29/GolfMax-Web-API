@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HandicapCalculator {
-
     private List<Double> averageScoreDifferentials = new ArrayList<Double>();
     private double handicapIndex;
 
