@@ -16,6 +16,10 @@ public class Course {
     private List<Score> scores;
     @OneToMany(mappedBy = "course")
     private List<ChampionshipTees> championshipTees;
+    @OneToMany(mappedBy = "course")
+    private List<MenTees> menTees;
+    @OneToMany(mappedBy = "course")
+    private List<WomenTees> womenTees;
     @Column(name = "courseName", nullable = false)
     private String courseName;
     @Column(name = "overallPar", nullable = false)
@@ -67,5 +71,21 @@ public class Course {
 
     public void setChampionshipTees(List<ChampionshipTees> championshipTees) {
         this.championshipTees = championshipTees;
+    }
+
+    public List<MenTees> getMenTees() {
+        return menTees;
+    }
+
+    public void setMenTees(List<MenTees> menTees) {
+        this.menTees = menTees;
+    }
+
+    public List<WomenTees> getWomenTees() {
+        return womenTees;
+    }
+
+    public void setWomenTees(List<WomenTees> womenTees) {
+        this.womenTees = womenTees;
     }
 }
