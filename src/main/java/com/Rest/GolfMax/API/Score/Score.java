@@ -1,4 +1,7 @@
-package com.Rest.GolfMax.API.Models;
+package com.Rest.GolfMax.API.Score;
+import com.Rest.GolfMax.API.Course.Course;
+import com.Rest.GolfMax.API.User.User;
+
 import javax.persistence.*;
 
 @Entity

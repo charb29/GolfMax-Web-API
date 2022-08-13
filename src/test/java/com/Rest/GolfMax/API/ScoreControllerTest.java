@@ -1,11 +1,11 @@
 package com.Rest.GolfMax.API;
 
-import com.Rest.GolfMax.API.Controllers.ScoreController;
-import com.Rest.GolfMax.API.Models.Course;
-import com.Rest.GolfMax.API.Models.Score;
-import com.Rest.GolfMax.API.Models.User;
-import com.Rest.GolfMax.API.Repositories.ScoreRepository;
-import com.Rest.GolfMax.API.Services.ScoreService;
+import com.Rest.GolfMax.API.Score.ScoreController;
+import com.Rest.GolfMax.API.Course.Course;
+import com.Rest.GolfMax.API.Score.Score;
+import com.Rest.GolfMax.API.User.User;
+import com.Rest.GolfMax.API.Score.ScoreRepository;
+import com.Rest.GolfMax.API.Score.ScoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

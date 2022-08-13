@@ -1,9 +1,7 @@
-package com.Rest.GolfMax.API.Controllers;
+package com.Rest.GolfMax.API.Score;
 
-import com.Rest.GolfMax.API.Models.Score;
-import com.Rest.GolfMax.API.Repositories.ScoreRepository;
-import com.Rest.GolfMax.API.Services.PlayerStatisticsService;
-import com.Rest.GolfMax.API.Services.ScoreService;
+import com.Rest.GolfMax.API.Score.Score;
+import com.Rest.GolfMax.API.Score.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
