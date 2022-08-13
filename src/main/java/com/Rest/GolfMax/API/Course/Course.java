@@ -21,26 +21,7 @@ public class Course {
     @Column(name = "overallPar", nullable = false)
     private int overallPar;
 
-    @Column(name = "hole1", nullable = false)
-    private int hole1;
-
-    @Column(name = "hole2", nullable = false)
-    private int hole2;
-
-    @Column(name = "hole3", nullable = false)
-    private int hole3;
-
-    @Column(name = "hole4", nullable = false)
-    private int hole4;
-
-    @Column(name = "hole5", nullable = false)
-    private int hole5;
-
-    @Column(name = "hole6", nullable = false)
-    private int hole6;
-
-    @Column(name = "hole7", nullable = false)
-    private int hole7;
+    public Course() {}
 
     @Column(name = "hole8", nullable = false)
     private int hole8;
