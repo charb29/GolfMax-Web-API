@@ -53,22 +53,6 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public double getCourseRating() {
-        return courseRating;
-    }
-
-    public void setCourseRating(double courseRating) {
-        this.courseRating = courseRating;
-    }
-
-    public double getSlopeRating() {
-        return slopeRating;
-    }
-
-    public void setSlopeRating(double slopeRating) {
-        this.slopeRating = slopeRating;
-    }
-
     public int getOverallPar() {
         return overallPar;
     }
