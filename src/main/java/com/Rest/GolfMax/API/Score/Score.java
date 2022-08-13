@@ -7,25 +7,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "scores")
 public class Score {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long scoreId;
-    
     @ManyToOne
     private User user;
-
     @ManyToOne
     private Course course;
-
     @Column(name = "score", nullable = false)
     private int userScore;
-
-    @Column(name = "courseRating", nullable = true)
+    @Column(name = "courseRating")
     private double courseRating;
-
-    @Column(name = "slopeRating", nullable = true)
+    @Column(name = "slopeRating")
     private double slopeRating;
 
     public Score() {}

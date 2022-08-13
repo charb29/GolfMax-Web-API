@@ -7,21 +7,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "playerStatistics")
 public class PlayerStatistics {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private long id;
-
     @OneToOne
     private User user;
-
     @Column(name = "roundsPlayed")
     private int roundsPlayed;
-
     @Column(name = "handicapIndex")
     private double handicapIndex;
-
     @Column(name = "averageScore")
     private double averageScore;
 
