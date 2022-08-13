@@ -1,4 +1,6 @@
-package com.Rest.GolfMax.API.Models;
+package com.Rest.GolfMax.API.Course;
+
+import com.Rest.GolfMax.API.Score.Score;
 
 import java.util.List;
 import javax.persistence.*;
@@ -54,31 +56,31 @@ public class Course {
     @Column(name = "hole9", nullable = false)
     private int hole9;
 
-    @Column(name = "hole10", nullable = true)
+    @Column(name = "hole10", nullable = false)
     private int hole10;
 
-    @Column(name = "hole11", nullable = true)
+    @Column(name = "hole11", nullable = false)
     private int hole11;
 
-    @Column(name = "hole12", nullable = true)
+    @Column(name = "hole12", nullable = false)
     private int hole12;
 
-    @Column(name = "hole13", nullable = true)
+    @Column(name = "hole13", nullable = false)
     private int hole13;
 
-    @Column(name = "hole14", nullable = true)
+    @Column(name = "hole14", nullable = false)
     private int hole14;
 
-    @Column(name = "hole15", nullable = true)
+    @Column(name = "hole15", nullable = false)
     private int hole15;
 
-    @Column(name = "hole16", nullable = true)
+    @Column(name = "hole16", nullable = false)
     private int hole16;
 
-    @Column(name = "hole17", nullable = true)
+    @Column(name = "hole17", nullable = false)
     private int hole17;
 
-    @Column(name = "hole18", nullable = true)
+    @Column(name = "hole18", nullable = false)
     private int hole18;
 
     public Course() {
