@@ -8,24 +8,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "courses")
 public class Course {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
-
+    @OneToMany(mappedBy = "course")
+    private List<ChampionshipTees> championshipTees;
     @Column(name = "courseName", nullable = false)
     private String courseName;
-
-    @Column(name = "courseRating", nullable = false)
-    private double courseRating;
-
-    @Column(name = "slopeRating", nullable = false)
-    private double slopeRating;
-
     @Column(name = "overallPar", nullable = false)
     private int overallPar;
 
