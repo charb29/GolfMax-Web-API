@@ -41,19 +41,9 @@ public class ScoreControllerTest {
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
     User USER_2 = new User(2, "Eric", "password", "eric@gmail.com");
 
-    Course COURSE_1 = new Course(1, "Vista Valencia", 61, 108,
-            61, 3, 3, 4,
-            3, 3, 4, 3,
-            4, 4, 3, 3,
-            3, 4, 4, 3,
-            4, 3, 3);
+    Course COURSE_1 = new Course(1, "Vista Valencia", 61);
 
-    Course COURSE_2 = new Course(1, "Scholl Canyon", 61, 108,
-            61, 3, 3, 4,
-            3, 3, 4, 3,
-            4, 4, 3, 3,
-            3, 4, 4, 3,
-            4, 3, 3);
+    Course COURSE_2 = new Course(1, "Scholl Canyon", 80);
 
     Score SCORE_1 = new Score(1, USER_1, COURSE_2, 64, 61, 103);
     Score SCORE_2 = new Score(2, USER_1, COURSE_1, 70, 61, 103);
