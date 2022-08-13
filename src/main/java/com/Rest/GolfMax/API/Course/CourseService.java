@@ -1,10 +1,10 @@
-package com.Rest.GolfMax.API.Services;
+package com.Rest.GolfMax.API.Course;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.Rest.GolfMax.API.Models.Course;
-import com.Rest.GolfMax.API.Repositories.CourseRepository;
+import com.Rest.GolfMax.API.Course.Course;
+import com.Rest.GolfMax.API.Course.CourseRepository;
 import org.springframework.web.context.annotation.RequestScope;
 
 

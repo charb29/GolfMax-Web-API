@@ -1,8 +1,5 @@
-package com.Rest.GolfMax.API.Controllers;
+package com.Rest.GolfMax.API.Course;
 
-import com.Rest.GolfMax.API.Models.Course;
-import com.Rest.GolfMax.API.Repositories.CourseRepository;
-import com.Rest.GolfMax.API.Services.CourseService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,8 +28,7 @@ public class CourseController {
     public ResponseEntity<Course> addNewCourse(@RequestBody @NotNull Course course) {
         if (courseRepository.existsByCourseName(course.getCourseName()))
             return new ResponseEntity<>(course, HttpStatus.BAD_REQUEST);
-        else
-            courseRepository.save(course);
+        courseRepository.save(course);
         return new ResponseEntity<>(course, HttpStatus.CREATED);
     }
 
