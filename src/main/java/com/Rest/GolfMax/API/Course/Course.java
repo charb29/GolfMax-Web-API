@@ -23,69 +23,10 @@ public class Course {
 
     public Course() {}
 
-    @Column(name = "hole8", nullable = false)
-    private int hole8;
-
-    @Column(name = "hole9", nullable = false)
-    private int hole9;
-
-    @Column(name = "hole10", nullable = false)
-    private int hole10;
-
-    @Column(name = "hole11", nullable = false)
-    private int hole11;
-
-    @Column(name = "hole12", nullable = false)
-    private int hole12;
-
-    @Column(name = "hole13", nullable = false)
-    private int hole13;
-
-    @Column(name = "hole14", nullable = false)
-    private int hole14;
-
-    @Column(name = "hole15", nullable = false)
-    private int hole15;
-
-    @Column(name = "hole16", nullable = false)
-    private int hole16;
-
-    @Column(name = "hole17", nullable = false)
-    private int hole17;
-
-    @Column(name = "hole18", nullable = false)
-    private int hole18;
-
-    public Course() {
-
-    }
-
-    public Course(long id, String courseName, double courseRating, double slopeRating, int overallPar, int hole1,
-            int hole2, int hole3, int hole4, int hole5, int hole6, int hole7, int hole8, int hole9, int hole10,
-            int hole11, int hole12, int hole13, int hole14, int hole15, int hole16, int hole17, int hole18) {
+    public Course(long id, String courseName, int overallPar) {
         this.id = id;
         this.courseName = courseName;
-        this.courseRating = courseRating;
-        this.slopeRating = slopeRating;
         this.overallPar = overallPar;
-        this.hole1 = hole1;
-        this.hole2 = hole2;
-        this.hole3 = hole3;
-        this.hole4 = hole4;
-        this.hole5 = hole5;
-        this.hole6 = hole6;
-        this.hole7 = hole7;
-        this.hole8 = hole8;
-        this.hole9 = hole9;
-        this.hole10 = hole10;
-        this.hole11 = hole11;
-        this.hole12 = hole12;
-        this.hole13 = hole13;
-        this.hole14 = hole14;
-        this.hole15 = hole15;
-        this.hole16 = hole16;
-        this.hole17 = hole17;
-        this.hole18 = hole18;
     }
 
     public long getId() {
