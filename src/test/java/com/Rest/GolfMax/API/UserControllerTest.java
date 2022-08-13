@@ -1,8 +1,8 @@
 package com.Rest.GolfMax.API;
 
-import com.Rest.GolfMax.API.Controllers.UserController;
-import com.Rest.GolfMax.API.Models.User;
-import com.Rest.GolfMax.API.Services.UserService;
+import com.Rest.GolfMax.API.User.UserController;
+import com.Rest.GolfMax.API.User.User;
+import com.Rest.GolfMax.API.User.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
