@@ -1,8 +1,8 @@
 package com.Rest.GolfMax.API;
 
 
-import com.Rest.GolfMax.API.Models.HandicapCalculator;
-import com.Rest.GolfMax.API.Models.Score;
+import com.Rest.GolfMax.API.PlayerStatistics.HandicapCalculator;
+import com.Rest.GolfMax.API.Score.Score;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

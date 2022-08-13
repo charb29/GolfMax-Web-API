@@ -1,9 +1,8 @@
-package com.Rest.GolfMax.API.Models;
+package com.Rest.GolfMax.API.PlayerStatistics;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.Rest.GolfMax.API.User.User;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "playerStatistics")
