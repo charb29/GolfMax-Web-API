@@ -1,10 +1,6 @@
-package com.Rest.GolfMax.API.Services;
+package com.Rest.GolfMax.API.Score;
 import javax.transaction.Transactional;
 
-import com.Rest.GolfMax.API.Models.PlayerStatistics;
-import com.Rest.GolfMax.API.Models.User;
-import com.Rest.GolfMax.API.Repositories.ScoreRepository;
-import com.Rest.GolfMax.API.Models.Score;
 import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
