@@ -24,9 +24,9 @@ public class CourseController {
 
     @PostMapping("/new_course")
     public ResponseEntity<Course> addNewCourse(@RequestBody @NotNull Course course) {
-        if (courseRepository.existsByCourseName(course.getCourseName()))
+        if (courseService.existsByCourseName(course.getCourseName()))
             return new ResponseEntity<>(course, HttpStatus.BAD_REQUEST);
-        courseRepository.save(course);
+        courseService.addNewCourse(course);
         return new ResponseEntity<>(course, HttpStatus.CREATED);
     }
 
