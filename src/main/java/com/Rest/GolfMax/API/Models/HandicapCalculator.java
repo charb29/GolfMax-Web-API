@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HandicapCalculator {
-    private List<Double> averageScoreDifferentials = new ArrayList<Double>();
+    private List<Double> averageScoreDifferentials = new ArrayList<>();
     private double handicapIndex;
 
     public double getHandicapIndex() {
@@ -24,45 +24,38 @@ public class HandicapCalculator {
         return averageScoreDifferentials;
     }
 
-    public void setAverageScoreDifferentials(List<Double> averageScoreDifferentials,
-                                              @NotNull List<Score> scores) {
+    public void setAverageScoreDifferentials(List<Double> averageScoreDifferentials, @NotNull List<Score> scores) {
         final int AVERAGE_COURSE_DIFFICULTY = 113;
         double result;
-
-        for (int i = 0; i < scores.size(); i++) {
-            result = (scores.get(i).getUserScore() - scores.get(i).getCourseRating()) *
-                    (AVERAGE_COURSE_DIFFICULTY / scores.get(i).getSlopeRating());
-
+        for (Score score : scores) {
+            result = (score.getUserScore() - score.getCourseRating()) *
+                    (AVERAGE_COURSE_DIFFICULTY / score.getSlopeRating());
             result = Math.round(result * 1000.0) / 1000.0;
             averageScoreDifferentials.add(result);
         }
-
         this.averageScoreDifferentials = mergeSort(averageScoreDifferentials);
     }
 
     @Contract("_ -> param1")
     private @NotNull List<Double> mergeSort(@NotNull List<Double> averageScoreDifferentials) {
-        List<Double> left = new ArrayList<Double>();
-        List<Double> right = new ArrayList<Double>();
+        List<Double> leftPointer = new ArrayList<>();
+        List<Double> rightPointer = new ArrayList<>();
         int mid;
 
-        if (averageScoreDifferentials.size() == 1) {
+        if (averageScoreDifferentials.size() == 1)
             return averageScoreDifferentials;
-        }
         else {
             mid = averageScoreDifferentials.size() / 2;
-
             for (int i = 0; i < mid; i++) {
-                left.add(averageScoreDifferentials.get(i));
+                leftPointer.add(averageScoreDifferentials.get(i));
             }
             for (int i = mid; i < averageScoreDifferentials.size(); i++) {
-                right.add(averageScoreDifferentials.get(i));
+                rightPointer.add(averageScoreDifferentials.get(i));
             }
+            leftPointer = mergeSort(leftPointer);
+            rightPointer = mergeSort(rightPointer);
 
-            left = mergeSort(left);
-            right = mergeSort(right);
-
-            merge(left, right, averageScoreDifferentials);
+            merge(leftPointer, rightPointer, averageScoreDifferentials);
         }
         return averageScoreDifferentials;
     }
@@ -73,7 +66,6 @@ public class HandicapCalculator {
         int wholeIndex = 0;
 
         while (leftIndex < left.size() && rightIndex < right.size()) {
-
             if ((left.get(leftIndex).compareTo(right.get(rightIndex))) < 0) {
                 averageScoreDifferentials.set(wholeIndex, left.get(leftIndex));
                 leftIndex++;
@@ -84,10 +76,8 @@ public class HandicapCalculator {
             }
             wholeIndex++;
         }
-
         List<Double> rest;
         int restIndex;
-
         if (leftIndex >= left.size()) {
             rest = right;
             restIndex = rightIndex;
@@ -96,7 +86,6 @@ public class HandicapCalculator {
             rest = left;
             restIndex = leftIndex;
         }
-
         for (int i = restIndex; i < rest.size(); i++) {
             averageScoreDifferentials.set(wholeIndex, rest.get(i));
             wholeIndex++;
@@ -104,7 +93,6 @@ public class HandicapCalculator {
     }
 
     public int determineAverageScoreDifferential(@NotNull List<Double> averageScoreDifferentials) {
-
         switch (averageScoreDifferentials.size()) {
             case 0:
                 return 0;
@@ -125,11 +113,8 @@ public class HandicapCalculator {
             case 20:
                 return 8;
         }
-
-        if (averageScoreDifferentials.size() > 20) {
+        if (averageScoreDifferentials.size() > 20)
             return 8;
-        }
-
         return 0;
     }
 
