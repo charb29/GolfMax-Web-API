@@ -22,7 +22,7 @@ public class CourseController {
         return courseService.listAllCourses();
     }
 
-    @PostMapping("/new_course")
+    @PostMapping("/new-course")
     public ResponseEntity<Course> addNewCourse(@RequestBody @NotNull Course course) {
         if (courseService.existsByCourseName(course.getCourseName()))
             return new ResponseEntity<>(course, HttpStatus.BAD_REQUEST);
