@@ -15,10 +15,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/courses")
 public class CourseController {
     @Autowired
-    CourseService courseService;
-
-    @Autowired
-    CourseRepository courseRepository;
+    private CourseService courseService;
 
     @GetMapping("")
     public List<Course> listAllCourses() {
