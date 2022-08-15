@@ -1,7 +1,7 @@
-package com.Rest.GolfMax.API.User;
+package com.Rest.GolfMax.API.Controllers;
 
-import com.Rest.GolfMax.API.User.User;
-import com.Rest.GolfMax.API.User.UserService;
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +12,8 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping("")
     public List<User> getAllUsers() {
@@ -25,9 +24,9 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         try {
             User user = userService.getUserById(id);
-            return new ResponseEntity<User> (user, HttpStatus.OK);
+            return new ResponseEntity<> (user, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<User> (HttpStatus.NOT_FOUND);
+            return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         }
     }
 
