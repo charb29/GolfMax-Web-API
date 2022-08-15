@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "championshipTeesHoleYardages")
-public class ChampionshipTeesHoleYardages {
+@Table(name = "mensTeesHoleYardages")
+public class MenTeesHoleYardages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
     @OneToOne
-    private ChampionshipTees championshipTees;
+    private MenTees menTees;
     @Column(name = "hole1Yards", nullable = false)
     private int hole1Yards;
     @Column(name = "hole2Yards", nullable = false)
@@ -50,7 +50,33 @@ public class ChampionshipTeesHoleYardages {
     @Column(name = "hole18Yards")
     private int hole18Yards;
 
-    public ChampionshipTeesHoleYardages() {
+    public MenTeesHoleYardages() {
+    }
+
+    public MenTeesHoleYardages(long id, MenTees menTees, int hole1Yards, int hole2Yards, int hole3Yards,
+                               int hole4Yards, int hole5Yards, int hole6Yards, int hole7Yards, int hole8Yards,
+                               int hole9Yards, int hole10Yards, int hole11Yards, int hole12Yards, int hole13Yards,
+                               int hole14Yards, int hole15Yards, int hole16Yards, int hole17Yards, int hole18Yards) {
+        this.id = id;
+        this.menTees = menTees;
+        this.hole1Yards = hole1Yards;
+        this.hole2Yards = hole2Yards;
+        this.hole3Yards = hole3Yards;
+        this.hole4Yards = hole4Yards;
+        this.hole5Yards = hole5Yards;
+        this.hole6Yards = hole6Yards;
+        this.hole7Yards = hole7Yards;
+        this.hole8Yards = hole8Yards;
+        this.hole9Yards = hole9Yards;
+        this.hole10Yards = hole10Yards;
+        this.hole11Yards = hole11Yards;
+        this.hole12Yards = hole12Yards;
+        this.hole13Yards = hole13Yards;
+        this.hole14Yards = hole14Yards;
+        this.hole15Yards = hole15Yards;
+        this.hole16Yards = hole16Yards;
+        this.hole17Yards = hole17Yards;
+        this.hole18Yards = hole18Yards;
     }
 
     public long getId() {
@@ -61,12 +87,12 @@ public class ChampionshipTeesHoleYardages {
         this.id = id;
     }
 
-    public ChampionshipTees getChampionshipTees() {
-        return championshipTees;
+    public MenTees getMensTees() {
+        return menTees;
     }
 
-    public void setChampionshipTees(ChampionshipTees championshipTees) {
-        this.championshipTees = championshipTees;
+    public void setMensTees(MenTees menTees) {
+        this.menTees = menTees;
     }
 
     public int getHole1Yards() {
@@ -241,3 +267,4 @@ public class ChampionshipTeesHoleYardages {
         return back9HoleYards;
     }
 }
+
