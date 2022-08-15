@@ -26,7 +26,7 @@ public class UserControllerTest {
     @Autowired
     private ObjectMapper mapper;
     @MockBean
-    private UserService userService;
+    private UserService service;
 
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
     User USER_2 = new User(2, "Eric", "password", "eric@gmail.com");
@@ -36,7 +36,7 @@ public class UserControllerTest {
     public void getAllUsers() throws Exception {
         List<User> users = new ArrayList<>(Arrays.asList(USER_1, USER_2, USER_3));
 
-        Mockito.when(userService.listAllUsers()).thenReturn(users);
+        Mockito.when(service.listAllUsers()).thenReturn(users);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/users")
@@ -48,7 +48,7 @@ public class UserControllerTest {
 
     @Test
     public void getUserById() throws Exception {
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(service.getUserById(USER_1.getId())).thenReturn(USER_1);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/users/1")
@@ -66,8 +66,8 @@ public class UserControllerTest {
         updatedUser.setPassword("Olivier@323");
         updatedUser.setEmail("olivier@gmail.com");
 
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
-        Mockito.when(userService.updateUser(USER_1.getId(), updatedUser)).thenReturn(updatedUser);
+        Mockito.when(service.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(service.updateUser(USER_1.getId(), updatedUser)).thenReturn(updatedUser);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/users/1/update")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -80,7 +80,7 @@ public class UserControllerTest {
 
     @Test
     public void deleteUser() throws Exception {
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(service.getUserById(USER_1.getId())).thenReturn(USER_1);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .delete("/users/1")
