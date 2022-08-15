@@ -1,6 +1,6 @@
-package com.Rest.GolfMax.API.PlayerStatistics;
+package com.Rest.GolfMax.API.Repositories;
 
-import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatistics;
+import com.Rest.GolfMax.API.Models.PlayerStatistics;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
