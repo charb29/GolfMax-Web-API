@@ -1,11 +1,10 @@
 package com.Rest.GolfMax.API;
 
-import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatisticsController;
-import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatistics;
-import com.Rest.GolfMax.API.User.User;
-import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatisticsRepository;
-import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatisticsService;
-import com.Rest.GolfMax.API.Score.ScoreService;
+import com.Rest.GolfMax.API.Controllers.PlayerStatisticsController;
+import com.Rest.GolfMax.API.Models.PlayerStatistics;
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Repositories.PlayerStatisticsRepository;
+import com.Rest.GolfMax.API.Services.PlayerStatisticsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -21,29 +20,20 @@ import static org.hamcrest.Matchers.*;
 
 @WebMvcTest(PlayerStatisticsController.class)
 public class PlayerStatisticsTest {
-
     @Autowired
-    MockMvc mockMvc;
-
+    private MockMvc mockMvc;
     @Autowired
-    ObjectMapper mapper;
-
+    private ObjectMapper mapper;
     @MockBean
-    PlayerStatisticsRepository repository;
-
+    private PlayerStatisticsRepository repository;
     @MockBean
-    PlayerStatisticsService service;
-
-    @MockBean
-    ScoreService scoreService;
+    private PlayerStatisticsService service;
 
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
-
     PlayerStatistics USER_1_STATS = new PlayerStatistics(1, USER_1, 20, 5.2, 68);
 
     @Test
     public void getStatsByUserId() throws Exception {
-
         PlayerStatistics stats = new PlayerStatistics();
 
         Mockito.when(service.getStatsByUserId(USER_1.getId())).thenReturn(stats);
@@ -57,8 +47,6 @@ public class PlayerStatisticsTest {
 
     @Test
     public void updatePlayerStats() throws Exception {
-        PlayerStatistics statistics = new PlayerStatistics();
-
         Mockito.when(repository.save(USER_1_STATS)).thenReturn(USER_1_STATS);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/stats/1")

@@ -1,9 +1,9 @@
 package com.Rest.GolfMax.API;
 
-import com.Rest.GolfMax.API.User.RegistrationController;
-import com.Rest.GolfMax.API.User.User;
-import com.Rest.GolfMax.API.User.UserRepository;
-import com.Rest.GolfMax.API.User.UserService;
+import com.Rest.GolfMax.API.Controllers.RegistrationController;
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Repositories.UserRepository;
+import com.Rest.GolfMax.API.Services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,18 +20,14 @@ import static org.hamcrest.Matchers.*;
 
 @WebMvcTest(RegistrationController.class)
 public class RegistrationControllerTest {
-
     @Autowired
-    MockMvc mockMvc;
-
+    private MockMvc mockMvc;
     @Autowired
-    ObjectMapper mapper;
-
+    private ObjectMapper mapper;
     @MockBean
-    UserRepository userRepository;
-
+    private UserRepository userRepository;
     @MockBean
-    UserService userService;
+    private UserService userService;
 
     User USER_1 = new User(1, "Dvean", "password", "dvean@gmail.com");
 
