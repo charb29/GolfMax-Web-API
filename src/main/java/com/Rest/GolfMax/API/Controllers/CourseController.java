@@ -14,7 +14,6 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
-
     @Autowired
     CourseService courseService;
 
