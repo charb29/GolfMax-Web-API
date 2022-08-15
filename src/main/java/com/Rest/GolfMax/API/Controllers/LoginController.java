@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class LoginController {
     @Autowired
-    private UserService userService;
+    private UserService service;
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody @NotNull User user) {
-        User storedUser = userService.getStoredUserData(user.getUsername(), user.getPassword());
+        User storedUser = service.getStoredUserData(user.getUsername(), user.getPassword());
         if (storedUser == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         else
