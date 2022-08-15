@@ -23,13 +23,13 @@ public class LoginControllerTest {
     @Autowired
     private ObjectMapper mapper;
     @MockBean
-    private UserService userService;
+    private UserService service;
 
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
 
     @Test
     public void login() throws Exception {
-        Mockito.when(userService
+        Mockito.when(service
                 .getStoredUserData(USER_1.getUsername(), USER_1.getPassword()))
                 .thenReturn(USER_1);
 
