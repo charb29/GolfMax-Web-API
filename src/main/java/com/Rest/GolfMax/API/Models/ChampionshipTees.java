@@ -11,7 +11,7 @@ public class ChampionshipTees {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-    @OneToOne(mappedBy = "championshipTeesId")
+    @OneToOne(mappedBy = "championshipTees")
     private ChampionshipTeesHoleYardages championshipTeesHoleYardages;
     @ManyToOne
     private Course course;
