@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "WomenTees")
+@Table(name = "womenTees")
 public class WomenTees {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-    @OneToOne(mappedBy = "mensTeesId")
+    @OneToOne(mappedBy = "womenTees")
     private WomenTeesHoleYardages womenTeesHolesYardages;
     @ManyToOne
     private Course course;
@@ -57,8 +57,6 @@ public class WomenTees {
     private int hole17;
     @Column(name = "hole18")
     private int hole18;
-    @Column(name = "hole19")
-    private int hole19;
 
     public WomenTees() {}
 
@@ -282,14 +280,6 @@ public class WomenTees {
 
     public void setHole18(int hole18) {
         this.hole18 = hole18;
-    }
-
-    public int getHole19() {
-        return hole19;
-    }
-
-    public void setHole19(int hole19) {
-        this.hole19 = hole19;
     }
 
     public List<Integer> getFront9Pars() {
