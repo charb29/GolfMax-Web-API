@@ -1,6 +1,5 @@
-package com.Rest.GolfMax.API.PlayerStatistics;
+package com.Rest.GolfMax.API.Models;
 
-import com.Rest.GolfMax.API.Score.Score;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
