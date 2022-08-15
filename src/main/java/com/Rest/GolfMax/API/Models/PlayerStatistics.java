@@ -1,6 +1,4 @@
-package com.Rest.GolfMax.API.PlayerStatistics;
-
-import com.Rest.GolfMax.API.User.User;
+package com.Rest.GolfMax.API.Models;
 
 import javax.persistence.*;
 

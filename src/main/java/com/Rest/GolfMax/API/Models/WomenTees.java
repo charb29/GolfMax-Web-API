@@ -1,4 +1,4 @@
-package com.Rest.GolfMax.API.Course;
+package com.Rest.GolfMax.API.Models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
