@@ -38,7 +38,7 @@ public class ScoreController {
         return scoreService.getScoresByUserId(id, Sort.by("userScore").ascending());
     }
 
-    @PostMapping("")
+    @PostMapping("/add-score")
     public ResponseEntity<Score> addScore(@RequestBody Score score) {
             scoreService.saveScore(score);
             return new ResponseEntity<>(score, HttpStatus.CREATED);
