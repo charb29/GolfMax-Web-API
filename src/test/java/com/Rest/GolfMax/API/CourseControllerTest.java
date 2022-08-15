@@ -1,10 +1,10 @@
 package com.Rest.GolfMax.API;
 
 import com.Rest.GolfMax.API.Controllers.CourseController;
-import com.Rest.GolfMax.API.Models.ChampionshipTees;
 import com.Rest.GolfMax.API.Models.Course;
-import com.Rest.GolfMax.API.Models.MenTees;
-import com.Rest.GolfMax.API.Models.WomenTees;
+import com.Rest.GolfMax.API.Models.Hole;
+import com.Rest.GolfMax.API.Models.HoleLayout;
+import com.Rest.GolfMax.API.Models.LayoutType;
 import com.Rest.GolfMax.API.Repositories.CourseRepository;
 import com.Rest.GolfMax.API.Services.CourseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -34,71 +33,201 @@ public class CourseControllerTest {
     @MockBean
     private CourseRepository repository;
 
-    private final ChampionshipTees CHAMPIONSHIP_TEES = new ChampionshipTees(1, 65.4, 113,
-            4, 3, 3, 4, 3, 3, 4, 3, 4, 4, 3,
-            3, 3, 3, 4, 4, 3, 3, 357, 213,
-            190, 371, 103, 166, 316, 139, 371,
-            439, 182, 71, 82, 121, 332, 404,
-            156, 179, 2226, 1966, 61);
-    private final MenTees MENS_TEES = new MenTees(1, 63.6, 107, 4, 3, 3,
-            4, 3, 3, 4, 3, 4, 4, 3, 3, 3, 3,
-            4, 4, 3, 3, 336, 202, 179, 365,
-            85, 141, 305, 129, 360, 454, 166,
-            71, 74, 117, 311, 389, 145, 169,
-            2102, 1866, 61);
-    private final WomenTees WOMEN_TEES = new WomenTees(1, 62.1, 104, 4, 4, 3,
-            4, 3, 3, 4, 3, 5, 5, 3, 3, 3, 3,
-            4, 4, 3, 3, 312, 184, 169, 356, 68,
-            124, 288, 114, 340, 393, 147, 71,
-            73, 117, 277, 375, 112, 161,
-            1955, 1726, 64);
-    private final Course COURSE = new Course(1, CHAMPIONSHIP_TEES, MENS_TEES, WOMEN_TEES,
-            "Vista Valencia Golf Course");
+    private final Course COURSE = new Course();
+    private final Hole CHAMPIONSHIP_HOLE1 = new Hole(1, 357, 4);
+    private final Hole CHAMPIONSHIP_HOLE2 = new Hole(2, 213, 190);
+    private final Hole CHAMPIONSHIP_HOLE3 = new Hole(3, 190, 3);
+    private final Hole CHAMPIONSHIP_HOLE4 = new Hole(4, 371, 4);
+    private final Hole CHAMPIONSHIP_HOLE5 = new Hole(5, 103, 3);
+    private final Hole CHAMPIONSHIP_HOLE6 = new Hole(6, 166, 3);
+    private final Hole CHAMPIONSHIP_HOLE7 = new Hole(7, 316, 4);
+    private final Hole CHAMPIONSHIP_HOLE8 = new Hole(8, 139, 3);
+    private final Hole CHAMPIONSHIP_HOLE9 = new Hole(9, 371, 4);
+    private final Hole CHAMPIONSHIP_HOLE10 = new Hole(10, 439, 4);
+    private final Hole CHAMPIONSHIP_HOLE11 = new Hole(11, 182, 3);
+    private final Hole CHAMPIONSHIP_HOLE12 = new Hole(12, 71, 3);
+    private final Hole CHAMPIONSHIP_HOLE13 = new Hole(13, 82, 3);
+    private final Hole CHAMPIONSHIP_HOLE14 = new Hole(14, 121, 3);
+    private final Hole CHAMPIONSHIP_HOLE15 = new Hole(15, 332, 4);
+    private final Hole CHAMPIONSHIP_HOLE16 = new Hole(16, 404, 4);
+    private final Hole CHAMPIONSHIP_HOLE17 = new Hole(17, 456, 3);
+    private final Hole CHAMPIONSHIP_HOLE18 = new Hole(19, 179, 3);
 
-    @Test
-    public void listAllCourses() throws Exception {
-        List<Course> courseList = new ArrayList<>(Arrays.asList(COURSE));
+    public List<Hole> getChampionshipHoles() {
+        List<Hole> holes = new ArrayList<>();
+        holes.add(CHAMPIONSHIP_HOLE1);
+        holes.add(CHAMPIONSHIP_HOLE2);
+        holes.add(CHAMPIONSHIP_HOLE3);
+        holes.add(CHAMPIONSHIP_HOLE4);
+        holes.add(CHAMPIONSHIP_HOLE5);
+        holes.add(CHAMPIONSHIP_HOLE6);
+        holes.add(CHAMPIONSHIP_HOLE7);
+        holes.add(CHAMPIONSHIP_HOLE8);
+        holes.add(CHAMPIONSHIP_HOLE9);
+        holes.add(CHAMPIONSHIP_HOLE10);
+        holes.add(CHAMPIONSHIP_HOLE11);
+        holes.add(CHAMPIONSHIP_HOLE12);
+        holes.add(CHAMPIONSHIP_HOLE13);
+        holes.add(CHAMPIONSHIP_HOLE14);
+        holes.add(CHAMPIONSHIP_HOLE15);
+        holes.add(CHAMPIONSHIP_HOLE16);
+        holes.add(CHAMPIONSHIP_HOLE17);
+        holes.add(CHAMPIONSHIP_HOLE18);
+        return holes;
+    }
 
-        Mockito.when(service.listAllCourses()).thenReturn(courseList);
+    private final HoleLayout CHAMPIONSHIP_LAYOUT = new HoleLayout(1, getChampionshipHoles(), COURSE,
+            LayoutType.CHAMPIONSHIP, 2226, 1966, 61, 65.4, 113);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/course")
-                .contentType(MediaType.APPLICATION_JSON));
+    private final Hole MENS_HOLE1 = new Hole(1, 336, 4);
+    private final Hole MENS_HOLE2 = new Hole(2, 202, 3);
+    private final Hole MENS_HOLE3 = new Hole(3, 179, 3);
+    private final Hole MENS_HOLE4 = new Hole(4, 365, 4);
+    private final Hole MENS_HOLE5 = new Hole(5, 85, 3);
+    private final Hole MENS_HOLE6 = new Hole(6, 141, 3);
+    private final Hole MENS_HOLE7 = new Hole(7, 305, 4);
+    private final Hole MENS_HOLE8 = new Hole(8, 129, 3);
+    private final Hole MENS_HOLE9 = new Hole(9, 360, 4);
+    private final Hole MENS_HOLE10 = new Hole(10, 424, 4);
+    private final Hole MENS_HOLE11 = new Hole(11, 166, 3);
+    private final Hole MENS_HOLE12 = new Hole(12, 71, 3);
+    private final Hole MENS_HOLE13 = new Hole(13, 74, 3);
+    private final Hole MENS_HOLE14 = new Hole(14, 117, 3);
+    private final Hole MENS_HOLE15 = new Hole(15, 311, 4);
+    private final Hole MENS_HOLE16 = new Hole(16, 389, 4);
+    private final Hole MENS_HOLE17 = new Hole(17, 145, 3);
+    private final Hole MENS_HOLE18 = new Hole(19, 169, 3);
+
+    public List<Hole> getMensHoles() {
+        List<Hole> holes = new ArrayList<>();
+        holes.add(MENS_HOLE1);
+        holes.add(MENS_HOLE2);
+        holes.add(MENS_HOLE3);
+        holes.add(MENS_HOLE4);
+        holes.add(MENS_HOLE5);
+        holes.add(MENS_HOLE6);
+        holes.add(MENS_HOLE7);
+        holes.add(MENS_HOLE8);
+        holes.add(MENS_HOLE9);
+        holes.add(MENS_HOLE10);
+        holes.add(MENS_HOLE11);
+        holes.add(MENS_HOLE12);
+        holes.add(MENS_HOLE13);
+        holes.add(MENS_HOLE14);
+        holes.add(MENS_HOLE15);
+        holes.add(MENS_HOLE16);
+        holes.add(MENS_HOLE17);
+        holes.add(MENS_HOLE18);
+        return holes;
+    }
+
+    private final HoleLayout MENS_LAYOUT = new HoleLayout(2, getMensHoles(), COURSE,
+            LayoutType.MENS, 2102, 1866, 61, 63.6, 107);
+
+    private final Hole WOMENS_HOLE1 = new Hole(1, 312, 4);
+    private final Hole WOMENS_HOLE2 = new Hole(2, 184, 4);
+    private final Hole WOMENS_HOLE3 = new Hole(3, 169, 3);
+    private final Hole WOMENS_HOLE4 = new Hole(4, 356, 4);
+    private final Hole WOMENS_HOLE5 = new Hole(5, 68, 3);
+    private final Hole WOMENS_HOLE6 = new Hole(6, 124, 3);
+    private final Hole WOMENS_HOLE7 = new Hole(7, 288, 4);
+    private final Hole WOMENS_HOLE8 = new Hole(8, 114, 3);
+    private final Hole WOMENS_HOLE9 = new Hole(9, 340, 5);
+    private final Hole WOMENS_HOLE10 = new Hole(10, 393, 5);
+    private final Hole WOMENS_HOLE11 = new Hole(11, 147, 3);
+    private final Hole WOMENS_HOLE12 = new Hole(12, 71, 3);
+    private final Hole WOMENS_HOLE13 = new Hole(13, 73, 3);
+    private final Hole WOMENS_HOLE14 = new Hole(14, 117, 3);
+    private final Hole WOMENS_HOLE15 = new Hole(15, 277, 4);
+    private final Hole WOMENS_HOLE16 = new Hole(16, 375, 4);
+    private final Hole WOMENS_HOLE17 = new Hole(17, 112, 3);
+    private final Hole WOMENS_HOLE18 = new Hole(19, 161, 3);
+
+    public List<Hole> getWomensHoles() {
+        List<Hole> holes = new ArrayList<>();
+        holes.add(WOMENS_HOLE1);
+        holes.add(WOMENS_HOLE2);
+        holes.add(WOMENS_HOLE3);
+        holes.add(WOMENS_HOLE4);
+        holes.add(WOMENS_HOLE5);
+        holes.add(WOMENS_HOLE6);
+        holes.add(WOMENS_HOLE7);
+        holes.add(WOMENS_HOLE8);
+        holes.add(WOMENS_HOLE9);
+        holes.add(WOMENS_HOLE10);
+        holes.add(WOMENS_HOLE11);
+        holes.add(WOMENS_HOLE12);
+        holes.add(WOMENS_HOLE13);
+        holes.add(WOMENS_HOLE14);
+        holes.add(WOMENS_HOLE15);
+        holes.add(WOMENS_HOLE16);
+        holes.add(WOMENS_HOLE17);
+        holes.add(WOMENS_HOLE18);
+        return holes;
+    }
+
+    private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3, getWomensHoles(), COURSE,
+            LayoutType.WOMENS, 1955, 1726, 64, 62.1, 104);
+
+    public List<HoleLayout> getHoleLayouts() {
+        List<HoleLayout> holeLayouts = new ArrayList<>();
+        holeLayouts.add(CHAMPIONSHIP_LAYOUT);
+        holeLayouts.add(MENS_LAYOUT);
+        holeLayouts.add(WOMENS_LAYOUT);
+        return holeLayouts;
+    }
+
+    public Course getCOURSE() {
+        COURSE.setId(1);
+        COURSE.setCourseName("Vista Valencia Golf Course");
+        COURSE.setHoleLayout(getHoleLayouts());
+        return COURSE;
     }
 
     @Test
-    public void getCourseById() throws Exception {
-        Mockito.when(service.getCourseById(COURSE.getId())).thenReturn(COURSE);
+    public void getAllCourses() throws Exception {
+        List<Course> courses = new ArrayList<>(Arrays.asList(getCOURSE()));
+
+        Mockito.when(service.listAllCourses()).thenReturn(courses);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/courses/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()));
-    }
-
-    @Test
-    public void deleteCourse() throws Exception {
-        Mockito.when(service.getCourseById(COURSE.getId())).thenReturn(COURSE);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                .delete("/courses/1")
+                .get("/courses")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void saveCourse() throws Exception {
-        Mockito.when(repository.save(COURSE)).thenReturn(COURSE);
+    public void addNewCourse() throws Exception {
+        Mockito.when(repository.save(getCOURSE())).thenReturn(getCOURSE());
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/courses/new-course")
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/courses/new-course")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(COURSE));
-
-        mockMvc.perform(mockRequest)
+                .content(this.objectMapper.writeValueAsString(getCOURSE())))
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", notNullValue()));
+    }
+
+    @Test
+    public void getCourseById() throws Exception {
+        Mockito.when(service.getCourseById(getCOURSE().getId())).thenReturn(getCOURSE());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/courses/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
                 .andExpect(jsonPath("$.courseName", is("Vista Valencia Golf Course")));
+    }
+
+    @Test
+    public void deleteCourseById() throws Exception {
+        Mockito.when(service.getCourseById(getCOURSE().getId())).thenReturn(getCOURSE());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/courses/delete/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
