@@ -57,8 +57,6 @@ public class ChampionshipTees {
     private int hole17;
     @Column(name = "hole18")
     private int hole18;
-    @Column(name = "hole19")
-    private int hole19;
 
     public ChampionshipTees() {}
 
