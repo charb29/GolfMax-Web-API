@@ -1,5 +1,7 @@
-package com.Rest.GolfMax.API.Course;
+package com.Rest.GolfMax.API.Controllers;
 
+import com.Rest.GolfMax.API.Services.CourseService;
+import com.Rest.GolfMax.API.Models.Course;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
