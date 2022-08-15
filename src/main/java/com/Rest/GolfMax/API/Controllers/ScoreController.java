@@ -1,7 +1,7 @@
-package com.Rest.GolfMax.API.Score;
+package com.Rest.GolfMax.API.Controllers;
 
-import com.Rest.GolfMax.API.Score.Score;
-import com.Rest.GolfMax.API.Score.ScoreService;
+import com.Rest.GolfMax.API.Models.Score;
+import com.Rest.GolfMax.API.Services.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -41,7 +41,7 @@ public class ScoreController {
     @PostMapping("")
     public ResponseEntity<Score> addScore(@RequestBody Score score) {
             scoreService.saveScore(score);
-            return new ResponseEntity<Score>(score, HttpStatus.CREATED);
+            return new ResponseEntity<>(score, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
