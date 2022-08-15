@@ -49,15 +49,15 @@ public class ChampionshipTeesHoleYardagesControllerTest {
     private ChampionshipTees TEES_3 = new ChampionshipTees(3, YARDAGES_3, COURSE_3, 54.8, 86,
             2839, 4, 3, 4, 3, 3, 3, 3, 3, 4, 4,
             3, 3, 4, 3, 4, 3, 3, 3);
-    private ChampionshipTeesHoleYardages YARDAGES_4 = new ChampionshipTeesHoleYardages(1, TEES_1, 357,
+    private ChampionshipTeesHoleYardages YARDAGES_4 = new ChampionshipTeesHoleYardages(1, TEES_1, COURSE_1, 357,
             213, 190, 371, 103, 166, 316, 139,
             371, 439, 182, 71, 82, 121, 332,
             404, 156, 179 );
-    private ChampionshipTeesHoleYardages YARDAGES_5 = new ChampionshipTeesHoleYardages(2, TEES_2, 357,
+    private ChampionshipTeesHoleYardages YARDAGES_5 = new ChampionshipTeesHoleYardages(2, TEES_2, COURSE_2, 357,
             213, 190, 371, 103, 166, 316, 139,
             371, 439, 182, 71, 82, 121, 332,
             404, 156, 179 );
-    private ChampionshipTeesHoleYardages YARDAGES_6 = new ChampionshipTeesHoleYardages(3, TEES_3, 357,
+    private ChampionshipTeesHoleYardages YARDAGES_6 = new ChampionshipTeesHoleYardages(3, TEES_3, COURSE_3, 357,
             213, 190, 371, 103, 166, 316, 139,
             371, 439, 182, 71, 82, 121, 332,
             404, 156, 179 );
