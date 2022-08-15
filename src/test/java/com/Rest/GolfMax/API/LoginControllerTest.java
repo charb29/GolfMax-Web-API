@@ -1,7 +1,7 @@
 package com.Rest.GolfMax.API;
-import com.Rest.GolfMax.API.User.LoginController;
-import com.Rest.GolfMax.API.User.User;
-import com.Rest.GolfMax.API.User.UserService;
+import com.Rest.GolfMax.API.Controllers.LoginController;
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,21 +18,20 @@ import static org.hamcrest.Matchers.*;
 
 @WebMvcTest(LoginController.class)
 public class LoginControllerTest {
-
     @Autowired
-    MockMvc mockMvc;
-
+    private MockMvc mockMvc;
     @Autowired
-    ObjectMapper mapper;
-
+    private ObjectMapper mapper;
     @MockBean
-    UserService userService;
+    private UserService userService;
 
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
 
     @Test
     public void login() throws Exception {
-        Mockito.when(userService.getStoredUserData(USER_1.getUsername(), USER_1.getPassword())).thenReturn(USER_1);
+        Mockito.when(userService
+                .getStoredUserData(USER_1.getUsername(), USER_1.getPassword()))
+                .thenReturn(USER_1);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/users/login")
                 .contentType(MediaType.APPLICATION_JSON)
