@@ -1,10 +1,11 @@
-package com.Rest.GolfMax.API.Course;
+package com.Rest.GolfMax.API.Services;
 import java.util.List;
+
+import com.Rest.GolfMax.API.Repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.Rest.GolfMax.API.Course.Course;
-import com.Rest.GolfMax.API.Course.CourseRepository;
+import com.Rest.GolfMax.API.Models.Course;
 import org.springframework.web.context.annotation.RequestScope;
 
 
@@ -12,9 +13,8 @@ import org.springframework.web.context.annotation.RequestScope;
 @Transactional
 @RequestScope
 public class CourseService {
-
     @Autowired
-    CourseRepository courseRepository;
+    private CourseRepository courseRepository;
 
     public List<Course> listAllCourses() {
         return courseRepository.findAll();
@@ -33,11 +33,9 @@ public class CourseService {
     }
 
     public boolean existsByCourseName(String courseName) {
-        if (courseRepository.existsByCourseName(courseName)) {
+        if (courseRepository.existsByCourseName(courseName))
             return false;
-        }
-        else {
+        else
             return true;
-        }
     }
 }
