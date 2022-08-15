@@ -1,5 +1,6 @@
-package com.Rest.GolfMax.API.User;
+package com.Rest.GolfMax.API.Repositories;
 
+import com.Rest.GolfMax.API.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
