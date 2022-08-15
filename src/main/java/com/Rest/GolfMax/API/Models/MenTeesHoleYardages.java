@@ -13,6 +13,8 @@ public class MenTeesHoleYardages {
     private long id;
     @OneToOne
     private MenTees menTees;
+    @ManyToOne
+    private Course course;
     @Column(name = "hole1Yards", nullable = false)
     private int hole1Yards;
     @Column(name = "hole2Yards", nullable = false)
@@ -53,12 +55,13 @@ public class MenTeesHoleYardages {
     public MenTeesHoleYardages() {
     }
 
-    public MenTeesHoleYardages(long id, MenTees menTees, int hole1Yards, int hole2Yards, int hole3Yards,
+    public MenTeesHoleYardages(long id, MenTees menTees, Course course, int hole1Yards, int hole2Yards, int hole3Yards,
                                int hole4Yards, int hole5Yards, int hole6Yards, int hole7Yards, int hole8Yards,
                                int hole9Yards, int hole10Yards, int hole11Yards, int hole12Yards, int hole13Yards,
                                int hole14Yards, int hole15Yards, int hole16Yards, int hole17Yards, int hole18Yards) {
         this.id = id;
         this.menTees = menTees;
+        this.course = course;
         this.hole1Yards = hole1Yards;
         this.hole2Yards = hole2Yards;
         this.hole3Yards = hole3Yards;
@@ -93,6 +96,14 @@ public class MenTeesHoleYardages {
 
     public void setMensTees(MenTees menTees) {
         this.menTees = menTees;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public int getHole1Yards() {
