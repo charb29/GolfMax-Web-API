@@ -19,14 +19,12 @@ public class Course {
     @Column(name = "courseName", nullable = false)
     private String courseName;
 
-    public Course() {}
+    public Course() {
+    }
 
-    public Course(long id, ChampionshipTees championshipTees, MenTees menTees,
-                  WomenTees womenTees, String courseName) {
+    public Course(long id, List<HoleLayout> holeLayout, String courseName) {
         this.id = id;
-        this.championshipTees = championshipTees;
-        this.menTees = menTees;
-        this.womenTees = womenTees;
+        this.holeLayout = holeLayout;
         this.courseName = courseName;
     }
 
@@ -43,8 +41,8 @@ public class Course {
         return holeLayout;
     }
 
-    public void setWomenTees(WomenTees womenTees) {
-        this.womenTees = womenTees;
+    public void setHoleLayout(List<HoleLayout> holeLayout) {
+        this.holeLayout = holeLayout;
     }
 
     public String getCourseName() {
