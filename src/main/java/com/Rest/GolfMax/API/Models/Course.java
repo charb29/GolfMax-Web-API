@@ -15,9 +15,15 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<ChampionshipTees> championshipTees;
     @OneToMany(mappedBy = "course")
+    private List<ChampionshipTeesHoleYardages> championshipTeesHoleYardages;
+    @OneToMany(mappedBy = "course")
     private List<MenTees> menTees;
+    @OneToMany
+    private List<MenTeesHoleYardages> menTeesHoleYardages;
     @OneToMany(mappedBy = "course")
     private List<WomenTees> womenTees;
+    @OneToMany(mappedBy = "course")
+    private List<WomenTeesHoleYardages> womenTeesHoleYardages;
     @Column(name = "courseName", nullable = false)
     private String courseName;
     @Column(name = "overallPar", nullable = false)
@@ -47,6 +53,54 @@ public class Course {
         this.scores = scores;
     }
 
+    public List<ChampionshipTees> getChampionshipTees() {
+        return championshipTees;
+    }
+
+    public void setChampionshipTees(List<ChampionshipTees> championshipTees) {
+        this.championshipTees = championshipTees;
+    }
+
+    public List<ChampionshipTeesHoleYardages> getChampionshipTeesHoleYardages() {
+        return championshipTeesHoleYardages;
+    }
+
+    public void setChampionshipTeesHoleYardages(List<ChampionshipTeesHoleYardages> championshipTeesHoleYardages) {
+        this.championshipTeesHoleYardages = championshipTeesHoleYardages;
+    }
+
+    public List<MenTees> getMenTees() {
+        return menTees;
+    }
+
+    public void setMenTees(List<MenTees> menTees) {
+        this.menTees = menTees;
+    }
+
+    public List<MenTeesHoleYardages> getMenTeesHoleYardages() {
+        return menTeesHoleYardages;
+    }
+
+    public void setMenTeesHoleYardages(List<MenTeesHoleYardages> menTeesHoleYardages) {
+        this.menTeesHoleYardages = menTeesHoleYardages;
+    }
+
+    public List<WomenTees> getWomenTees() {
+        return womenTees;
+    }
+
+    public void setWomenTees(List<WomenTees> womenTees) {
+        this.womenTees = womenTees;
+    }
+
+    public List<WomenTeesHoleYardages> getWomenTeesHoleYardages() {
+        return womenTeesHoleYardages;
+    }
+
+    public void setWomenTeesHoleYardages(List<WomenTeesHoleYardages> womenTeesHoleYardages) {
+        this.womenTeesHoleYardages = womenTeesHoleYardages;
+    }
+
     public String getCourseName() {
         return courseName;
     }
@@ -61,29 +115,5 @@ public class Course {
 
     public void setOverallPar(int overallPar) {
         this.overallPar = overallPar;
-    }
-
-    public List<ChampionshipTees> getChampionshipTees() {
-        return championshipTees;
-    }
-
-    public void setChampionshipTees(List<ChampionshipTees> championshipTees) {
-        this.championshipTees = championshipTees;
-    }
-
-    public List<MenTees> getMenTees() {
-        return menTees;
-    }
-
-    public void setMenTees(List<MenTees> menTees) {
-        this.menTees = menTees;
-    }
-
-    public List<WomenTees> getWomenTees() {
-        return womenTees;
-    }
-
-    public void setWomenTees(List<WomenTees> womenTees) {
-        this.womenTees = womenTees;
     }
 }
