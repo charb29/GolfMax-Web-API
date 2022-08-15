@@ -1,7 +1,7 @@
-package com.Rest.GolfMax.API.User;
+package com.Rest.GolfMax.API.Services;
 
-import com.Rest.GolfMax.API.User.UserRepository;
-import com.Rest.GolfMax.API.User.User;
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
@@ -13,7 +13,6 @@ import java.util.List;
 @Transactional
 @RequestScope
 public class UserService {
-    
     @Autowired
     private UserRepository userRepository;
 
@@ -40,26 +39,20 @@ public class UserService {
     public User updateUser(long id, User user) {
         if (userRepository.findById(id).isPresent()) {
             User existingUser = userRepository.findById(id).get();
-
             existingUser.setUsername(user.getUsername());
             existingUser.setPassword(user.getPassword());
             existingUser.setEmail(user.getEmail());
-
             User updatedUser = userRepository.save(existingUser);
-
             return updatedUser;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     public boolean userExists(String username, String email) {
-        if (userRepository.existsByUsername(username) || userRepository.existsByEmail(email)) {
+        if (userRepository.existsByUsername(username) || userRepository.existsByEmail(email))
             return false;
-        }
-        else {
+        else
             return true;
-        }
     }
 }

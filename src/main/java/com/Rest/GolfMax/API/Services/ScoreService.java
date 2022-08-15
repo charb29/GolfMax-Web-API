@@ -1,6 +1,8 @@
-package com.Rest.GolfMax.API.Score;
+package com.Rest.GolfMax.API.Services;
 import javax.transaction.Transactional;
 
+import com.Rest.GolfMax.API.Models.Score;
+import com.Rest.GolfMax.API.Repositories.ScoreRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,6 @@ import java.util.List;
 @Transactional
 @RequestScope
 public class ScoreService {
-
     @Autowired
     private ScoreRepository scoreRepository;
 

@@ -1,11 +1,11 @@
-package com.Rest.GolfMax.API.PlayerStatistics;
+package com.Rest.GolfMax.API.Services;
 
-import com.Rest.GolfMax.API.PlayerStatistics.HandicapCalculator;
-import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatistics;
-import com.Rest.GolfMax.API.PlayerStatistics.PlayerStatisticsRepository;
-import com.Rest.GolfMax.API.Score.ScoreRepository;
-import com.Rest.GolfMax.API.Score.ScoreService;
-import com.Rest.GolfMax.API.User.User;
+import com.Rest.GolfMax.API.Models.HandicapCalculator;
+import com.Rest.GolfMax.API.Models.PlayerStatistics;
+import com.Rest.GolfMax.API.Repositories.PlayerStatisticsRepository;
+import com.Rest.GolfMax.API.Repositories.ScoreRepository;
+import com.Rest.GolfMax.API.Models.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -19,16 +19,12 @@ import java.util.List;
 @Transactional
 @RequestScope
 public class PlayerStatisticsService {
-
     @Autowired
-    PlayerStatisticsRepository repository;
-
+    private PlayerStatisticsRepository repository;
     @Autowired
-    ScoreRepository scoreRepository;
-
+    private ScoreRepository scoreRepository;
     @Autowired
-    ScoreService scoreService;
-
+    private ScoreService scoreService;
 
     public PlayerStatistics getStatsByUserId(long id) {
         return repository.findByUserId(id);
@@ -53,15 +49,12 @@ public class PlayerStatisticsService {
     }
 
 
-    private double getAverageScore(List<Integer> scores) {
+    private double getAverageScore(@NotNull List<Integer> scores) {
         double sum = 0;
-
         for (int i : scores) {
             sum += i;
         }
-
         sum = sum / scores.size();
-
         return Math.round(sum * 10.0) / 10.0;
     }
 
