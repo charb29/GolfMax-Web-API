@@ -13,7 +13,7 @@ public class MenTees {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-    @OneToOne(mappedBy = "mensTeesId")
+    @OneToOne(mappedBy = "menTees")
     private MenTeesHoleYardages mensTeesHolesYardages;
     @ManyToOne
     private Course course;
