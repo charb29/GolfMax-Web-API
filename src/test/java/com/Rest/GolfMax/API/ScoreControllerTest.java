@@ -1,11 +1,11 @@
 package com.Rest.GolfMax.API;
 
-import com.Rest.GolfMax.API.Score.ScoreController;
-import com.Rest.GolfMax.API.Course.Course;
-import com.Rest.GolfMax.API.Score.Score;
-import com.Rest.GolfMax.API.User.User;
-import com.Rest.GolfMax.API.Score.ScoreRepository;
-import com.Rest.GolfMax.API.Score.ScoreService;
+import com.Rest.GolfMax.API.Controllers.ScoreController;
+import com.Rest.GolfMax.API.Models.Course;
+import com.Rest.GolfMax.API.Models.Score;
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Repositories.ScoreRepository;
+import com.Rest.GolfMax.API.Services.ScoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -25,26 +25,19 @@ import java.util.List;
 
 @WebMvcTest(ScoreController.class)
 public class ScoreControllerTest {
-
     @Autowired
-    MockMvc mockMvc;
-
+    private MockMvc mockMvc;
     @Autowired
-    ObjectMapper mapper;
-
+    private ObjectMapper mapper;
     @MockBean
-    ScoreRepository scoreRepository;
-
+    private ScoreRepository scoreRepository;
     @MockBean
-    ScoreService scoreService;
+    private ScoreService scoreService;
 
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
     User USER_2 = new User(2, "Eric", "password", "eric@gmail.com");
-
     Course COURSE_1 = new Course(1, "Vista Valencia", 61);
-
     Course COURSE_2 = new Course(1, "Scholl Canyon", 80);
-
     Score SCORE_1 = new Score(1, USER_1, COURSE_2, 64, 61, 103);
     Score SCORE_2 = new Score(2, USER_1, COURSE_1, 70, 61, 103);
     Score SCORE_3 = new Score(3, USER_2, COURSE_2, 100, 65, 120);
@@ -66,7 +59,6 @@ public class ScoreControllerTest {
     @Test
     public void getScoresById() throws Exception {
         Mockito.when(scoreService.getScoreById(SCORE_1.getScoreId())).thenReturn(SCORE_1);
-
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/scores/1")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -77,10 +69,11 @@ public class ScoreControllerTest {
 
     @Test
     public void getScoresByUserId() throws Exception {
-
         List<Score> scores = new ArrayList<>(Arrays.asList(SCORE_1, SCORE_2, SCORE_3));
 
-        Mockito.when(scoreService.getScoresByUserId(USER_1.getId(), Sort.by("userScore").ascending())).thenReturn(scores);
+        Mockito.when(scoreService
+                .getScoresByUserId(USER_1.getId(), Sort.by("userScore").ascending()))
+                .thenReturn(scores);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/scores/user/1")
@@ -120,7 +113,9 @@ public class ScoreControllerTest {
     public void getScoresByCourseId() throws Exception {
         List<Score> scores = new ArrayList<>(Arrays.asList(SCORE_1, SCORE_2, SCORE_3));
 
-        Mockito.when(scoreService.getScoreByCourseId(COURSE_1.getId(), Sort.by("userScore").ascending())).thenReturn(scores);
+        Mockito.when(scoreService
+                .getScoreByCourseId(COURSE_1.getId(), Sort.by("userScore").ascending()))
+                .thenReturn(scores);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/scores/course/1")

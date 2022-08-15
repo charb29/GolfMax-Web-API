@@ -1,8 +1,8 @@
 package com.Rest.GolfMax.API;
 
-import com.Rest.GolfMax.API.User.UserController;
-import com.Rest.GolfMax.API.User.User;
-import com.Rest.GolfMax.API.User.UserService;
+import com.Rest.GolfMax.API.Controllers.UserController;
+import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Services.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -21,15 +21,12 @@ import java.util.List;
 
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
-
     @Autowired
-    MockMvc mockMvc;
-
+    private MockMvc mockMvc;
     @Autowired
-    ObjectMapper mapper;
-
+    private ObjectMapper mapper;
     @MockBean
-    UserService userService;
+    private UserService userService;
 
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
     User USER_2 = new User(2, "Eric", "password", "eric@gmail.com");
