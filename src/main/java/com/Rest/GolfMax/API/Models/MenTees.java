@@ -1,18 +1,20 @@
 package com.Rest.GolfMax.API.Course;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "WomenTees")
-public class WomenTees {
+@Table(name = "mensTees")
+public class MenTees {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
     @OneToOne(mappedBy = "mensTeesId")
-    private WomenTeesHoleYardages womenTeesHolesYardages;
+    private MenTeesHoleYardages mensTeesHolesYardages;
     @ManyToOne
     private Course course;
     @Column(name = "courseRating", nullable = false)
@@ -60,7 +62,37 @@ public class WomenTees {
     @Column(name = "hole19")
     private int hole19;
 
-    public WomenTees() {}
+    public MenTees() {}
+
+    public MenTees(long id, MenTeesHoleYardages mensTeesHolesYardages, Course course, double courseRating,
+                   double slopeRating, long totalYards, int hole1, int hole2, int hole3, int hole4, int hole5,
+                   int hole6, int hole7, int hole8, int hole9, int hole10, int hole11, int hole12, int hole13,
+                   int hole14, int hole15, int hole16, int hole17, int hole18) {
+        this.id = id;
+        this.mensTeesHolesYardages = mensTeesHolesYardages;
+        this.course = course;
+        this.courseRating = courseRating;
+        this.slopeRating = slopeRating;
+        this.totalYards = totalYards;
+        this.hole1 = hole1;
+        this.hole2 = hole2;
+        this.hole3 = hole3;
+        this.hole4 = hole4;
+        this.hole5 = hole5;
+        this.hole6 = hole6;
+        this.hole7 = hole7;
+        this.hole8 = hole8;
+        this.hole9 = hole9;
+        this.hole10 = hole10;
+        this.hole11 = hole11;
+        this.hole12 = hole12;
+        this.hole13 = hole13;
+        this.hole14 = hole14;
+        this.hole15 = hole15;
+        this.hole16 = hole16;
+        this.hole17 = hole17;
+        this.hole18 = hole18;
+    }
 
     public long getId() {
         return id;
@@ -70,12 +102,12 @@ public class WomenTees {
         this.id = id;
     }
 
-    public WomenTeesHoleYardages getWomenTeesHolesYardages() {
-        return womenTeesHolesYardages;
+    public MenTeesHoleYardages getMensTeesHolesYardages() {
+        return mensTeesHolesYardages;
     }
 
-    public void setWomenTeesHolesYardages(WomenTeesHoleYardages womenTeesHolesYardages) {
-        this.womenTeesHolesYardages = womenTeesHolesYardages;
+    public void setMensTeesHolesYardages(MenTeesHoleYardages mensTeesHolesYardages) {
+        this.mensTeesHolesYardages = mensTeesHolesYardages;
     }
 
     public Course getCourse() {
@@ -276,6 +308,7 @@ public class WomenTees {
         return front9Pars;
     }
 
+    @NotNull
     private List<Integer> getIntegers() {
         List<Integer> back9Pars = new ArrayList<>();
         back9Pars.add(getHole10());
