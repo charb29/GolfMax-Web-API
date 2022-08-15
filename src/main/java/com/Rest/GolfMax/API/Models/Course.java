@@ -1,5 +1,7 @@
 package com.Rest.GolfMax.API.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 import javax.persistence.*;
 
@@ -40,24 +42,9 @@ public class Course {
         this.id = id;
     }
 
-    public ChampionshipTees getChampionshipTees() {
-        return championshipTees;
-    }
-
-    public void setChampionshipTees(ChampionshipTees championshipTees) {
-        this.championshipTees = championshipTees;
-    }
-
-    public MenTees getMenTees() {
-        return menTees;
-    }
-
-    public void setMenTees(MenTees menTees) {
-        this.menTees = menTees;
-    }
-
-    public WomenTees getWomenTees() {
-        return womenTees;
+    @JsonManagedReference
+    public List<HoleLayout> getHoleLayout() {
+        return holeLayout;
     }
 
     public void setWomenTees(WomenTees womenTees) {
