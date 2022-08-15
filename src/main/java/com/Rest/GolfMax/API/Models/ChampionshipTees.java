@@ -282,14 +282,6 @@ public class ChampionshipTees {
         this.hole18 = hole18;
     }
 
-    public int getHole19() {
-        return hole19;
-    }
-
-    public void setHole19(int hole19) {
-        this.hole19 = hole19;
-    }
-
     public List<Integer> getFront9Pars() {
         List<Integer> front9Pars = new ArrayList<>();
         front9Pars.add(getHole1());
