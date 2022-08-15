@@ -6,7 +6,6 @@ import com.Rest.GolfMax.API.Repositories.ScoreRepository;
 import com.Rest.GolfMax.API.Services.ScoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -33,113 +31,230 @@ public class ScoreControllerTest {
     @MockBean
     private ScoreService service;
 
-    private final ChampionshipTees CHAMPIONSHIP_TEES = new ChampionshipTees(1, 65.4, 113,
-            4, 3, 3, 4, 3, 3, 4, 3, 4, 4, 3,
-            3, 3, 3, 4, 4, 3, 3, 357, 213,
-            190, 371, 103, 166, 316, 139, 371,
-            439, 182, 71, 82, 121, 332, 404,
-            156, 179, 2226, 1966, 61);
-    private final MenTees MENS_TEES = new MenTees(1, 63.6, 107, 4, 3, 3,
-            4, 3, 3, 4, 3, 4, 4, 3, 3, 3, 3,
-            4, 4, 3, 3, 336, 202, 179, 365,
-            85, 141, 305, 129, 360, 454, 166,
-            71, 74, 117, 311, 389, 145, 169,
-            2102, 1866, 61);
-    private final WomenTees WOMEN_TEES = new WomenTees(1, 62.1, 104, 4, 4, 3,
-            4, 3, 3, 4, 3, 5, 5, 3, 3, 3, 3,
-            4, 4, 3, 3, 312, 184, 169, 356, 68,
-            124, 288, 114, 340, 393, 147, 71,
-            73, 117, 277, 375, 112, 161,
-            1955, 1726, 64);
-    private final Course COURSE = new Course(1, CHAMPIONSHIP_TEES, MENS_TEES, WOMEN_TEES,
-            "Vista Valencia Golf Course");
+    private final Course COURSE = new Course();
+    private final Hole CHAMPIONSHIP_HOLE1 = new Hole(1, 357, 4);
+    private final Hole CHAMPIONSHIP_HOLE2 = new Hole(2, 213, 190);
+    private final Hole CHAMPIONSHIP_HOLE3 = new Hole(3, 190, 3);
+    private final Hole CHAMPIONSHIP_HOLE4 = new Hole(4, 371, 4);
+    private final Hole CHAMPIONSHIP_HOLE5 = new Hole(5, 103, 3);
+    private final Hole CHAMPIONSHIP_HOLE6 = new Hole(6, 166, 3);
+    private final Hole CHAMPIONSHIP_HOLE7 = new Hole(7, 316, 4);
+    private final Hole CHAMPIONSHIP_HOLE8 = new Hole(8, 139, 3);
+    private final Hole CHAMPIONSHIP_HOLE9 = new Hole(9, 371, 4);
+    private final Hole CHAMPIONSHIP_HOLE10 = new Hole(10, 439, 4);
+    private final Hole CHAMPIONSHIP_HOLE11 = new Hole(11, 182, 3);
+    private final Hole CHAMPIONSHIP_HOLE12 = new Hole(12, 71, 3);
+    private final Hole CHAMPIONSHIP_HOLE13 = new Hole(13, 82, 3);
+    private final Hole CHAMPIONSHIP_HOLE14 = new Hole(14, 121, 3);
+    private final Hole CHAMPIONSHIP_HOLE15 = new Hole(15, 332, 4);
+    private final Hole CHAMPIONSHIP_HOLE16 = new Hole(16, 404, 4);
+    private final Hole CHAMPIONSHIP_HOLE17 = new Hole(17, 456, 3);
+    private final Hole CHAMPIONSHIP_HOLE18 = new Hole(19, 179, 3);
+
+    public List<Hole> getChampionshipHoles() {
+        List<Hole> holes = new ArrayList<>();
+        holes.add(CHAMPIONSHIP_HOLE1);
+        holes.add(CHAMPIONSHIP_HOLE2);
+        holes.add(CHAMPIONSHIP_HOLE3);
+        holes.add(CHAMPIONSHIP_HOLE4);
+        holes.add(CHAMPIONSHIP_HOLE5);
+        holes.add(CHAMPIONSHIP_HOLE6);
+        holes.add(CHAMPIONSHIP_HOLE7);
+        holes.add(CHAMPIONSHIP_HOLE8);
+        holes.add(CHAMPIONSHIP_HOLE9);
+        holes.add(CHAMPIONSHIP_HOLE10);
+        holes.add(CHAMPIONSHIP_HOLE11);
+        holes.add(CHAMPIONSHIP_HOLE12);
+        holes.add(CHAMPIONSHIP_HOLE13);
+        holes.add(CHAMPIONSHIP_HOLE14);
+        holes.add(CHAMPIONSHIP_HOLE15);
+        holes.add(CHAMPIONSHIP_HOLE16);
+        holes.add(CHAMPIONSHIP_HOLE17);
+        holes.add(CHAMPIONSHIP_HOLE18);
+        return holes;
+    }
+
+    private final HoleLayout CHAMPIONSHIP_LAYOUT = new HoleLayout(1, getChampionshipHoles(), COURSE,
+            LayoutType.CHAMPIONSHIP, 2226, 1966, 61, 65.4, 113);
+
+    private final Hole MENS_HOLE1 = new Hole(1, 336, 4);
+    private final Hole MENS_HOLE2 = new Hole(2, 202, 3);
+    private final Hole MENS_HOLE3 = new Hole(3, 179, 3);
+    private final Hole MENS_HOLE4 = new Hole(4, 365, 4);
+    private final Hole MENS_HOLE5 = new Hole(5, 85, 3);
+    private final Hole MENS_HOLE6 = new Hole(6, 141, 3);
+    private final Hole MENS_HOLE7 = new Hole(7, 305, 4);
+    private final Hole MENS_HOLE8 = new Hole(8, 129, 3);
+    private final Hole MENS_HOLE9 = new Hole(9, 360, 4);
+    private final Hole MENS_HOLE10 = new Hole(10, 424, 4);
+    private final Hole MENS_HOLE11 = new Hole(11, 166, 3);
+    private final Hole MENS_HOLE12 = new Hole(12, 71, 3);
+    private final Hole MENS_HOLE13 = new Hole(13, 74, 3);
+    private final Hole MENS_HOLE14 = new Hole(14, 117, 3);
+    private final Hole MENS_HOLE15 = new Hole(15, 311, 4);
+    private final Hole MENS_HOLE16 = new Hole(16, 389, 4);
+    private final Hole MENS_HOLE17 = new Hole(17, 145, 3);
+    private final Hole MENS_HOLE18 = new Hole(19, 169, 3);
+
+    public List<Hole> getMensHoles() {
+        List<Hole> holes = new ArrayList<>();
+        holes.add(MENS_HOLE1);
+        holes.add(MENS_HOLE2);
+        holes.add(MENS_HOLE3);
+        holes.add(MENS_HOLE4);
+        holes.add(MENS_HOLE5);
+        holes.add(MENS_HOLE6);
+        holes.add(MENS_HOLE7);
+        holes.add(MENS_HOLE8);
+        holes.add(MENS_HOLE9);
+        holes.add(MENS_HOLE10);
+        holes.add(MENS_HOLE11);
+        holes.add(MENS_HOLE12);
+        holes.add(MENS_HOLE13);
+        holes.add(MENS_HOLE14);
+        holes.add(MENS_HOLE15);
+        holes.add(MENS_HOLE16);
+        holes.add(MENS_HOLE17);
+        holes.add(MENS_HOLE18);
+        return holes;
+    }
+
+    private final HoleLayout MENS_LAYOUT = new HoleLayout(2, getMensHoles(), COURSE,
+            LayoutType.MENS, 2102, 1866, 61, 63.6, 107);
+
+    private final Hole WOMENS_HOLE1 = new Hole(1, 312, 4);
+    private final Hole WOMENS_HOLE2 = new Hole(2, 184, 4);
+    private final Hole WOMENS_HOLE3 = new Hole(3, 169, 3);
+    private final Hole WOMENS_HOLE4 = new Hole(4, 356, 4);
+    private final Hole WOMENS_HOLE5 = new Hole(5, 68, 3);
+    private final Hole WOMENS_HOLE6 = new Hole(6, 124, 3);
+    private final Hole WOMENS_HOLE7 = new Hole(7, 288, 4);
+    private final Hole WOMENS_HOLE8 = new Hole(8, 114, 3);
+    private final Hole WOMENS_HOLE9 = new Hole(9, 340, 5);
+    private final Hole WOMENS_HOLE10 = new Hole(10, 393, 5);
+    private final Hole WOMENS_HOLE11 = new Hole(11, 147, 3);
+    private final Hole WOMENS_HOLE12 = new Hole(12, 71, 3);
+    private final Hole WOMENS_HOLE13 = new Hole(13, 73, 3);
+    private final Hole WOMENS_HOLE14 = new Hole(14, 117, 3);
+    private final Hole WOMENS_HOLE15 = new Hole(15, 277, 4);
+    private final Hole WOMENS_HOLE16 = new Hole(16, 375, 4);
+    private final Hole WOMENS_HOLE17 = new Hole(17, 112, 3);
+    private final Hole WOMENS_HOLE18 = new Hole(19, 161, 3);
+
+    public List<Hole> getWomensHoles() {
+        List<Hole> holes = new ArrayList<>();
+        holes.add(WOMENS_HOLE1);
+        holes.add(WOMENS_HOLE2);
+        holes.add(WOMENS_HOLE3);
+        holes.add(WOMENS_HOLE4);
+        holes.add(WOMENS_HOLE5);
+        holes.add(WOMENS_HOLE6);
+        holes.add(WOMENS_HOLE7);
+        holes.add(WOMENS_HOLE8);
+        holes.add(WOMENS_HOLE9);
+        holes.add(WOMENS_HOLE10);
+        holes.add(WOMENS_HOLE11);
+        holes.add(WOMENS_HOLE12);
+        holes.add(WOMENS_HOLE13);
+        holes.add(WOMENS_HOLE14);
+        holes.add(WOMENS_HOLE15);
+        holes.add(WOMENS_HOLE16);
+        holes.add(WOMENS_HOLE17);
+        holes.add(WOMENS_HOLE18);
+        return holes;
+    }
+
+    private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3, getWomensHoles(), COURSE,
+            LayoutType.WOMENS, 1955, 1726, 64, 62.1, 104);
+
+    public List<HoleLayout> getHoleLayouts() {
+        List<HoleLayout> holeLayouts = new ArrayList<>();
+        holeLayouts.add(CHAMPIONSHIP_LAYOUT);
+        holeLayouts.add(MENS_LAYOUT);
+        holeLayouts.add(WOMENS_LAYOUT);
+        return holeLayouts;
+    }
+
+    public Course getCOURSE() {
+        COURSE.setId(1);
+        COURSE.setCourseName("Vista Valencia Golf Course");
+        COURSE.setHoleLayout(getHoleLayouts());
+        return COURSE;
+    }
+
     private final User USER = new User(1, "Olivier", "password", "email@email.com");
-    private final Score SCORE_1 = new Score(1, USER, COURSE, 69,
-            CHAMPIONSHIP_TEES.getCourseRating(), CHAMPIONSHIP_TEES.getSlopeRating());
-    private final Score SCORE_2 = new Score(2, USER, COURSE, 72,
-            CHAMPIONSHIP_TEES.getCourseRating(), CHAMPIONSHIP_TEES.getSlopeRating());
-    private final Score SCORE_3 = new Score(3, USER, COURSE, 85,
-            MENS_TEES.getCourseRating(), MENS_TEES.getSlopeRating());
-    private final Score SCORE_4 = new Score(4, USER, COURSE, 56,
-            MENS_TEES.getCourseRating(), MENS_TEES.getSlopeRating());
-    private final Score SCORE_5 = new Score(5, USER, COURSE, 61,
-            CHAMPIONSHIP_TEES.getCourseRating(), CHAMPIONSHIP_TEES.getSlopeRating());
+    private final Score SCORE = new Score(1, USER, getCOURSE(), 65,
+            CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
+
+    public List<Score> scores() {
+        List<Score> scores = new ArrayList<>();
+        scores.add(SCORE);
+        return scores;
+    }
 
     @Test
-    public void listAllScores() throws Exception {
-        List<Score> scores = new ArrayList<>(Arrays.asList(SCORE_1, SCORE_2, SCORE_3, SCORE_3, SCORE_5));
+    public void getAllScores() throws Exception {
+        List<Score> scores = new ArrayList<>(Arrays.asList(SCORE));
 
         Mockito.when(service.listAllScores()).thenReturn(scores);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/scores")
-                .contentType(MediaType.APPLICATION_JSON));
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void getScoresById() throws Exception {
-        Mockito.when(service.getScoreById(SCORE_1.getScoreId())).thenReturn(SCORE_1);
+        Mockito.when(service.getScoreById(SCORE.getScoreId())).thenReturn(SCORE);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/scores/user/1")
+                        .get("/scores/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()));
     }
 
     @Test
-    public void getScoresByUserId() throws Exception {
-        List<Score> scores = new ArrayList<>(Arrays.asList(SCORE_1, SCORE_2, SCORE_3, SCORE_3, SCORE_5));
-        Mockito.when(service.getScoresByUserId(USER.getId(), Sort.by("userScore")
-                .ascending()))
-                .thenReturn(scores);
+    public void getScoreByUserId() throws Exception {
+        Mockito.when(service.getScoresByUserId(USER.getId(), Sort.by("userScore"))).thenReturn(scores());
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/scores/user/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()));
+                .get("/scores/user/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void addScore() throws Exception {
-        Score score = new Score(7, USER, COURSE, 69,
-                CHAMPIONSHIP_TEES.getCourseRating(), CHAMPIONSHIP_TEES.getCourseRating());
-        Mockito.when(repository.save(SCORE_1)).thenReturn(SCORE_1);
+        Mockito.when(repository.save(SCORE)).thenReturn(SCORE);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/scores/add-score")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(SCORE_1));
-
-        mockMvc.perform(mockRequest)
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/scores/add-score")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(this.mapper.writeValueAsString(SCORE)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.userScore", is(69)));
+                .andExpect(jsonPath("$", notNullValue()));
     }
 
     @Test
-    public void deleteScore() throws Exception {
-        Mockito.when(service.getScoreById(SCORE_3.getScoreId())).thenReturn(SCORE_3);
+    public void deleteScoreById() throws Exception {
+        Mockito.when(service.getScoreById(SCORE.getScoreId())).thenReturn(SCORE);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/scores/3")
+                        .delete("/scores/delete/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void getScoresByCourseId() throws Exception {
-        List<Score> scores = new ArrayList<>(Arrays.asList(SCORE_1, SCORE_2, SCORE_3));
-
-        Mockito.when(service.getScoreByCourseId(COURSE.getId(), Sort.by("userScore")
-                .ascending()))
-                .thenReturn(scores);
+        Mockito.when(service.getScoreByCourseId(getCOURSE().getId(), Sort.by("userScore"))).thenReturn(scores());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/scores/course/1")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()));
+                .andExpect(status().isOk());
     }
 }
