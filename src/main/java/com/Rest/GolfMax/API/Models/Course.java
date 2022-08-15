@@ -14,12 +14,8 @@ public class Course {
     private long id;
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
-    @OneToOne
-    private ChampionshipTees championshipTees;
-    @OneToOne
-    private MenTees menTees;
-    @OneToOne
-    private WomenTees womenTees;
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<HoleLayout> holeLayout;
     @Column(name = "courseName", nullable = false)
     private String courseName;
 
