@@ -1,25 +1,36 @@
 package com.Rest.GolfMax.API.Controllers;
 
+import com.Rest.GolfMax.API.DTOs.UserDto;
 import com.Rest.GolfMax.API.Models.User;
-import com.Rest.GolfMax.API.Services.UserService;
+import com.Rest.GolfMax.API.Services.Implementations.UserServiceImpl;
+import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import org.jetbrains.annotations.NotNull;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/users/auth")
 public class LoginController {
     @Autowired
-    private UserService service;
+    private ModelMapper modelMapper;
+    private final UserService USER_SERVICE;
 
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody @NotNull User user) {
-        User storedUser = service.getStoredUserData(user.getUsername(), user.getPassword());
-        if (storedUser == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public LoginController(UserService userService) {
+        super();
+        this.USER_SERVICE = userService;
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<UserDto> login(@RequestBody UserDto userDto) {
+        User userRequest = modelMapper.map(userDto, User.class);
+        UserDto userResponse = modelMapper.map(userRequest, UserDto.class);
+
+        if (USER_SERVICE.getUserData(userDto.getUsername(), userDto.getPassword()) != null)
+            return new ResponseEntity<>(userResponse, HttpStatus.OK);
         else
-            return new ResponseEntity<>(storedUser, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 }
