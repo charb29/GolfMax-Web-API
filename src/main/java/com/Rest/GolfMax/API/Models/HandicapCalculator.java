@@ -25,8 +25,15 @@ public class HandicapCalculator {
     }
 
     public void setAverageScoreDifferentials(List<Double> averageScoreDifferentials, @NotNull List<Score> scores) {
+        calculateAverageScoreDifferentials(averageScoreDifferentials, scores);
+    }
+
+    private void calculateAverageScoreDifferentials(List<Double> averageScoreDifferentials, @NotNull List<Score> scores) {
         final int AVERAGE_COURSE_DIFFICULTY = 113;
+        int start = 0;
+        int end = averageScoreDifferentials.size() - 1;
         double result;
+
         for (Score score : scores) {
             result = (score.getUserScore() - score.getCourseRating()) *
                     (AVERAGE_COURSE_DIFFICULTY / score.getSlopeRating());
@@ -38,24 +45,27 @@ public class HandicapCalculator {
 
     @Contract("_ -> param1")
     private @NotNull List<Double> mergeSort(@NotNull List<Double> averageScoreDifferentials) {
-        List<Double> leftPointer = new ArrayList<>();
-        List<Double> rightPointer = new ArrayList<>();
+        List<Double> left = new ArrayList<>();
+        List<Double> right = new ArrayList<>();
         int mid;
 
-        if (averageScoreDifferentials.size() == 1)
+        if (averageScoreDifferentials.size() == 1) {
             return averageScoreDifferentials;
+        }
         else {
             mid = averageScoreDifferentials.size() / 2;
+
             for (int i = 0; i < mid; i++) {
-                leftPointer.add(averageScoreDifferentials.get(i));
+                left.add(averageScoreDifferentials.get(i));
             }
             for (int i = mid; i < averageScoreDifferentials.size(); i++) {
-                rightPointer.add(averageScoreDifferentials.get(i));
+                right.add(averageScoreDifferentials.get(i));
             }
-            leftPointer = mergeSort(leftPointer);
-            rightPointer = mergeSort(rightPointer);
 
-            merge(leftPointer, rightPointer, averageScoreDifferentials);
+            left = mergeSort(left);
+            right = mergeSort(right);
+
+            merge(left, right, averageScoreDifferentials);
         }
         return averageScoreDifferentials;
     }
@@ -66,6 +76,7 @@ public class HandicapCalculator {
         int wholeIndex = 0;
 
         while (leftIndex < left.size() && rightIndex < right.size()) {
+
             if ((left.get(leftIndex).compareTo(right.get(rightIndex))) < 0) {
                 averageScoreDifferentials.set(wholeIndex, left.get(leftIndex));
                 leftIndex++;
@@ -76,8 +87,10 @@ public class HandicapCalculator {
             }
             wholeIndex++;
         }
+
         List<Double> rest;
         int restIndex;
+
         if (leftIndex >= left.size()) {
             rest = right;
             restIndex = rightIndex;
@@ -86,6 +99,7 @@ public class HandicapCalculator {
             rest = left;
             restIndex = leftIndex;
         }
+
         for (int i = restIndex; i < rest.size(); i++) {
             averageScoreDifferentials.set(wholeIndex, rest.get(i));
             wholeIndex++;
