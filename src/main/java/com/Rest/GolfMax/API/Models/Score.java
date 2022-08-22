@@ -8,7 +8,7 @@ public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private long scoreId;
+    private long id;
     @ManyToOne
     private User user;
     @ManyToOne
@@ -22,8 +22,8 @@ public class Score {
 
     public Score() {}
 
-    public Score(long scoreId, User user, Course course, int userScore, double courseRating, double slopeRating) {
-        this.scoreId = scoreId;
+    public Score(long id, User user, Course course, int userScore, double courseRating, double slopeRating) {
+        this.id = id;
         this.userScore = userScore;
         this.user = user;
         this.course = course;
@@ -31,12 +31,12 @@ public class Score {
         this.slopeRating = slopeRating;
     }
 
-    public long getScoreId() {
-        return scoreId;
+    public long getId() {
+        return id;
     }
 
-    public void setScoreId(long scoreId) {
-        this.scoreId = scoreId;
+    public void setId(long scoreId) {
+        this.id = scoreId;
     }
 
     public User getUser() {
