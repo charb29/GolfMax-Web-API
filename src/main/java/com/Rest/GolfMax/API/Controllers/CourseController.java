@@ -1,8 +1,10 @@
 package com.Rest.GolfMax.API.Controllers;
 
-import com.Rest.GolfMax.API.Models.Course;
-import com.Rest.GolfMax.API.Services.CourseService;
+import com.Rest.GolfMax.API.DTOs.CourseDto;
+import com.Rest.GolfMax.API.Models.*;
+import com.Rest.GolfMax.API.Services.Interfaces.CourseService;
 import org.jetbrains.annotations.NotNull;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,38 +12,53 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
     @Autowired
-    private CourseService service;
+    private ModelMapper modelMapper;
+    private final CourseService COURSE_SERVICE;
 
-    @GetMapping("")
-    public List<Course> listAllCourses() {
-        return service.listAllCourses();
+    public CourseController(CourseService courseService) {
+        super();
+        this.COURSE_SERVICE = courseService;
     }
 
-    @PostMapping("/new-course")
-    public ResponseEntity<Course> addNewCourse(@RequestBody @NotNull Course course) {
-        if (service.existsByCourseName(course.getCourseName()))
-            return new ResponseEntity<>(course, HttpStatus.BAD_REQUEST);
-        service.addNewCourse(course);
-        return new ResponseEntity<>(course, HttpStatus.CREATED);
+    @GetMapping
+    public List<CourseDto> getAllCourses() {
+        return COURSE_SERVICE.getAllCourses()
+                .stream()
+                .map(post -> modelMapper.map(post, CourseDto.class))
+                .collect(Collectors.toList());
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
+    @PostMapping("")
+    public ResponseEntity<CourseDto> addNewCourse(@RequestBody @NotNull CourseDto courseDto) {
+        Course courseRequest = modelMapper.map(courseDto, Course.class);
+
+        if (COURSE_SERVICE.isValid(courseDto.getCourseName()))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        Course course = COURSE_SERVICE.createCourse(courseRequest);
+        CourseDto courseResponse = modelMapper.map(course, CourseDto.class);
+        return new ResponseEntity<>(courseResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CourseDto> getCourseById(@PathVariable long id) {
         try {
-            Course course = service.getCourseById(id);
-            return new ResponseEntity<>(course, HttpStatus.OK);
+            Course course = COURSE_SERVICE.getCourseById(id);
+            CourseDto courseResponse = modelMapper.map(course, CourseDto.class);
+            return new ResponseEntity<>(courseResponse, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCourse(@PathVariable long id) {
-        service.deleteCourse(id);
+        COURSE_SERVICE.deleteCourse(id);
     }
 }
