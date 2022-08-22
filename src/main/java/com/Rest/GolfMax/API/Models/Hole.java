@@ -11,6 +11,7 @@ public class Hole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
+    @JsonBackReference
     @ManyToOne
     private HoleLayout holeLayout;
     @Column(name = "holeNumber", nullable = false)
@@ -38,7 +39,6 @@ public class Hole {
         this.id = id;
     }
 
-    @JsonBackReference
     public HoleLayout getHoleLayout() {
         return holeLayout;
     }
