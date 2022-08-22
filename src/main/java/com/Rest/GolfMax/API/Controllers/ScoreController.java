@@ -46,7 +46,7 @@ public class ScoreController {
         }
     }
 
-    @GetMapping("/users/{id}/user-scores")
+    @GetMapping("/users/{id}")
     public ResponseEntity<List<ScoreDto>> getScoresByUserId(@PathVariable long id) {
         try {
             List<Score> scores = SCORE_SERVICE.getScoresByUserId(id);
@@ -70,7 +70,7 @@ public class ScoreController {
         SCORE_SERVICE.deleteScore(id);
     }
 
-    @GetMapping("/user-scores/courses/{id}")
+    @GetMapping("/courses/{id}")
     public ResponseEntity<List<ScoreDto>> getScoresByCourseId(@PathVariable long id) {
         try {
             List<Score> scores = SCORE_SERVICE.getScoresByCourseId(id);
