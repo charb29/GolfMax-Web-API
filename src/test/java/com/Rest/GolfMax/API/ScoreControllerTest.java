@@ -2,34 +2,35 @@ package com.Rest.GolfMax.API;
 
 import com.Rest.GolfMax.API.Controllers.ScoreController;
 import com.Rest.GolfMax.API.Models.*;
-import com.Rest.GolfMax.API.Repositories.ScoreRepository;
-import com.Rest.GolfMax.API.Services.ScoreService;
+import com.Rest.GolfMax.API.Services.Interfaces.ScoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.hamcrest.Matchers.*;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ScoreController.class)
 public class ScoreControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private ObjectMapper mapper;
+    private ObjectMapper objectMapper;
     @MockBean
-    private ScoreRepository repository;
-    @MockBean
-    private ScoreService service;
+    private ScoreService scoreService;
 
     private final Course COURSE = new Course();
     private final Hole CHAMPIONSHIP_HOLE1 = new Hole(1, 357, 4);
@@ -182,79 +183,76 @@ public class ScoreControllerTest {
         return COURSE;
     }
 
-    private final User USER = new User(1, "Olivier", "password", "email@email.com");
-    private final Score SCORE = new Score(1, USER, getCOURSE(), 65,
+    private final User USER_1 = new User(1, "Olivier", "password", "email@email.com");
+    private final User USER_2 = new User(2, "Anna", "password", "anna@gmail.com");
+    private final Score SCORE_1 = new Score(1, USER_1, getCOURSE(), 65,
             CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
+    private final Score SCORE_2 = new Score(1, USER_2, getCOURSE(), 85, WOMENS_LAYOUT.getCourseRating(),
+            WOMENS_LAYOUT.getSlopeRating());
 
-    public List<Score> scores() {
+    public List<Score> getScores() {
         List<Score> scores = new ArrayList<>();
-        scores.add(SCORE);
+        scores.add(SCORE_1);
+        scores.add(SCORE_2);
         return scores;
     }
 
     @Test
-    public void getAllScores() throws Exception {
-        List<Score> scores = new ArrayList<>(Arrays.asList(SCORE));
+    public void getAllScores_returns_HTTP_OK() throws Exception {
+        List<Score> scores = getScores();
 
-        Mockito.when(service.listAllScores()).thenReturn(scores);
+        Mockito.when(scoreService.getAllScores()).thenReturn(scores);
 
-        mockMvc.perform(MockMvcRequestBuilders
+        RequestBuilder request = MockMvcRequestBuilders
                 .get("/scores")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(scores));
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void getScoresById() throws Exception {
-        Mockito.when(service.getScoreById(SCORE.getScoreId())).thenReturn(SCORE);
+    public void getScoresById_returns_HTTP_OK() throws Exception {
+        Mockito.when(scoreService.getScoreById(SCORE_1.getId())).thenReturn(SCORE_1);
 
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/scores/1")
-                        .contentType(MediaType.APPLICATION_JSON))
+        RequestBuilder builder = MockMvcRequestBuilders
+                .get("/scores/ " + SCORE_1.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(SCORE_1));
+
+        mockMvc.perform(builder)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userScore", is(65)));
+    }
+
+    @Test
+    public void getScoresByUserId_returns_HTTP_OK() throws Exception {
+        Mockito.when(scoreService.getScoresByUserId(USER_1.getId())).thenReturn(getScores());
+
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/scores/users/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(getScores()));
+
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()));
     }
 
     @Test
-    public void getScoreByUserId() throws Exception {
-        Mockito.when(service.getScoresByUserId(USER.getId(), Sort.by("userScore"))).thenReturn(scores());
+    public void getScoresByCourseId_returns_HTTP_OK() throws Exception {
+        Mockito.when(scoreService.getScoresByCourseId(COURSE.getId())).thenReturn(getScores());
 
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/scores/user/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/scores/courses/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(getScores()));
 
-    @Test
-    public void addScore() throws Exception {
-        Mockito.when(repository.save(SCORE)).thenReturn(SCORE);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/scores/add-score")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(this.mapper.writeValueAsString(SCORE)))
-                .andExpect(status().isCreated())
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()));
-    }
-
-    @Test
-    public void deleteScoreById() throws Exception {
-        Mockito.when(service.getScoreById(SCORE.getScoreId())).thenReturn(SCORE);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/scores/delete/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void getScoresByCourseId() throws Exception {
-        Mockito.when(service.getScoreByCourseId(getCOURSE().getId(), Sort.by("userScore"))).thenReturn(scores());
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/scores/course/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
     }
 }

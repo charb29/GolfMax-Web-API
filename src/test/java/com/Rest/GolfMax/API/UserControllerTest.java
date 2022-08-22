@@ -1,18 +1,33 @@
 package com.Rest.GolfMax.API;
 
 import com.Rest.GolfMax.API.Controllers.UserController;
+import com.Rest.GolfMax.API.DTOs.UserDto;
 import com.Rest.GolfMax.API.Models.User;
-import com.Rest.GolfMax.API.Services.UserService;
+import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
 import java.util.ArrayList;
@@ -22,37 +37,49 @@ import java.util.List;
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
     @Autowired
-    private MockMvc mockMvc;
+    private ModelMapper modelMapper;
     @Autowired
-    private ObjectMapper mapper;
+    private ObjectMapper objectMapper;
+    @Autowired
+    private MockMvc mockMvc;
     @MockBean
-    private UserService service;
+    private UserService userService;
 
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
     User USER_2 = new User(2, "Eric", "password", "eric@gmail.com");
     User USER_3 = new User(3, "Anna", "password", "anna@gmail.com");
 
+    UserDto USER_DTO_1 = new UserDto(USER_1.getId(), USER_1.getUsername(), USER_1.getPassword(), USER_1.getEmail());
+    UserDto USER_DTO_2 = new UserDto(USER_2.getId(), USER_2.getUsername(), USER_2.getPassword(), USER_2.getEmail());
+    UserDto USER_DTO_3 = new UserDto(USER_3.getId(), USER_3.getUsername(), USER_3.getPassword(), USER_3.getEmail());
+
     @Test
-    public void getAllUsers() throws Exception {
-        List<User> users = new ArrayList<>(Arrays.asList(USER_1, USER_2, USER_3));
+    public void getAllUsers_returns_HTTP_OK() throws Exception {
+        List<UserDto> userRequest = new ArrayList<>(Arrays.asList(USER_DTO_1, USER_DTO_2, USER_DTO_3));
+        List<User> userResponse = new ArrayList<>(Arrays.asList(modelMapper.map(userRequest, User.class)));
 
-        Mockito.when(service.listAllUsers()).thenReturn(users);
+        Mockito.when(userService.getAllUsers()).thenReturn(userResponse);
 
-        mockMvc.perform(MockMvcRequestBuilders
+        RequestBuilder request = MockMvcRequestBuilders
                 .get("/users")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(USER_1.getId()));
+
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[2].username", is("Anna")));
+                .andExpect(jsonPath("$", notNullValue()));
     }
 
     @Test
-    public void getUserById() throws Exception {
-        Mockito.when(service.getUserById(USER_1.getId())).thenReturn(USER_1);
+    public void getUserById_returns_HTTP_OK() throws Exception {
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
 
-        mockMvc.perform(MockMvcRequestBuilders
+        RequestBuilder request = MockMvcRequestBuilders
                 .get("/users/1")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(USER_1));
+
+        mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
                 .andExpect(jsonPath("$.username", is("Olivier")));
@@ -66,13 +93,14 @@ public class UserControllerTest {
         updatedUser.setPassword("Olivier@323");
         updatedUser.setEmail("olivier@gmail.com");
 
-        Mockito.when(service.getUserById(USER_1.getId())).thenReturn(USER_1);
-        Mockito.when(service.updateUser(USER_1.getId(), updatedUser)).thenReturn(updatedUser);
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(userService.updateUser(updatedUser, USER_1.getId())).thenReturn(updatedUser);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/users/1/update")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+                .put("/users/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(updatedUser));
+                .content(this.objectMapper.writeValueAsString(updatedUser));
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
@@ -80,11 +108,11 @@ public class UserControllerTest {
 
     @Test
     public void deleteUser() throws Exception {
-        Mockito.when(service.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .delete("/users/1")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .delete("/users/1")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }

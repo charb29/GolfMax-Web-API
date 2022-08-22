@@ -5,9 +5,15 @@ import com.Rest.GolfMax.API.Repositories.ScoreRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.ScoreService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
+@RequestScope
 public class ScoreServiceImpl implements ScoreService {
 
     private final ScoreRepository SCORE_REPOSITORY;
