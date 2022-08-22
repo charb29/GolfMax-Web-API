@@ -11,11 +11,10 @@ import java.util.List;
 @Repository
 public interface ScoreRepository extends JpaRepository<Score, Long> {
 
-    public List<Score> findByUserId(long userId, Sort sort);
-
-    public List<Score> findByCourseId(long courseId, Sort sort);
+    List<Score> findByUserIdOrderByUserScoreAsc(long id);
+    List<Score> findByCourseIdOrderByUserScoreAsc(long id);
 
     @Query("SELECT s.userScore FROM Score s WHERE s.user.id = :userId")
-    public List<Integer> findByUserId(@Param("userId") Long userId);
+    List<Integer> findByUserId(@Param("userId") Long userId);
 
 }
