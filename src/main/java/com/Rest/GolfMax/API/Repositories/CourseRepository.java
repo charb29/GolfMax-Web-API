@@ -8,7 +8,5 @@ import com.Rest.GolfMax.API.Models.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    public List<Course> getCourseById(Long id);
-
-    public Boolean existsByCourseName(String courseName);
+    Boolean existsByCourseName(String courseName);
 }
