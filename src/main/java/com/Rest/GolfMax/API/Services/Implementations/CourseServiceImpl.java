@@ -11,7 +11,6 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
-
 @Service
 @Transactional
 @RequestScope
