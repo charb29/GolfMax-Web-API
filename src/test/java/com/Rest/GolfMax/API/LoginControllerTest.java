@@ -1,7 +1,7 @@
 package com.Rest.GolfMax.API;
 import com.Rest.GolfMax.API.Controllers.LoginController;
 import com.Rest.GolfMax.API.Models.User;
-import com.Rest.GolfMax.API.Services.UserService;
+import com.Rest.GolfMax.API.Services.Implementations.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,24 +23,10 @@ public class LoginControllerTest {
     @Autowired
     private ObjectMapper mapper;
     @MockBean
-    private UserService service;
+    private UserServiceImpl service;
 
-    User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
+    private final User EXISTING_USER = new User(1, "Olivier", "password", "olivier@gmail.com");;
+    private final User INVALID_USER = new User();
 
-    @Test
-    public void login() throws Exception {
-        Mockito.when(service
-                .getStoredUserData(USER_1.getUsername(), USER_1.getPassword()))
-                .thenReturn(USER_1);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/users/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(USER_1));
-
-        mockMvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.username", is("Olivier")));
-    }
 }
