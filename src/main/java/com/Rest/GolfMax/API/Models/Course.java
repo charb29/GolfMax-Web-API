@@ -2,6 +2,7 @@ package com.Rest.GolfMax.API.Models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -14,8 +15,9 @@ public class Course {
     private long id;
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<HoleLayout> holeLayout;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<HoleLayout> holeLayout = new ArrayList<>();
     @Column(name = "courseName", nullable = false)
     private String courseName;
 

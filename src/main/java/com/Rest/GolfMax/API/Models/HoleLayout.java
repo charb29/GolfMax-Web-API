@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,10 @@ public class HoleLayout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-    @OneToMany(mappedBy = "holeLayout", fetch = FetchType.LAZY)
-    private List<Hole> holes;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "holeLayout", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Hole> holes = new ArrayList<>();
+    @JsonBackReference
     @ManyToOne
     private Course course;
     @Enumerated(EnumType.ORDINAL)
@@ -55,7 +58,6 @@ public class HoleLayout {
         this.id = id;
     }
 
-    @JsonManagedReference
     public List<Hole> getHoles() {
         return holes;
     }
@@ -64,7 +66,6 @@ public class HoleLayout {
         this.holes = holes;
     }
 
-    @JsonBackReference
     public Course getCourse() {
         return course;
     }
