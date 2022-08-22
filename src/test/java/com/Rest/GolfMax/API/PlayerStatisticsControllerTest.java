@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.*;
 
 @WebMvcTest(PlayerStatisticsController.class)
-public class PlayerStatisticsTest {
+public class PlayerStatisticsControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -32,30 +32,5 @@ public class PlayerStatisticsTest {
     User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
     PlayerStatistics USER_1_STATS = new PlayerStatistics(1, USER_1, 20, 5.2, 68);
 
-    @Test
-    public void getStatsByUserId() throws Exception {
-        PlayerStatistics stats = new PlayerStatistics();
 
-        Mockito.when(service.getStatsByUserId(USER_1.getId())).thenReturn(stats);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/stats/user/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", notNullValue()));
-    }
-
-    @Test
-    public void updatePlayerStats() throws Exception {
-        Mockito.when(repository.save(USER_1_STATS)).thenReturn(USER_1_STATS);
-
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/stats/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(USER_1_STATS));
-
-        mockMvc.perform(mockRequest)
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$", notNullValue()));
-    }
 }
