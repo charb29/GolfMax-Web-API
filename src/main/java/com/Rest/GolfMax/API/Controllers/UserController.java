@@ -35,8 +35,8 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable long id) {
         try {
-            User user = USER_SERVICE.getUserById(id);
-            UserDto userResponse = modelMapper.map(user, UserDto.class);
+            User userRequest = USER_SERVICE.getUserById(id);
+            UserDto userResponse = modelMapper.map(userRequest, UserDto.class);
             return new ResponseEntity<>(userResponse, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
