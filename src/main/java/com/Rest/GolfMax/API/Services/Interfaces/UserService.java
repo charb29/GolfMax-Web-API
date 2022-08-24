@@ -10,6 +10,6 @@ public interface UserService {
     User createUser(User user);
     User getUserById(long id);
     void deleteUser(long id);
-    boolean userExists(String username, String email);
-    User getUserData(String username, String password);
+    boolean userExists(User user);
+    User getUserData(User user);
 }
