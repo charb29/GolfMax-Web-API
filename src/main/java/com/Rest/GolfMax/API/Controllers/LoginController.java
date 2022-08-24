@@ -28,7 +28,7 @@ public class LoginController {
         User userRequest = modelMapper.map(userDto, User.class);
         UserDto userResponse = modelMapper.map(userRequest, UserDto.class);
 
-        if (USER_SERVICE.getUserData(userDto.getUsername(), userDto.getPassword()) != null)
+        if (USER_SERVICE.getUserData(userRequest) != null)
             return new ResponseEntity<>(userResponse, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
