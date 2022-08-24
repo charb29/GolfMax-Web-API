@@ -58,13 +58,13 @@ public class UserServiceImpl implements UserService {
         return USER_REPOSITORY.save(updatedUser);
     }
     @Override
-    public boolean userExists(String username, String email) {
-        if (USER_REPOSITORY.existsByUsername(username) && !USER_REPOSITORY.existsByEmail(email))
+    public boolean userExists(User user) {
+        if (USER_REPOSITORY.existsByUsername(user.getUsername()) && !USER_REPOSITORY.existsByEmail(user.getEmail()))
             return true;
         else return false;
     }
     @Override
-    public User getUserData(String username, String password) {
-        return USER_REPOSITORY.findUserData(username, password);
+    public User getUserData(User user) {
+        return USER_REPOSITORY.findUserData(user.getUsername(), user.getPassword());
     }
 }
