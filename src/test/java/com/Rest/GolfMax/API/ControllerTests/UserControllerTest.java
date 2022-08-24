@@ -1,11 +1,14 @@
-package com.Rest.GolfMax.API;
+package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.UserController;
 import com.Rest.GolfMax.API.DTOs.UserDto;
+import com.Rest.GolfMax.API.Models.PlayerStatistics;
+import com.Rest.GolfMax.API.Models.Score;
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -78,28 +82,26 @@ public class UserControllerTest {
     }
 
     @Test
-    public void updateUserInfo() throws Exception {
-        User updatedUser = new User();
-        updatedUser.setId(1);
-        updatedUser.setUsername("Olivier");
-        updatedUser.setPassword("Olivier@323");
-        updatedUser.setEmail("olivier@gmail.com");
+    public void updateUserInfo_returns_HTTP_OK() throws Exception {
+        USER_1.setPassword("pass");
 
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
-        Mockito.when(userService.updateUser(updatedUser, USER_1.getId())).thenReturn(updatedUser);
+        Mockito.when(userService.updateUser(ArgumentMatchers.any(), ArgumentMatchers.anyLong()))
+                .thenReturn(USER_1);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .put("/users/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(updatedUser));
+                .content(this.objectMapper.writeValueAsString(USER_1));
 
-        mockMvc.perform(mockRequest)
-                .andExpect(status().isOk());
+        mockMvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.password", is("pass")));
     }
 
     @Test
-    public void deleteUser() throws Exception {
+    public void deleteUser_returns_HTTP_OK() throws Exception {
         Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
 
         mockMvc.perform(MockMvcRequestBuilders
