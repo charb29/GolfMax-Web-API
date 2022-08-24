@@ -28,7 +28,7 @@ public class RegistrationController {
     public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto) {
         User userRequest = modelMapper.map(userDto, User.class);
 
-        if (USER_SERVICE.userExists(userDto.getUsername(), userDto.getPassword()))
+        if (USER_SERVICE.userExists(userRequest))
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         User user = USER_SERVICE.createUser(userRequest);
