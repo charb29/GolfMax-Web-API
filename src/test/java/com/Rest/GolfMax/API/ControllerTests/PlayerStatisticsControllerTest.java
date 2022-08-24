@@ -1,4 +1,4 @@
-package com.Rest.GolfMax.API;
+package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.PlayerStatisticsController;
 import com.Rest.GolfMax.API.Models.PlayerStatistics;
