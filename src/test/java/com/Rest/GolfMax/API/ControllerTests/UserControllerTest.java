@@ -2,8 +2,6 @@ package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.UserController;
 import com.Rest.GolfMax.API.DTOs.UserDto;
-import com.Rest.GolfMax.API.Models.PlayerStatistics;
-import com.Rest.GolfMax.API.Models.Score;
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +20,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -52,7 +51,7 @@ public class UserControllerTest {
     @Test
     public void getAllUsers_returns_HTTP_OK() throws Exception {
         List<UserDto> userRequest = new ArrayList<>(Arrays.asList(USER_DTO_1, USER_DTO_2, USER_DTO_3));
-        List<User> userResponse = new ArrayList<>(Arrays.asList(modelMapper.map(userRequest, User.class)));
+        List<User> userResponse = new ArrayList<>(Collections.singletonList(modelMapper.map(userRequest, User.class)));
 
         Mockito.when(userService.getAllUsers()).thenReturn(userResponse);
 
