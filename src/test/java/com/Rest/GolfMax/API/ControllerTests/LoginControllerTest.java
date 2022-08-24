@@ -1,4 +1,4 @@
-package com.Rest.GolfMax.API;
+package com.Rest.GolfMax.API.ControllerTests;
 import com.Rest.GolfMax.API.Controllers.LoginController;
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Services.Implementations.UserServiceImpl;

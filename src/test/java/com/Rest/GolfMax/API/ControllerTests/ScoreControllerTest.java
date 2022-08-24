@@ -1,15 +1,36 @@
-package com.Rest.GolfMax.API;
+package com.Rest.GolfMax.API.ControllerTests;
 
-
+import com.Rest.GolfMax.API.Controllers.ScoreController;
 import com.Rest.GolfMax.API.Models.*;
+import com.Rest.GolfMax.API.Services.Interfaces.ScoreService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class HandicapCalculatorTest {
+@WebMvcTest(ScoreController.class)
+public class ScoreControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @MockBean
+    private ScoreService scoreService;
 
     private final Course COURSE = new Course();
     private final Hole CHAMPIONSHIP_HOLE1 = new Hole(1, 357, 4);
@@ -162,89 +183,76 @@ public class HandicapCalculatorTest {
         return COURSE;
     }
 
-    private final User USER = new User(1, "Olivier", "password", "email@email.com");
-    private final Score SCORE_1 = new Score(1, USER, getCOURSE(), 65,
+    private final User USER_1 = new User(1, "Olivier", "password", "email@email.com");
+    private final User USER_2 = new User(2, "Anna", "password", "anna@gmail.com");
+    private final Score SCORE_1 = new Score(1, USER_1, getCOURSE(), 65,
             CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_2 = new Score(2, USER, getCOURSE(), 61,
-            CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_3 = new Score(3, USER, getCOURSE(), 69,
-            CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_4 = new Score(4, USER, getCOURSE(), 89,
-            CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_5 = new Score(5, USER, getCOURSE(), 47,
-            CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
+    private final Score SCORE_2 = new Score(1, USER_2, getCOURSE(), 85, WOMENS_LAYOUT.getCourseRating(),
+            WOMENS_LAYOUT.getSlopeRating());
 
-    public List<Score> scores() {
+    public List<Score> getScores() {
         List<Score> scores = new ArrayList<>();
         scores.add(SCORE_1);
         scores.add(SCORE_2);
-        scores.add(SCORE_3);
-        scores.add(SCORE_4);
-        scores.add(SCORE_5);
         return scores;
     }
 
     @Test
-    public void handicapIndexReturnsOnly_1_DecimalPlace() {
-        HandicapCalculator sut = new HandicapCalculator();
-        double expectedResult = 0.0;
+    public void getAllScores_returns_HTTP_OK() throws Exception {
+        List<Score> scores = getScores();
 
-        double actualResult = sut.getHandicapIndex();
+        Mockito.when(scoreService.getAllScores()).thenReturn(scores);
 
-        assertEquals(expectedResult, actualResult);
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/scores")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(scores));
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void handicapIndexReturnsCorrectResult() {
-        HandicapCalculator sut = new HandicapCalculator();
-        double expectResult = -18.4;
-        sut.setHandicapIndex(scores());
-        double actualResult = sut.getHandicapIndex();
+    public void getScoresById_returns_HTTP_OK() throws Exception {
+        Mockito.when(scoreService.getScoreById(SCORE_1.getId())).thenReturn(SCORE_1);
 
-        assertEquals(expectResult, actualResult);
+        RequestBuilder builder = MockMvcRequestBuilders
+                .get("/scores/ " + SCORE_1.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(SCORE_1));
+
+        mockMvc.perform(builder)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userScore", is(65)));
     }
 
     @Test
-    public void userWithLessThan_5_ScoresReturns_0_ForHandicapIndex() {
-        Score score = new Score(5, USER, getCOURSE(), 47,
-                CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-        List<Score> scores = new ArrayList<>();
-        scores.add(score);
-        HandicapCalculator sut = new HandicapCalculator();
-        double expectedResult = 0;
+    public void getScoresByUserId_returns_HTTP_OK() throws Exception {
+        Mockito.when(scoreService.getScoresByUserId(USER_1.getId())).thenReturn(getScores());
 
-        sut.setHandicapIndex(scores);
-        double actualResult = sut.getHandicapIndex();
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/scores/users/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(getScores()));
 
-        assertEquals(expectedResult, actualResult, 0.0001);
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()));
     }
 
     @Test
-    public void averageScoreDifferentialWithLessThan_5_ResultsReturns_0() {
-        HandicapCalculator sut = new HandicapCalculator();
-        List<Double> averageScoreDifferentials = new ArrayList<>();
-        averageScoreDifferentials.add(4.5);
-        averageScoreDifferentials.add(2.3);
-        averageScoreDifferentials.add(5.7);
-        int expectedResult = 0;
+    public void getScoresByCourseId_returns_HTTP_OK() throws Exception {
+        Mockito.when(scoreService.getScoresByCourseId(COURSE.getId())).thenReturn(getScores());
 
-        int actualResult = sut.determineAverageScoreDifferential(averageScoreDifferentials);
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/scores/courses/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(objectMapper.writeValueAsString(getScores()));
 
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void averageScoreDifferentialWithLessThan_5_ResultsReturns_0_HandicapIndex() {
-        HandicapCalculator sut = new HandicapCalculator();
-        List<Double> averageScoreDifferentials = new ArrayList<>();
-        averageScoreDifferentials.add(2.3);
-        averageScoreDifferentials.add(4.2);
-        averageScoreDifferentials.add(3.4);
-        int averageScoreDifferentialAmount = 0;
-        int expectedResult = 0;
-
-        double actualResult = sut.calculateHandicapIndex(averageScoreDifferentials, averageScoreDifferentialAmount);
-
-        assertEquals(expectedResult, actualResult);
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()));
     }
 }

@@ -1,4 +1,4 @@
-package com.Rest.GolfMax.API;
+package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.CourseController;
 import com.Rest.GolfMax.API.Models.*;
