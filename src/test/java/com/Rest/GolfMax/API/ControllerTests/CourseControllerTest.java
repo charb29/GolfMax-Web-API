@@ -1,17 +1,32 @@
 package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.CourseController;
-import com.Rest.GolfMax.API.Models.*;
-import com.Rest.GolfMax.API.Repositories.CourseRepository;
-import com.Rest.GolfMax.API.Services.Implementations.CourseServiceImpl;
+import com.Rest.GolfMax.API.Models.Course;
+import com.Rest.GolfMax.API.Models.Hole;
+import com.Rest.GolfMax.API.Models.HoleLayout;
+import com.Rest.GolfMax.API.Models.LayoutType;
+import com.Rest.GolfMax.API.Services.Interfaces.CourseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CourseController.class)
 public class CourseControllerTest {
@@ -20,9 +35,7 @@ public class CourseControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
     @MockBean
-    private CourseServiceImpl service;
-    @MockBean
-    private CourseRepository repository;
+    private CourseService courseService;
 
     private final Course COURSE = new Course();
     private final Hole CHAMPIONSHIP_HOLE1 = new Hole(1, 357, 4);
@@ -160,5 +173,71 @@ public class CourseControllerTest {
     private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3, getWomensHoles(), COURSE,
             LayoutType.WOMENS, 1955, 1726, 64, 62.1, 104);
 
+    public List<HoleLayout> getHoleLayouts() {
+        return new ArrayList<>(Arrays
+                .asList(CHAMPIONSHIP_LAYOUT, MENS_LAYOUT, WOMENS_LAYOUT));
+    }
+
+    @Test
+    public void getAllCourses_returns_HTTP_OK() throws Exception {
+        List<Course> courses = new ArrayList<>(Collections.singletonList(COURSE));
+
+        Mockito.when(courseService.getAllCourses()).thenReturn(courses);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get("/courses")
+                .content(this.objectMapper.writeValueAsString(courses))
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()));
+    }
+
+    @Test
+    public void addNewCourse_returns_HTTP_CREATED() throws Exception {
+        COURSE.setCourseName("Vista Valencia");
+        COURSE.setHoleLayout(getHoleLayouts());
+
+        Mockito.when(courseService.createCourse(Mockito.any(Course.class))).thenReturn(COURSE);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post("/courses")
+                .content(this.objectMapper.writeValueAsString(COURSE))
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.courseName", is("Vista Valencia")));
+    }
+
+    @Test
+    public void getCourseById_returns_HTTP_OK() throws Exception {
+        COURSE.setId(1);
+
+        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(COURSE);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get("/courses/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(this.objectMapper.writeValueAsString(COURSE));
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()));
+    }
+
+    @Test
+    public void deleteCourse_returns_HTTP_OK() throws Exception {
+        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(COURSE);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/courses/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 }
