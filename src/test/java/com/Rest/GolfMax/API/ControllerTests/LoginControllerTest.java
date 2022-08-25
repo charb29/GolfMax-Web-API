@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.is;
@@ -39,7 +40,7 @@ public class LoginControllerTest {
 
         Mockito.when(userService.getUserData(Mockito.any(User.class))).thenReturn(user);
 
-        RequestBuilder request = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post("/users/auth/signin")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

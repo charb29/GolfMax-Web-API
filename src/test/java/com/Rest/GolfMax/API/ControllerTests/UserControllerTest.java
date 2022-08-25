@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -55,7 +54,7 @@ public class UserControllerTest {
 
         Mockito.when(userService.getAllUsers()).thenReturn(userResponse);
 
-        RequestBuilder request = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(USER_1.getId()));
@@ -69,7 +68,7 @@ public class UserControllerTest {
     public void getUserById_returns_HTTP_OK() throws Exception {
         Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
 
-        RequestBuilder request = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .contentType(objectMapper.writeValueAsString(USER_1));

@@ -47,7 +47,7 @@ public class PlayerStatisticsControllerTest {
 
         Mockito.when(statisticsService.getStatisticsByUserId(USER_1.getId())).thenReturn(stats);
 
-        RequestBuilder request = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/player-statistics/users/1")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(this.objectMapper.writeValueAsString(stats))
