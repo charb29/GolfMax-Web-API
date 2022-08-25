@@ -40,13 +40,13 @@ public class UserControllerTest {
     @MockBean
     private UserService userService;
 
-    User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
-    User USER_2 = new User(2, "Eric", "password", "eric@gmail.com");
-    User USER_3 = new User(3, "Anna", "password", "anna@gmail.com");
+    private final User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
+    private final User USER_2 = new User(2, "Eric", "password", "eric@gmail.com");
+    private final User USER_3 = new User(3, "Anna", "password", "anna@gmail.com");
 
-    UserDto USER_DTO_1 = new UserDto(USER_1.getId(), USER_1.getUsername(), USER_1.getPassword(), USER_1.getEmail());
-    UserDto USER_DTO_2 = new UserDto(USER_2.getId(), USER_2.getUsername(), USER_2.getPassword(), USER_2.getEmail());
-    UserDto USER_DTO_3 = new UserDto(USER_3.getId(), USER_3.getUsername(), USER_3.getPassword(), USER_3.getEmail());
+    private final UserDto USER_DTO_1 = new UserDto(USER_1.getId(), USER_1.getUsername(), USER_1.getPassword(), USER_1.getEmail());
+    private final UserDto USER_DTO_2 = new UserDto(USER_2.getId(), USER_2.getUsername(), USER_2.getPassword(), USER_2.getEmail());
+    private final UserDto USER_DTO_3 = new UserDto(USER_3.getId(), USER_3.getUsername(), USER_3.getPassword(), USER_3.getEmail());
 
     @Test
     public void getAllUsers_returns_HTTP_OK() throws Exception {
