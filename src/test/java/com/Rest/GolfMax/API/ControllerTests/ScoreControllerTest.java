@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -203,7 +204,7 @@ public class ScoreControllerTest {
 
         Mockito.when(scoreService.getAllScores()).thenReturn(scores);
 
-        RequestBuilder request = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/scores")
                 .contentType(MediaType.APPLICATION_JSON)
                 .contentType(objectMapper.writeValueAsString(scores));
@@ -218,7 +219,7 @@ public class ScoreControllerTest {
     public void getScoresById_returns_HTTP_OK() throws Exception {
         Mockito.when(scoreService.getScoreById(SCORE_1.getId())).thenReturn(SCORE_1);
 
-        RequestBuilder builder = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .get("/scores/ " + SCORE_1.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .contentType(objectMapper.writeValueAsString(SCORE_1));
@@ -232,7 +233,7 @@ public class ScoreControllerTest {
     public void getScoresByUserId_returns_HTTP_OK() throws Exception {
         Mockito.when(scoreService.getScoresByUserId(USER_1.getId())).thenReturn(getScores());
 
-        RequestBuilder request = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/scores/users/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .contentType(objectMapper.writeValueAsString(getScores()));
@@ -246,7 +247,7 @@ public class ScoreControllerTest {
     public void getScoresByCourseId_returns_HTTP_OK() throws Exception {
         Mockito.when(scoreService.getScoresByCourseId(COURSE.getId())).thenReturn(getScores());
 
-        RequestBuilder request = MockMvcRequestBuilders
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/scores/courses/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .contentType(objectMapper.writeValueAsString(getScores()));
