@@ -42,6 +42,6 @@ public class PlayerStatisticsController {
         PlayerStatistics statsRequest = modelMapper.map(statsDto, PlayerStatistics.class);
         PlayerStatistics stats = STATS_SERVICE.saveUserStatistics(statsRequest, id);
         PlayerStatisticsDto statsResponse = modelMapper.map(stats, PlayerStatisticsDto.class);
-        return new ResponseEntity<>(statsResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(statsResponse, HttpStatus.OK);
     }
 }
