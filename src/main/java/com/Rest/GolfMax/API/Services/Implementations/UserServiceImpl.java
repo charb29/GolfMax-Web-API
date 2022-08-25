@@ -26,13 +26,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return USER_REPOSITORY.findAll
-                (Sort.by(Sort.Direction.ASC, "username"));
+        return USER_REPOSITORY.findAll(Sort.by(Sort.Direction.ASC, "username"));
     }
 
     @Override
     public User createUser(User user) {
-        return USER_REPOSITORY.save(user);
+        USER_REPOSITORY.save(user);
+        return user;
     }
 
     @Override
@@ -59,9 +59,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public boolean userExists(User user) {
-        if (USER_REPOSITORY.existsByUsername(user.getUsername()) && !USER_REPOSITORY.existsByEmail(user.getEmail()))
-            return true;
-        else return false;
+        return USER_REPOSITORY.existsByUsername(user.getUsername()) && !USER_REPOSITORY.existsByEmail(user.getEmail());
     }
     @Override
     public User getUserData(User user) {
