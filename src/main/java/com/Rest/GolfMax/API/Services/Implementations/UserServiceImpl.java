@@ -11,6 +11,7 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -36,16 +37,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(long id) {
-        return USER_REPOSITORY.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("id"));
+    public Optional<User> getUserById(long id) {
+        return USER_REPOSITORY.findById(id);
     }
 
     @Override
     public void deleteUser(long id) {
-        User user = USER_REPOSITORY.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("id"));
-        USER_REPOSITORY.delete(user);
+        USER_REPOSITORY.deleteById(id);
     }
 
     @Override
