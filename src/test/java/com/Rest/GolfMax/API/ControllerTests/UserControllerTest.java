@@ -17,10 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -66,7 +63,7 @@ public class UserControllerTest {
 
     @Test
     public void getUserById_returns_HTTP_OK() throws Exception {
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(Optional.of(USER_1));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/1")
@@ -100,7 +97,7 @@ public class UserControllerTest {
 
     @Test
     public void deleteUser_returns_HTTP_OK() throws Exception {
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(Optional.of(USER_1));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/users/1")
