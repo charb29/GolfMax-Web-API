@@ -12,9 +12,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -48,5 +50,28 @@ public class UserServiceTest {
         User createdUser = userService.createUser(userRequest);
 
         assertThat(createdUser.getUsername()).isSameAs(userRequest.getUsername());
+    }
+
+    @Test
+    public void getUserById_should_return_user() {
+        User userRequest = new User(1, "Olivier", "password", "email@gmail.com");
+
+        when(userRepository.findById(userRequest.getId())).thenReturn(Optional.of(userRequest));
+
+        User savedUser = userService.getUserById(userRequest.getId()).get();
+
+        assertThat(savedUser.getId()).isSameAs(userRequest.getId());
+
+    }
+
+    @Test
+    public void deleteUser_whenUserDeleted_thenNothing() {
+        long userId = 1;
+
+        willDoNothing().given(userRepository).deleteById(userId);
+
+        userService.deleteUser(userId);
+
+        verify(userRepository, times(1)).deleteById(userId);
     }
 }
