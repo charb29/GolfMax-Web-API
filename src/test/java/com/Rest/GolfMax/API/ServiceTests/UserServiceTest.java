@@ -33,9 +33,11 @@ public class UserServiceTest {
 
         List<User> userRequest = new ArrayList<>(Arrays.asList(user1, user2, user3));
 
-        when(userRepository.findAll()).thenReturn(userRequest);
+        when(userService.getAllUsers()).thenReturn(userRequest);
 
-        assertThat(userRequest.size()).isEqualTo(3);
+        List<User> userResponse = userService.getAllUsers();
+
+        assertThat(userRequest.size()).isSameAs(userResponse.size());
     }
 
     @Test
