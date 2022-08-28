@@ -2,6 +2,8 @@ package com.Rest.GolfMax.API.Services.Implementations;
 
 import com.Rest.GolfMax.API.Models.Course;
 import com.Rest.GolfMax.API.Repositories.CourseRepository;
+import com.Rest.GolfMax.API.Repositories.HoleLayoutRepository;
+import com.Rest.GolfMax.API.Repositories.HoleRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.CourseService;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,15 @@ import java.util.Optional;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository COURSE_REPOSITORY;
+    private final HoleRepository HOLE_REPOSITORY;
+    private final HoleLayoutRepository HOLE_LAYOUT_REPOSITORY;
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, HoleRepository holeRepository,
+                             HoleLayoutRepository holeLayoutRepository) {
         super();
         this.COURSE_REPOSITORY = courseRepository;
+        this.HOLE_REPOSITORY = holeRepository;
+        this.HOLE_LAYOUT_REPOSITORY = holeLayoutRepository;
     }
 
     @Override
@@ -31,6 +38,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course createCourse(Course course) {
         COURSE_REPOSITORY.save(course);
+        HOLE_LAYOUT_REPOSITORY.saveAll(course.getHoleLayout());
+
+        for (int i = 0; i < course.getHoleLayout().size(); i++) {
+            HOLE_REPOSITORY.save(course.getHoleLayout().get(i).getHoles().get(i));
+        }
+
         return course;
     }
 
