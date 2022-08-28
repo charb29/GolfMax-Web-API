@@ -2,6 +2,7 @@ package com.Rest.GolfMax.API.DTOs;
 
 
 public class HoleDto {
+
     private long id;
     private HoleLayoutDto holeLayoutDto;
     private int holeNumber;
