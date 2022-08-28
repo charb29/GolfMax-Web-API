@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,7 +50,7 @@ public class CourseController {
     @GetMapping("/{id}")
     public ResponseEntity<CourseDto> getCourseById(@PathVariable long id) {
         try {
-            Course course = COURSE_SERVICE.getCourseById(id);
+            Optional<Course> course = COURSE_SERVICE.getCourseById(id);
             CourseDto courseResponse = modelMapper.map(course, CourseDto.class);
             return new ResponseEntity<>(courseResponse, HttpStatus.OK);
         } catch (NoSuchElementException e) {
