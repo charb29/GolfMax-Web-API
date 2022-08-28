@@ -10,14 +10,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private long id;
+
     @OneToMany(mappedBy = "user")
     private List<Score> scores;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private PlayerStatistics playerStatistics;
+
     @Column(name = "username", nullable = false, unique = true)
     private String username;
+
     @Column(name = "password", nullable = false)
     private String password;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 

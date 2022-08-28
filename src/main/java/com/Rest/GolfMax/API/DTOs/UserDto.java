@@ -1,6 +1,7 @@
 package com.Rest.GolfMax.API.DTOs;
 
 public class UserDto {
+
     private long id;
     private String username;
     private String password;
