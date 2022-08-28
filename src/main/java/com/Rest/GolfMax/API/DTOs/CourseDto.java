@@ -3,6 +3,7 @@ package com.Rest.GolfMax.API.DTOs;
 import java.util.List;
 
 public class CourseDto {
+
     private long id;
     private List<HoleLayoutDto> holeLayoutDto;
     private String courseName;
