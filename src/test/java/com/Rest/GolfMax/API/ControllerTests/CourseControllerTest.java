@@ -17,10 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -218,7 +215,7 @@ public class CourseControllerTest {
     public void getCourseById_returns_HTTP_OK() throws Exception {
         COURSE.setId(1);
 
-        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(COURSE);
+        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(Optional.of(COURSE));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/courses/1")
@@ -232,7 +229,7 @@ public class CourseControllerTest {
 
     @Test
     public void deleteCourse_returns_HTTP_OK() throws Exception {
-        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(COURSE);
+        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(Optional.of(COURSE));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/courses/1")
