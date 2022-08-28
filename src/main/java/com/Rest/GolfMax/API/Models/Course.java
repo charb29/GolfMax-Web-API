@@ -1,6 +1,5 @@
 package com.Rest.GolfMax.API.Models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +8,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "courses")
 public class Course {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
+
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
-    @JsonManagedReference
+
+
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<HoleLayout> holeLayout = new ArrayList<>();
+
     @Column(name = "courseName", nullable = false)
     private String courseName;
 
@@ -38,7 +41,6 @@ public class Course {
         this.id = id;
     }
 
-    @JsonManagedReference
     public List<HoleLayout> getHoleLayout() {
         return holeLayout;
     }
