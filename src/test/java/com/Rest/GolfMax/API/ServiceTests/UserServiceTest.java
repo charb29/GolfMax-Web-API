@@ -38,6 +38,7 @@ public class UserServiceTest {
         List<User> userResponse = userService.getAllUsers();
 
         assertThat(userRequest.size()).isSameAs(userResponse.size());
+        assertThat(userResponse.size()).isEqualTo(3);
     }
 
     @Test
