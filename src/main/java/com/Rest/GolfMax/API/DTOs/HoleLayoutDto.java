@@ -5,6 +5,7 @@ import com.Rest.GolfMax.API.Models.LayoutType;
 import java.util.List;
 
 public class HoleLayoutDto {
+
     private long id;
     private List<HoleDto> holeDto;
     private CourseDto courseDto;
