@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -38,7 +39,7 @@ public class ScoreController {
     @GetMapping("/{id}")
     public ResponseEntity<ScoreDto> getScoresById(@PathVariable long id) {
         try {
-            Score score = SCORE_SERVICE.getScoreById(id);
+            Optional<Score> score = SCORE_SERVICE.getScoreById(id);
             ScoreDto scoreResponse = modelMapper.map(score, ScoreDto.class);
             return new ResponseEntity<>(scoreResponse, HttpStatus.OK);
         } catch (NoSuchElementException e) {
