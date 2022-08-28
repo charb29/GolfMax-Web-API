@@ -2,23 +2,22 @@ package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.ScoreController;
 import com.Rest.GolfMax.API.Models.*;
-import com.Rest.GolfMax.API.Services.Interfaces.ScoreService;
+import com.Rest.GolfMax.API.Services.Implementations.ScoreServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -31,7 +30,7 @@ public class ScoreControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
     @MockBean
-    private ScoreService scoreService;
+    private ScoreServiceImpl scoreService;
 
     private final Course COURSE = new Course();
     private final Hole CHAMPIONSHIP_HOLE1 = new Hole(1, 357, 4);
@@ -217,7 +216,7 @@ public class ScoreControllerTest {
 
     @Test
     public void getScoresById_returns_HTTP_OK() throws Exception {
-        Mockito.when(scoreService.getScoreById(SCORE_1.getId())).thenReturn(SCORE_1);
+        Mockito.when(scoreService.getScoreById(SCORE_1.getId())).thenReturn(Optional.of(SCORE_1));
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .get("/scores/ " + SCORE_1.getId())
