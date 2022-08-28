@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,20 +31,18 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course createCourse(Course course) {
-        return COURSE_REPOSITORY.save(course);
+        COURSE_REPOSITORY.save(course);
+        return course;
     }
 
     @Override
-    public Course getCourseById(long id) {
-        return COURSE_REPOSITORY.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("id"));
+    public Optional<Course> getCourseById(long id) {
+        return COURSE_REPOSITORY.findById(id);
     }
 
     @Override
     public void deleteCourse(long id) {
-        Course course = COURSE_REPOSITORY.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("id"));
-        COURSE_REPOSITORY.delete(course);
+        COURSE_REPOSITORY.deleteById(id);
     }
 
     @Override
