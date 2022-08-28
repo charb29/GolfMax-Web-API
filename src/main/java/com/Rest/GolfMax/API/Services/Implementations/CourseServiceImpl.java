@@ -3,7 +3,6 @@ package com.Rest.GolfMax.API.Services.Implementations;
 import com.Rest.GolfMax.API.Models.Course;
 import com.Rest.GolfMax.API.Repositories.CourseRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.CourseService;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
