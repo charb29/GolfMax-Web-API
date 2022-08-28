@@ -3,13 +3,13 @@ package com.Rest.GolfMax.API.Services.Implementations;
 import com.Rest.GolfMax.API.Models.Score;
 import com.Rest.GolfMax.API.Repositories.ScoreRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.ScoreService;
-import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,9 +35,8 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Score getScoreById(long id) {
-        return SCORE_REPOSITORY.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("id"));
+    public Optional<Score> getScoreById(long id) {
+        return SCORE_REPOSITORY.findById(id);
     }
 
     @Override
