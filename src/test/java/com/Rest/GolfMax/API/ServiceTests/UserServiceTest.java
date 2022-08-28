@@ -60,9 +60,9 @@ public class UserServiceTest {
 
         when(userRepository.findById(userRequest.getId())).thenReturn(Optional.of(userRequest));
 
-        User savedUser = userService.getUserById(userRequest.getId()).get();
+        User userResponse = userService.getUserById(userRequest.getId()).get();
 
-        assertThat(savedUser.getId()).isSameAs(userRequest.getId());
+        assertThat(userResponse.getId()).isSameAs(userRequest.getId());
 
     }
 
