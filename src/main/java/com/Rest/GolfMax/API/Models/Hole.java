@@ -1,23 +1,26 @@
 package com.Rest.GolfMax.API.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "hole")
 public class Hole {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
-    @JsonBackReference
+
     @ManyToOne
     private HoleLayout holeLayout;
+
     @Column(name = "holeNumber", nullable = false)
     private int holeNumber;
+
     @Column(name = "yards", nullable = false)
     private int yards;
+
     @Column(name = "par", nullable = false)
     private int par;
 
