@@ -1,6 +1,7 @@
 package com.Rest.GolfMax.API.DTOs;
 
 public class PlayerStatisticsDto {
+
     private long id;
     private UserDto userDto;
     private int roundsPlayed;
