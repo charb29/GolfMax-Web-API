@@ -38,10 +38,6 @@ public class CourseController {
     @PostMapping("")
     public ResponseEntity<CourseDto> addNewCourse(@RequestBody @NotNull CourseDto courseDto) {
         Course courseRequest = modelMapper.map(courseDto, Course.class);
-
-        if (COURSE_SERVICE.isValid(courseDto.getCourseName()))
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
         Course course = COURSE_SERVICE.createCourse(courseRequest);
         CourseDto courseResponse = modelMapper.map(course, CourseDto.class);
         return new ResponseEntity<>(courseResponse, HttpStatus.CREATED);
