@@ -13,7 +13,6 @@ public class HoleLayout {
     @Column(name = "id", nullable = false)
     private long id;
 
-
     @OneToMany(mappedBy = "holeLayout", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Hole> holes = new ArrayList<>();
 
