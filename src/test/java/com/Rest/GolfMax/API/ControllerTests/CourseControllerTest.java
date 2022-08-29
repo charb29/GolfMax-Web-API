@@ -6,6 +6,7 @@ import com.Rest.GolfMax.API.Models.Hole;
 import com.Rest.GolfMax.API.Models.HoleLayout;
 import com.Rest.GolfMax.API.Models.LayoutType;
 import com.Rest.GolfMax.API.Services.Interfaces.CourseService;
+import com.Rest.GolfMax.API.Services.Interfaces.HoleLayoutService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -33,6 +34,8 @@ public class CourseControllerTest {
     private ObjectMapper objectMapper;
     @MockBean
     private CourseService courseService;
+    @MockBean
+    private HoleLayoutService holeLayoutService;
 
     private final Course COURSE = new Course();
     private final Hole CHAMPIONSHIP_HOLE1 = new Hole(1, 357, 4);
