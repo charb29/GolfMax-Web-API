@@ -195,7 +195,6 @@ public class CourseControllerTest {
     @Test
     public void addNewCourse_returns_HTTP_CREATED() throws Exception {
         COURSE.setCourseName("Vista Valencia");
-        COURSE.setHoleLayout(getHoleLayouts());
 
         Mockito.when(courseService.createCourse(Mockito.any(Course.class))).thenReturn(COURSE);
 
