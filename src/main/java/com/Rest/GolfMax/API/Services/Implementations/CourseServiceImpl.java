@@ -37,13 +37,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course createCourse(Course course) {
-        COURSE_REPOSITORY.save(course);
-        HOLE_LAYOUT_REPOSITORY.saveAll(course.getHoleLayout());
+        course.getHoleLayout().forEach(layout -> layout.setCourse(course));
 
         for (int i = 0; i < course.getHoleLayout().size(); i++) {
-            HOLE_REPOSITORY.save(course.getHoleLayout().get(i).getHoles().get(i));
+            HOLE_REPOSITORY.save(course.getHoleLayout().get(i).getHoles().get(i));;
         }
 
+        COURSE_REPOSITORY.save(course);
+        HOLE_LAYOUT_REPOSITORY.saveAll(course.getHoleLayout());
         return course;
     }
 
