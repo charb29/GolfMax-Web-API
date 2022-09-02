@@ -21,10 +21,10 @@ public class ScoreToScoresDtoTests {
 
     @Test
     public void whenConvertScoreEntityToScoreDto_thenCorrect() {
-        User user = new User(1, "Olivier", "password", "email");
+        User user = new User(1L, "Olivier", "password", "email");
         Course course = new Course();
-        course.setId(1);
-        Score score = new Score(1, user, course, 65, 67, 68);
+        course.setId(1L);
+        Score score = new Score(1L, user, course, 65, 67, 68);
 
         UserDto userDto = modelMapper.map(user, UserDto.class);
         CourseDto courseDto = modelMapper.map(course, CourseDto.class);
@@ -43,12 +43,12 @@ public class ScoreToScoresDtoTests {
 
     @Test
     public void whenConvertScoreEntityListToScoreDtoList_thenCorrect() {
-        User user = new User(1, "Olivier", "password", "email");
+        User user = new User(1L, "Olivier", "password", "email");
         Course course = new Course();
         course.setId(1L);
         course.setCourseName("Vista Valencia");
 
-        Score score1 = new Score(1, user, course, 65, 67, 68);
+        Score score1 = new Score(1L, user, course, 65, 67, 68);
 
         List<Score> scoreList = new ArrayList<>(Collections.singletonList(score1));
 

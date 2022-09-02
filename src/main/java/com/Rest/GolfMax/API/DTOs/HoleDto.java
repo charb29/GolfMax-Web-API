@@ -3,7 +3,7 @@ package com.Rest.GolfMax.API.DTOs;
 
 public class HoleDto {
 
-    private long id;
+    private Long id;
     private HoleLayoutDto holeLayoutDto;
     private int holeNumber;
     private int yards;
@@ -17,11 +17,11 @@ public class HoleDto {
         this.par = par;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

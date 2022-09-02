@@ -35,22 +35,22 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Optional<Score> getScoreById(long id) {
+    public Optional<Score> getScoreById(Long id) {
         return SCORE_REPOSITORY.findById(id);
     }
 
     @Override
-    public void deleteScore(long id) {
+    public void deleteScore(Long id) {
         SCORE_REPOSITORY.deleteById(id);
     }
 
     @Override
-    public List<Score> getScoresByUserId(long id) {
+    public List<Score> getScoresByUserId(Long id) {
         return SCORE_REPOSITORY.findByUserIdOrderByUserScoreAsc(id);
     }
 
     @Override
-    public List<Score> getScoresByCourseId(long id) {
+    public List<Score> getScoresByCourseId(Long id) {
         return SCORE_REPOSITORY.findByCourseIdOrderByUserScoreAsc(id);
     }
 }

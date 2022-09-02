@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface ScoreService {
     List<Score> getAllScores();
     Score createScore(Score score);
-    Optional<Score>getScoreById(long id);
-    void deleteScore(long id);
-    List<Score> getScoresByUserId(long id);
-    List<Score> getScoresByCourseId(long id);
+    Optional<Score>getScoreById(Long id);
+    void deleteScore(Long id);
+    List<Score> getScoresByUserId(Long id);
+    List<Score> getScoresByCourseId(Long id);
 }

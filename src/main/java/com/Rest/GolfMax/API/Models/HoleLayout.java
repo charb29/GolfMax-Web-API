@@ -11,7 +11,7 @@ public class HoleLayout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
 
     @OneToMany(mappedBy = "holeLayout", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Hole> holes = new ArrayList<>();
@@ -41,7 +41,7 @@ public class HoleLayout {
     public HoleLayout() {
     }
 
-    public HoleLayout(long id, List<Hole> holes, Course course, LayoutType layoutType, long front9Yards,
+    public HoleLayout(Long id, List<Hole> holes, Course course, LayoutType layoutType, long front9Yards,
                       long back9Yards, int overallPar, double courseRating, double slopeRating) {
         this.id = id;
         this.holes = holes;
@@ -54,11 +54,11 @@ public class HoleLayout {
         this.slopeRating = slopeRating;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

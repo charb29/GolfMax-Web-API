@@ -75,7 +75,7 @@ public class ScoreControllerTest {
         return holes;
     }
 
-    private final HoleLayout CHAMPIONSHIP_LAYOUT = new HoleLayout(1, getChampionshipHoles(), COURSE,
+    private final HoleLayout CHAMPIONSHIP_LAYOUT = new HoleLayout(1L, getChampionshipHoles(), COURSE,
             LayoutType.CHAMPIONSHIP, 2226, 1966, 61, 65.4, 113);
 
     private final Hole MENS_HOLE1 = new Hole(1, 336, 4);
@@ -120,7 +120,7 @@ public class ScoreControllerTest {
         return holes;
     }
 
-    private final HoleLayout MENS_LAYOUT = new HoleLayout(2, getMensHoles(), COURSE,
+    private final HoleLayout MENS_LAYOUT = new HoleLayout(2L, getMensHoles(), COURSE,
             LayoutType.MENS, 2102, 1866, 61, 63.6, 107);
 
     private final Hole WOMENS_HOLE1 = new Hole(1, 312, 4);
@@ -165,7 +165,7 @@ public class ScoreControllerTest {
         return holes;
     }
 
-    private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3, getWomensHoles(), COURSE,
+    private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3L, getWomensHoles(), COURSE,
             LayoutType.WOMENS, 1955, 1726, 64, 62.1, 104);
 
     public List<HoleLayout> getHoleLayouts() {
@@ -177,17 +177,17 @@ public class ScoreControllerTest {
     }
 
     public Course getCOURSE() {
-        COURSE.setId(1);
+        COURSE.setId(1L);
         COURSE.setCourseName("Vista Valencia Golf Course");
         COURSE.setHoleLayout(getHoleLayouts());
         return COURSE;
     }
 
-    private final User USER_1 = new User(1, "Olivier", "password", "email@email.com");
-    private final User USER_2 = new User(2, "Anna", "password", "anna@gmail.com");
-    private final Score SCORE_1 = new Score(1, USER_1, getCOURSE(), 65,
+    private final User USER_1 = new User(1L, "Olivier", "password", "email@email.com");
+    private final User USER_2 = new User(2L, "Anna", "password", "anna@gmail.com");
+    private final Score SCORE_1 = new Score(1L, USER_1, getCOURSE(), 65,
             CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_2 = new Score(1, USER_2, getCOURSE(), 85, WOMENS_LAYOUT.getCourseRating(),
+    private final Score SCORE_2 = new Score(1L, USER_2, getCOURSE(), 85, WOMENS_LAYOUT.getCourseRating(),
             WOMENS_LAYOUT.getSlopeRating());
 
     public List<Score> getScores() {

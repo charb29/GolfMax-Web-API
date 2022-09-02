@@ -9,7 +9,7 @@ public class PlayerStatistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
-    private long id;
+    private Long id;
 
     @OneToOne
     private User user;
@@ -25,7 +25,7 @@ public class PlayerStatistics {
 
     public PlayerStatistics() {}
 
-    public PlayerStatistics(long id, User user, int roundsPlayed, double handicapIndex, double averageScore) {
+    public PlayerStatistics(Long id, User user, int roundsPlayed, double handicapIndex, double averageScore) {
         this.id = id;
         this.user = user;
         this.roundsPlayed = roundsPlayed;
@@ -33,11 +33,11 @@ public class PlayerStatistics {
         this.averageScore = averageScore;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

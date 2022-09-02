@@ -6,7 +6,7 @@ import java.util.List;
 
 public class HoleLayoutDto {
 
-    private long id;
+    private Long id;
     private List<HoleDto> holeDto;
     private CourseDto courseDto;
     private LayoutType layoutType;
@@ -18,7 +18,7 @@ public class HoleLayoutDto {
 
     public HoleLayoutDto() {}
 
-    public HoleLayoutDto(long id, List<HoleDto> holeDto, CourseDto courseDto, LayoutType layoutType, long front9yards,
+    public HoleLayoutDto(Long id, List<HoleDto> holeDto, CourseDto courseDto, LayoutType layoutType, long front9yards,
                          long back9yards, int overallPar, double courseRating, double slopeRating) {
         this.id = id;
         this.holeDto = holeDto;
@@ -31,11 +31,11 @@ public class HoleLayoutDto {
         this.slopeRating = slopeRating;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -1,6 +1,8 @@
 package com.Rest.GolfMax.API.Services.Implementations;
 
 import com.Rest.GolfMax.API.Models.Course;
+import com.Rest.GolfMax.API.Models.Hole;
+import com.Rest.GolfMax.API.Models.HoleLayout;
 import com.Rest.GolfMax.API.Repositories.CourseRepository;
 import com.Rest.GolfMax.API.Repositories.HoleLayoutRepository;
 import com.Rest.GolfMax.API.Repositories.HoleRepository;
@@ -19,15 +21,10 @@ import java.util.Optional;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository COURSE_REPOSITORY;
-    private final HoleRepository HOLE_REPOSITORY;
-    private final HoleLayoutRepository HOLE_LAYOUT_REPOSITORY;
 
-    public CourseServiceImpl(CourseRepository courseRepository, HoleRepository holeRepository,
-                             HoleLayoutRepository holeLayoutRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository) {
         super();
         this.COURSE_REPOSITORY = courseRepository;
-        this.HOLE_REPOSITORY = holeRepository;
-        this.HOLE_LAYOUT_REPOSITORY = holeLayoutRepository;
     }
 
     @Override
@@ -37,24 +34,17 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course createCourse(Course course) {
-        course.getHoleLayout().forEach(layout -> layout.setCourse(course));
-
-        for (int i = 0; i < course.getHoleLayout().size(); i++) {
-            HOLE_REPOSITORY.save(course.getHoleLayout().get(i).getHoles().get(i));;
-        }
-
         COURSE_REPOSITORY.save(course);
-        HOLE_LAYOUT_REPOSITORY.saveAll(course.getHoleLayout());
         return course;
     }
 
     @Override
-    public Optional<Course> getCourseById(long id) {
+    public Optional<Course> getCourseById(Long id) {
         return COURSE_REPOSITORY.findById(id);
     }
 
     @Override
-    public void deleteCourse(long id) {
+    public void deleteCourse(Long id) {
         COURSE_REPOSITORY.deleteById(id);
     }
 

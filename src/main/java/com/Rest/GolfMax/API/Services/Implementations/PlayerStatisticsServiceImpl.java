@@ -32,12 +32,12 @@ public class PlayerStatisticsServiceImpl implements PlayerStatisticsService {
     }
 
     @Override
-    public List<PlayerStatistics> getStatisticsByUserId(long id) {
+    public List<PlayerStatistics> getStatisticsByUserId(Long id) {
         return STATS_REPOSITORY.findByUserIdOrderByUserScoresAsc(id);
     }
 
     @Override
-    public PlayerStatistics saveUserStatistics(PlayerStatistics stats, long id) {
+    public PlayerStatistics saveUserStatistics(PlayerStatistics stats, Long id) {
         User user = new User();
         HandicapCalculator calculator = new HandicapCalculator();
         user.setId(id);
