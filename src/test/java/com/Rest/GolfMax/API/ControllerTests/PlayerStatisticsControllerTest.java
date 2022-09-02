@@ -34,8 +34,8 @@ public class PlayerStatisticsControllerTest {
     @MockBean
     private PlayerStatisticsService statisticsService;
 
-    private final User USER_1 = new User(1, "Olivier", "password", "olivier@gmail.com");
-    private final PlayerStatistics USER_1_STATS = new PlayerStatistics(1, USER_1, 20, 5.2, 68);
+    private final User USER_1 = new User(1L, "Olivier", "password", "olivier@gmail.com");
+    private final PlayerStatistics USER_1_STATS = new PlayerStatistics(1L, USER_1, 20, 5.2, 68);
 
     @Test
     public void getStatsByUserId_returns_HTTP_OK() throws Exception {

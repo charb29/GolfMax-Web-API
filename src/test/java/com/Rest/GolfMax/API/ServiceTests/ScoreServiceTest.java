@@ -32,11 +32,11 @@ public class ScoreServiceTest {
     @Test
     public void getAllScores_returns_list_size_3() {
         Score score1 = new Score();
-        score1.setId(1);
+        score1.setId(1L);
         Score score2 = new Score();
-        score2.setId(2);
+        score2.setId(2L);
         Score score3 = new Score();
-        score3.setId(3);
+        score3.setId(3L);
 
         List<Score> scoreRequest = new ArrayList<>(Arrays.asList(score1, score2, score3));
 
@@ -63,7 +63,7 @@ public class ScoreServiceTest {
     @Test
     public void getScoreById_should_return_score() {
         Score scoreRequest = new Score();
-        scoreRequest.setId(1);
+        scoreRequest.setId(1L);
 
         when(scoreRepository.findById(scoreRequest.getId())).thenReturn(Optional.of(scoreRequest));
 
@@ -85,7 +85,7 @@ public class ScoreServiceTest {
 
     @Test
     public void getScoresByUserId_should_return_user_scores_ASC_order() {
-        User userRequest = new User(1, "Olivier", "password", "email");
+        User userRequest = new User(1L, "Olivier", "password", "email");
 
         Score userScore1 = new Score();
         userScore1.setUser(userRequest);
@@ -113,21 +113,21 @@ public class ScoreServiceTest {
     @Test
     public void getScoresByCourseId_should_return_user_scores_ASC_order() {
         Course course = new Course();
-        course.setId(1);
+        course.setId(1L);
 
-        User user1 = new User(1, "Olivier", "password", "email");
+        User user1 = new User(1L, "Olivier", "password", "email");
         Score user1Score = new Score();
         user1Score.setUser(user1);
         user1Score.setUserScore(65);
         user1Score.setCourse(course);
 
-        User user2 = new User(2, "Anna", "password", "email");
+        User user2 = new User(2L, "Anna", "password", "email");
         Score user2Score = new Score();
         user2Score.setUser(user2);
         user2Score.setUserScore(89);
         user2Score.setCourse(course);
 
-        User user3 = new User(3, "John Doe", "password", "email");
+        User user3 = new User(3L, "John Doe", "password", "email");
         Score user3Score = new Score();
         user3Score.setUser(user3);
         user3Score.setUserScore(67);

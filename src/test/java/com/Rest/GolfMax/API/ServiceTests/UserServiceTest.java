@@ -27,9 +27,9 @@ public class UserServiceTest {
 
     @Test
     public void getAllUsers_should_return_list_size_3() {
-        User user1 = new User(1, "Olivier", "password", "email@email.com");
-        User user2 = new User(2, "Anna", "password", "email@email.com");
-        User user3 = new User(3, "John", "password", "email@email.com");
+        User user1 = new User(1L, "Olivier", "password", "email@email.com");
+        User user2 = new User(2L, "Anna", "password", "email@email.com");
+        User user3 = new User(3L, "John", "password", "email@email.com");
 
         List<User> userRequest = new ArrayList<>(Arrays.asList(user1, user2, user3));
 
@@ -57,7 +57,7 @@ public class UserServiceTest {
 
     @Test
     public void getUserById_should_return_user() {
-        User userRequest = new User(1, "Olivier", "password", "email@gmail.com");
+        User userRequest = new User(1L, "Olivier", "password", "email@gmail.com");
 
         when(userRepository.findById(userRequest.getId())).thenReturn(Optional.of(userRequest));
 
@@ -69,7 +69,7 @@ public class UserServiceTest {
 
     @Test
     public void deleteUser_whenUserDeleted_thenNothing() {
-        long userId = 1;
+        Long userId = 1L;
 
         willDoNothing().given(userRepository).deleteById(userId);
 

@@ -29,11 +29,11 @@ public class CourseServiceTest {
     @Test
     public void getAllCourses_should_return_list_size_3() {
         Course course1 = new Course();
-        course1.setId(1);
+        course1.setId(1L);
         Course course2 = new Course();
-        course2.setId(2);
+        course2.setId(2L);
         Course course3 = new Course();
-        course3.setId(3);
+        course3.setId(3L);
 
         List<Course> courseRequest = new ArrayList<>(Arrays.asList(course1, course2, course3));
 
@@ -60,7 +60,7 @@ public class CourseServiceTest {
     @Test
     public void getCourseById_should_return_course() {
         Course courseRequest = new Course();
-        courseRequest.setId(1);
+        courseRequest.setId(1L);
         courseRequest.setCourseName("Vista Valencia");
 
         when(courseRepository.findById(courseRequest.getId())).thenReturn(Optional.of(courseRequest));

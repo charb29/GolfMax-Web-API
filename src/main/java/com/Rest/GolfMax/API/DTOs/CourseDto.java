@@ -4,23 +4,23 @@ import java.util.List;
 
 public class CourseDto {
 
-    private long id;
+    private Long id;
     private List<HoleLayoutDto> holeLayoutDto;
     private String courseName;
 
     public CourseDto() {}
 
-    public CourseDto(long id, List<HoleLayoutDto> holeLayoutDto, String courseName) {
+    public CourseDto(Long id, List<HoleLayoutDto> holeLayoutDto, String courseName) {
         this.id = id;
         this.holeLayoutDto = holeLayoutDto;
         this.courseName = courseName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

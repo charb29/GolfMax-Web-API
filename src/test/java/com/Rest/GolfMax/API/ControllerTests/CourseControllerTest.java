@@ -80,7 +80,7 @@ public class CourseControllerTest {
         return holes;
     }
 
-    private final HoleLayout CHAMPIONSHIP_LAYOUT = new HoleLayout(1, getChampionshipHoles(), COURSE,
+    private final HoleLayout CHAMPIONSHIP_LAYOUT = new HoleLayout(1L, getChampionshipHoles(), COURSE,
             LayoutType.CHAMPIONSHIP, 2226, 1966, 61, 65.4, 113);
 
     private final Hole MENS_HOLE1 = new Hole(1, 336, 4);
@@ -125,7 +125,7 @@ public class CourseControllerTest {
         return holes;
     }
 
-    private final HoleLayout MENS_LAYOUT = new HoleLayout(2, getMensHoles(), COURSE,
+    private final HoleLayout MENS_LAYOUT = new HoleLayout(2L, getMensHoles(), COURSE,
             LayoutType.MENS, 2102, 1866, 61, 63.6, 107);
 
     private final Hole WOMENS_HOLE1 = new Hole(1, 312, 4);
@@ -170,7 +170,7 @@ public class CourseControllerTest {
         return holes;
     }
 
-    private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3, getWomensHoles(), COURSE,
+    private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3L, getWomensHoles(), COURSE,
             LayoutType.WOMENS, 1955, 1726, 64, 62.1, 104);
 
     public List<HoleLayout> getHoleLayouts() {
@@ -215,7 +215,7 @@ public class CourseControllerTest {
 
     @Test
     public void getCourseById_returns_HTTP_OK() throws Exception {
-        COURSE.setId(1);
+        COURSE.setId(1L);
 
         Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(Optional.of(COURSE));
 

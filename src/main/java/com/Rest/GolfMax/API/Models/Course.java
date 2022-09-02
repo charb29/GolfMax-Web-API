@@ -12,7 +12,7 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
 
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
@@ -27,17 +27,17 @@ public class Course {
     public Course() {
     }
 
-    public Course(long id, List<HoleLayout> holeLayout, String courseName) {
+    public Course(Long id, List<HoleLayout> holeLayout, String courseName) {
         this.id = id;
         this.holeLayout = holeLayout;
         this.courseName = courseName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

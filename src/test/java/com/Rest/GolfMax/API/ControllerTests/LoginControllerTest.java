@@ -33,7 +33,7 @@ public class LoginControllerTest {
     @Test
     public void successful_login_returns_HTTP_OK() throws Exception {
         User user = new User();
-        user.setId(1);
+        user.setId(1L);
         user.setUsername("Olivier");
         user.setPassword("password");
         user.setEmail("olivier@gmail.com");

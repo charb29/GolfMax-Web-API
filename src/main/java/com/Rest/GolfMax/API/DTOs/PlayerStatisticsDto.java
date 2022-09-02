@@ -2,7 +2,7 @@ package com.Rest.GolfMax.API.DTOs;
 
 public class PlayerStatisticsDto {
 
-    private long id;
+    private Long id;
     private UserDto userDto;
     private int roundsPlayed;
     private double handicapIndex;
@@ -10,7 +10,7 @@ public class PlayerStatisticsDto {
 
     public PlayerStatisticsDto() {}
 
-    public PlayerStatisticsDto(long id, UserDto userDto, int roundsPlayed, double handicapIndex, double averageScore) {
+    public PlayerStatisticsDto(Long id, UserDto userDto, int roundsPlayed, double handicapIndex, double averageScore) {
         this.id = id;
         this.userDto = userDto;
         this.roundsPlayed = roundsPlayed;
@@ -18,11 +18,11 @@ public class PlayerStatisticsDto {
         this.averageScore = averageScore;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

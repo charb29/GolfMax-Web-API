@@ -37,17 +37,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserById(long id) {
+    public Optional<User> getUserById(Long id) {
         return USER_REPOSITORY.findById(id);
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void deleteUser(Long id) {
         USER_REPOSITORY.deleteById(id);
     }
 
     @Override
-    public User updateUser(@NotNull User userRequest, long id) {
+    public User updateUser(@NotNull User userRequest, Long id) {
         User updatedUser = USER_REPOSITORY.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("id"));
         updatedUser.setUsername(userRequest.getUsername());

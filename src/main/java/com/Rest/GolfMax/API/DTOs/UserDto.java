@@ -2,12 +2,12 @@ package com.Rest.GolfMax.API.DTOs;
 
 public class UserDto {
 
-    private long id;
+    private Long id;
     private String username;
     private String password;
     private String email;
 
-    public UserDto(long id, String username, String password, String email) {
+    public UserDto(Long id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -16,11 +16,11 @@ public class UserDto {
 
     public UserDto() {}
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

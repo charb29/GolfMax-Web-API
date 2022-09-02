@@ -9,7 +9,7 @@ public interface CourseService {
 
     List<Course> getAllCourses();
     Course createCourse(Course course);
-    Optional<Course> getCourseById(long id);
-    void deleteCourse(long id);
+    Optional<Course> getCourseById(Long id);
+    void deleteCourse(Long id);
     boolean isValid(String courseName);
 }

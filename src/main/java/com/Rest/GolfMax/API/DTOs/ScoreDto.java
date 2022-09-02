@@ -2,7 +2,7 @@ package com.Rest.GolfMax.API.DTOs;
 
 public class ScoreDto {
 
-    private long id;
+    private Long id;
     private UserDto userDto;
     private CourseDto courseDto;
     private int userScore;
@@ -11,7 +11,7 @@ public class ScoreDto {
 
     public ScoreDto() {}
 
-    public ScoreDto(long id, UserDto userDto, CourseDto courseDto, int userScore,
+    public ScoreDto(Long id, UserDto userDto, CourseDto courseDto, int userScore,
                     double courseRating, double slopeRating) {
         this.id = id;
         this.userDto = userDto;
@@ -21,11 +21,11 @@ public class ScoreDto {
         this.slopeRating = slopeRating;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
