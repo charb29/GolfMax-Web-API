@@ -40,8 +40,21 @@ public class CourseController {
     @PostMapping("")
     public ResponseEntity<CourseDto> addNewCourse(@RequestBody @NotNull CourseDto courseDto) {
         Course courseRequest = modelMapper.map(courseDto, Course.class);
+
+        List<HoleLayoutDto> holeLayoutDtos = new ArrayList<>(
+                Arrays.asList(modelMapper.map(courseDto.getHoleLayoutDto(), HoleLayoutDto[].class)));
+
+        List<HoleLayout> holeLayouts = new ArrayList<>(
+                Arrays.asList(modelMapper.map(holeLayoutDtos, HoleLayout[].class)));
+
         Course course = COURSE_SERVICE.createCourse(courseRequest);
+
+        course.setHoleLayout(holeLayouts);
         CourseDto courseResponse = modelMapper.map(course, CourseDto.class);
+        courseResponse.setId(course.getId());
+        courseResponse.setCourseName(course.getCourseName());
+        courseResponse.setHoleLayoutDto(holeLayoutDtos);
+
         return new ResponseEntity<>(courseResponse, HttpStatus.CREATED);
     }
 
