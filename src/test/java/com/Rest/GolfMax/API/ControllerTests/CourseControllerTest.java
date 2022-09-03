@@ -5,10 +5,11 @@ import com.Rest.GolfMax.API.Models.Course;
 import com.Rest.GolfMax.API.Models.Hole;
 import com.Rest.GolfMax.API.Models.HoleLayout;
 import com.Rest.GolfMax.API.Models.LayoutType;
+import com.Rest.GolfMax.API.Repositories.HoleLayoutRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.CourseService;
-import com.Rest.GolfMax.API.Services.Interfaces.HoleLayoutService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,7 +36,7 @@ public class CourseControllerTest {
     @MockBean
     private CourseService courseService;
     @MockBean
-    private HoleLayoutService holeLayoutService;
+    private HoleLayoutRepository holeLayoutRepository;
 
     private final Course COURSE = new Course();
     private final Hole CHAMPIONSHIP_HOLE1 = new Hole(1, 357, 4);
@@ -197,13 +198,16 @@ public class CourseControllerTest {
 
     @Test
     public void addNewCourse_returns_HTTP_CREATED() throws Exception {
-        COURSE.setCourseName("Vista Valencia");
+        Course course = new Course();
+        course.setCourseName("Vista Valencia");
+        course.setHoleLayout(getHoleLayouts());
 
-        Mockito.when(courseService.createCourse(Mockito.any(Course.class))).thenReturn(COURSE);
+        Mockito.when(courseService.createCourse(Mockito.any(Course.class))).thenReturn(course);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post("/courses")
-                .content(this.objectMapper.writeValueAsString(COURSE))
+                .content(this.objectMapper.writeValueAsString(course.getHoleLayout()))
+                .content(this.objectMapper.writeValueAsString(course))
                 .contentType(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(request)
