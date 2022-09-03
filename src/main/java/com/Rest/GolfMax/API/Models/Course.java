@@ -1,6 +1,8 @@
 package com.Rest.GolfMax.API.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -17,20 +19,20 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
 
-
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<HoleLayout> holeLayout = new ArrayList<>();
-
     @Column(name = "courseName", nullable = false)
     private String courseName;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<HoleLayout> holeLayout = new ArrayList<>();
 
     public Course() {
     }
 
-    public Course(Long id, List<HoleLayout> holeLayout, String courseName) {
+    public Course(Long id, String courseName, List<HoleLayout> holeLayout) {
         this.id = id;
-        this.holeLayout = holeLayout;
         this.courseName = courseName;
+        this.holeLayout = holeLayout;
     }
 
     public Long getId() {
@@ -41,6 +43,14 @@ public class Course {
         this.id = id;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
     public List<HoleLayout> getHoleLayout() {
         return holeLayout;
     }
@@ -49,11 +59,4 @@ public class Course {
         this.holeLayout = holeLayout;
     }
 
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
 }
