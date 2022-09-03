@@ -1,7 +1,10 @@
 package com.Rest.GolfMax.API.Controllers;
 
 import com.Rest.GolfMax.API.DTOs.CourseDto;
+import com.Rest.GolfMax.API.DTOs.HoleLayoutDto;
 import com.Rest.GolfMax.API.Models.*;
+import com.Rest.GolfMax.API.Repositories.HoleLayoutRepository;
+import com.Rest.GolfMax.API.Repositories.HoleRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.CourseService;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
@@ -10,14 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
+
     @Autowired
     private ModelMapper modelMapper;
     private final CourseService COURSE_SERVICE;
