@@ -21,10 +21,15 @@ import java.util.Optional;
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository COURSE_REPOSITORY;
+    private final HoleLayoutRepository HOLE_LAYOUT_REPOSITORY;
+    private final HoleRepository HOLE_REPOSITORY;
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, HoleLayoutRepository holeLayoutRepository,
+                             HoleRepository holeRepository) {
         super();
         this.COURSE_REPOSITORY = courseRepository;
+        this.HOLE_LAYOUT_REPOSITORY = holeLayoutRepository;
+        this.HOLE_REPOSITORY = holeRepository;
     }
 
     @Override
@@ -34,6 +39,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course createCourse(Course course) {
+        HOLE_LAYOUT_REPOSITORY.saveAll(course.getHoleLayout());
+        for (int i = 0; i < course.getHoleLayout().size(); i++) {
+            HOLE_REPOSITORY.saveAll(course.getHoleLayout().get(i).getHoles());
+        }
         COURSE_REPOSITORY.save(course);
         return course;
     }
