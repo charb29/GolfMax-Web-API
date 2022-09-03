@@ -54,7 +54,7 @@ public class HandicapCalculatorTest {
         return holes;
     }
 
-    private final HoleLayout CHAMPIONSHIP_LAYOUT = new HoleLayout(1, getChampionshipHoles(), COURSE,
+    private final HoleLayout CHAMPIONSHIP_LAYOUT = new HoleLayout(1L, getChampionshipHoles(), COURSE,
             LayoutType.CHAMPIONSHIP, 2226, 1966, 61, 65.4, 113);
 
     private final Hole MENS_HOLE1 = new Hole(1, 336, 4);
@@ -99,7 +99,7 @@ public class HandicapCalculatorTest {
         return holes;
     }
 
-    private final HoleLayout MENS_LAYOUT = new HoleLayout(2, getMensHoles(), COURSE,
+    private final HoleLayout MENS_LAYOUT = new HoleLayout(2L, getMensHoles(), COURSE,
             LayoutType.MENS, 2102, 1866, 61, 63.6, 107);
 
     private final Hole WOMENS_HOLE1 = new Hole(1, 312, 4);
@@ -144,7 +144,7 @@ public class HandicapCalculatorTest {
         return holes;
     }
 
-    private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3, getWomensHoles(), COURSE,
+    private final HoleLayout WOMENS_LAYOUT = new HoleLayout(3L, getWomensHoles(), COURSE,
             LayoutType.WOMENS, 1955, 1726, 64, 62.1, 104);
 
     public List<HoleLayout> getHoleLayouts() {
@@ -156,22 +156,22 @@ public class HandicapCalculatorTest {
     }
 
     public Course getCOURSE() {
-        COURSE.setId(1);
+        COURSE.setId(1L);
         COURSE.setCourseName("Vista Valencia Golf Course");
         COURSE.setHoleLayout(getHoleLayouts());
         return COURSE;
     }
 
-    private final User USER = new User(1, "Olivier", "password", "email@email.com");
-    private final Score SCORE_1 = new Score(1, USER, getCOURSE(), 65,
+    private final User USER = new User(1L, "Olivier", "password", "email@email.com");
+    private final Score SCORE_1 = new Score(1L, USER, getCOURSE(), 65,
             CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_2 = new Score(2, USER, getCOURSE(), 61,
+    private final Score SCORE_2 = new Score(2L, USER, getCOURSE(), 61,
             CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_3 = new Score(3, USER, getCOURSE(), 69,
+    private final Score SCORE_3 = new Score(3L, USER, getCOURSE(), 69,
             CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_4 = new Score(4, USER, getCOURSE(), 89,
+    private final Score SCORE_4 = new Score(4L, USER, getCOURSE(), 89,
             CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
-    private final Score SCORE_5 = new Score(5, USER, getCOURSE(), 47,
+    private final Score SCORE_5 = new Score(5L, USER, getCOURSE(), 47,
             CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
 
     public List<Score> scores() {
@@ -206,7 +206,7 @@ public class HandicapCalculatorTest {
 
     @Test
     public void userWithLessThan_5_ScoresReturns_0_ForHandicapIndex() {
-        Score score = new Score(5, USER, getCOURSE(), 47,
+        Score score = new Score(5L, USER, getCOURSE(), 47,
                 CHAMPIONSHIP_LAYOUT.getCourseRating(), CHAMPIONSHIP_LAYOUT.getSlopeRating());
         List<Score> scores = new ArrayList<>();
         scores.add(score);
