@@ -1,5 +1,8 @@
 package com.Rest.GolfMax.API.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,28 +17,30 @@ public class HoleLayout {
     private Long id;
 
     @OneToMany(mappedBy = "holeLayout", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Hole> holes = new ArrayList<>();
 
     @ManyToOne
+    @JsonBackReference
     private Course course;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "layoutType", nullable = false)
+    @Column(name = "layoutType")
     private LayoutType layoutType;
 
-    @Column(name = "front9Yards", nullable = false)
+    @Column(name = "front9Yards")
     private long front9Yards;
 
-    @Column(name = "back9Yards", nullable = false)
+    @Column(name = "back9Yards")
     private long back9Yards;
 
-    @Column(name = "overallPar", nullable = false)
+    @Column(name = "overallPar")
     private int overallPar;
 
-    @Column(name = "courseRating", nullable = false)
+    @Column(name = "courseRating")
     private double courseRating;
 
-    @Column(name = "slopeRating", nullable = false)
+    @Column(name = "slopeRating")
     private double slopeRating;
 
     public HoleLayout() {
