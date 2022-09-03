@@ -22,7 +22,7 @@ public class HoleLayoutServiceTest {
     @Test
     public void createHoleLayout_should_return_holeLayout() {
         HoleLayout holeLayoutRequest = new HoleLayout();
-        holeLayoutRequest.setId(1);
+        holeLayoutRequest.setId(1L);
 
         when(holeLayoutService.createHoleLayout(holeLayoutRequest)).thenReturn(holeLayoutRequest);
 

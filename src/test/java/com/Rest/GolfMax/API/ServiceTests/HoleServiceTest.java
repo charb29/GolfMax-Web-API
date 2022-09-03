@@ -22,7 +22,7 @@ public class HoleServiceTest {
     @Test
     public void createHole_should_return_hole() {
         Hole holeRequest = new Hole();
-        holeRequest.setId(1);
+        holeRequest.setId(1L);
 
         when(holeService.createHole(holeRequest)).thenReturn(holeRequest);
 
