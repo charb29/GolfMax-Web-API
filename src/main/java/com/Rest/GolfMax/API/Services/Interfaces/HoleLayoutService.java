@@ -2,6 +2,8 @@ package com.Rest.GolfMax.API.Services.Interfaces;
 
 import com.Rest.GolfMax.API.Models.HoleLayout;
 
+import java.util.List;
+
 public interface HoleLayoutService {
-    HoleLayout createHoleLayout(HoleLayout holeLayout);
+    List<HoleLayout> createHoleLayout(List<HoleLayout> holeLayout);
 }
