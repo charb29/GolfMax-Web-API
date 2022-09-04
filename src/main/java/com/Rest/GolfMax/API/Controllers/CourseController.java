@@ -15,8 +15,6 @@ import java.util.*;
 @RequestMapping("/courses")
 public class CourseController {
 
-    @Autowired
-    private ModelMapper modelMapper;
     private final CourseService COURSE_SERVICE;
 
     public CourseController(CourseService courseService) {
