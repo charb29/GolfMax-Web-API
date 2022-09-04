@@ -1,8 +1,6 @@
 package com.Rest.GolfMax.API.Services.Implementations;
 
 import com.Rest.GolfMax.API.Models.Course;
-import com.Rest.GolfMax.API.Models.Hole;
-import com.Rest.GolfMax.API.Models.HoleLayout;
 import com.Rest.GolfMax.API.Repositories.CourseRepository;
 import com.Rest.GolfMax.API.Repositories.HoleLayoutRepository;
 import com.Rest.GolfMax.API.Repositories.HoleRepository;
@@ -48,8 +46,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Optional<Course> getCourseById(Long id) {
-        return COURSE_REPOSITORY.findById(id);
+    public Course getCourseById(Long id) {
+        return COURSE_REPOSITORY.findById(id).get();
     }
 
     @Override
