@@ -23,39 +23,25 @@ public class CourseController {
     }
 
     @GetMapping
-    public List<CourseDto> getAllCourses() {
-        return COURSE_SERVICE.getAllCourses()
-                .stream()
-                .map(post -> modelMapper.map(post, CourseDto.class))
-                .collect(Collectors.toList());
+    public List<Course> getAllCourses() {
+        return COURSE_SERVICE.getAllCourses();
     }
 
     @PostMapping("")
-    public ResponseEntity<CourseDto> addNewCourse(@RequestBody @NotNull CourseDto courseDto) {
-        Course courseRequest = modelMapper.map(courseDto, Course.class);
-
-        List<HoleLayoutDto> holeLayoutDtos = new ArrayList<>(
-                Arrays.asList(modelMapper.map(courseDto.getHoleLayoutDto(), HoleLayoutDto[].class)));
-
-        List<HoleLayout> holeLayouts = new ArrayList<>(
-                Arrays.asList(modelMapper.map(holeLayoutDtos, HoleLayout[].class)));
-
-        Course course = COURSE_SERVICE.createCourse(courseRequest);
-
-        course.setHoleLayout(holeLayouts);
-        CourseDto courseResponse = modelMapper.map(course, CourseDto.class);
-        courseResponse.setId(course.getId());
-        courseResponse.setCourseName(course.getCourseName());
-        courseResponse.setHoleLayoutDto(holeLayoutDtos);
-
-        return new ResponseEntity<>(courseResponse, HttpStatus.CREATED);
+    public ResponseEntity<Course> addNewCourse(@RequestBody @NotNull Course courseRequest) {
+        if (!COURSE_SERVICE.isValid(courseRequest.getCourseName())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        else {
+            Course courseResponse = COURSE_SERVICE.createCourse(courseRequest);
+            return new ResponseEntity<>(courseResponse, HttpStatus.CREATED);
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CourseDto> getCourseById(@PathVariable long id) {
+    public ResponseEntity<Course> getCourseById(@PathVariable long id) {
         try {
-            Optional<Course> course = COURSE_SERVICE.getCourseById(id);
-            CourseDto courseResponse = modelMapper.map(course, CourseDto.class);
+            Course courseResponse = COURSE_SERVICE.getCourseById(id);
             return new ResponseEntity<>(courseResponse, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
