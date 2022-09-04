@@ -9,11 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HoleLayoutServiceTest {
+    
     @Mock
     private HoleLayoutRepository holeLayoutRepository;
     @InjectMocks
@@ -24,10 +28,11 @@ public class HoleLayoutServiceTest {
         HoleLayout holeLayoutRequest = new HoleLayout();
         holeLayoutRequest.setId(1L);
 
-        when(holeLayoutService.createHoleLayout(holeLayoutRequest)).thenReturn(holeLayoutRequest);
+        when(holeLayoutService.createHoleLayout(List.of(holeLayoutRequest)))
+                .thenReturn(List.of(holeLayoutRequest));
 
-        HoleLayout holeLayoutResponse = holeLayoutService.createHoleLayout(holeLayoutRequest);
+        List<HoleLayout> holeLayoutResponse = holeLayoutService.createHoleLayout(List.of(holeLayoutRequest));
 
-        assertThat(holeLayoutResponse.getId()).isSameAs(holeLayoutRequest.getId());
+        assertThat(holeLayoutResponse.get(0).getId()).isSameAs(holeLayoutRequest.getId());
     }
 }

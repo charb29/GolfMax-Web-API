@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.RequestScope;
 
+
 @Service
 @Transactional
 @RequestScope
@@ -20,7 +21,7 @@ public class HoleServiceImpl implements HoleService {
     }
 
     @Override
-    public Hole createHole(Hole hole) {
-        return HOLE_REPOSITORY.save(hole);
+    public Hole createHole(Hole holes) {
+        return HOLE_REPOSITORY.save(holes);
     }
 }
