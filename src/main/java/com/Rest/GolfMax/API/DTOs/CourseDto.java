@@ -5,14 +5,12 @@ import java.util.List;
 public class CourseDto {
 
     private Long id;
-    private List<HoleLayoutDto> holeLayoutDto;
     private String courseName;
 
     public CourseDto() {}
 
-    public CourseDto(Long id, List<HoleLayoutDto> holeLayoutDto, String courseName) {
+    public CourseDto(Long id, String courseName) {
         this.id = id;
-        this.holeLayoutDto = holeLayoutDto;
         this.courseName = courseName;
     }
 
@@ -22,14 +20,6 @@ public class CourseDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<HoleLayoutDto> getHoleLayoutDto() {
-        return holeLayoutDto;
-    }
-
-    public void setHoleLayoutDto(List<HoleLayoutDto> holeLayoutDto) {
-        this.holeLayoutDto = holeLayoutDto;
     }
 
     public String getCourseName() {
