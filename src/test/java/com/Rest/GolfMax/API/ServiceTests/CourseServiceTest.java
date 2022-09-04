@@ -65,7 +65,7 @@ public class CourseServiceTest {
 
         when(courseRepository.findById(courseRequest.getId())).thenReturn(Optional.of(courseRequest));
 
-        Course courseResponse = courseService.getCourseById(courseRequest.getId()).get();
+        Course courseResponse = courseService.getCourseById(courseRequest.getId());
 
         assertThat(courseResponse.getId()).isSameAs(courseRequest.getId());
         assertThat(courseResponse.getCourseName()).isSameAs(courseRequest.getCourseName());
