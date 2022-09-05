@@ -5,7 +5,6 @@ import com.Rest.GolfMax.API.Models.Score;
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Repositories.ScoreRepository;
 import com.Rest.GolfMax.API.Services.Implementations.ScoreServiceImpl;
-import org.assertj.core.error.ShouldBeSorted;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,6 +23,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ScoreServiceTest {
+
     @Mock
     private ScoreRepository scoreRepository;
     @InjectMocks
