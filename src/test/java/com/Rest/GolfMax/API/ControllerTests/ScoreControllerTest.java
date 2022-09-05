@@ -25,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ScoreController.class)
 public class ScoreControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
     @Autowired
