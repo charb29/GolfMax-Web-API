@@ -39,7 +39,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable long id) {
+    public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
         try {
             Course courseResponse = COURSE_SERVICE.getCourseById(id);
             return new ResponseEntity<>(courseResponse, HttpStatus.OK);
@@ -49,7 +49,7 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCourse(@PathVariable long id) {
+    public void deleteCourse(@PathVariable Long id) {
         COURSE_SERVICE.deleteCourse(id);
     }
 }
