@@ -21,6 +21,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CourseServiceTest {
+
     @Mock
     private CourseRepository courseRepository;
     @InjectMocks
