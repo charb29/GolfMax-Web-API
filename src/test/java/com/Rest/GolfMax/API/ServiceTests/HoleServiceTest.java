@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HoleServiceTest {
+
     @Mock
     private HoleRepository holeRepository;
     @InjectMocks
