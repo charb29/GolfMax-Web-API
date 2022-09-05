@@ -221,7 +221,7 @@ public class CourseControllerTest {
     public void getCourseById_returns_HTTP_OK() throws Exception {
         COURSE.setId(1L);
 
-        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(Optional.of(COURSE));
+        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(COURSE);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/courses/1")
@@ -235,7 +235,7 @@ public class CourseControllerTest {
 
     @Test
     public void deleteCourse_returns_HTTP_OK() throws Exception {
-        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(Optional.of(COURSE));
+        Mockito.when(courseService.getCourseById(COURSE.getId())).thenReturn(COURSE);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/courses/1")
