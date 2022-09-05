@@ -1,7 +1,6 @@
 package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.CourseController;
-import com.Rest.GolfMax.API.DTOs.CourseDto;
 import com.Rest.GolfMax.API.Models.Course;
 import com.Rest.GolfMax.API.Models.Hole;
 import com.Rest.GolfMax.API.Models.HoleLayout;
@@ -10,9 +9,7 @@ import com.Rest.GolfMax.API.Repositories.HoleLayoutRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.CourseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-
 import org.mockito.Mockito;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
