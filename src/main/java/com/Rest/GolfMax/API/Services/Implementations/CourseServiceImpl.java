@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @Transactional
@@ -57,9 +57,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public boolean isValid(String courseName) {
-        if (COURSE_REPOSITORY.existsByCourseName(courseName))
-            return false;
-        return true;
+        return !COURSE_REPOSITORY.existsByCourseName(courseName);
     }
 
 }
