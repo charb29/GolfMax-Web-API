@@ -65,10 +65,7 @@ public class PlayerStatisticsServiceImpl implements PlayerStatisticsService {
         return Math.round(sum * 10.0) / 10.0;
     }
 
-    private List<Integer> getUserScores(long id) {
-        User user = new User();
-        user.setId(id);
-        List<Integer> scores = SCORE_REPOSITORY.findByUserId(user.getId());
-        return scores;
+    private List<Integer> getUserScores(Long id) {
+        return SCORE_REPOSITORY.findByUserId(id);
     }
 }
