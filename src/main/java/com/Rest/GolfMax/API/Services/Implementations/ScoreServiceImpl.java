@@ -9,7 +9,7 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @Transactional
@@ -35,8 +35,8 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Optional<Score> getScoreById(Long id) {
-        return SCORE_REPOSITORY.findById(id);
+    public Score getScoreById(Long id) {
+        return SCORE_REPOSITORY.findById(id).get();
     }
 
     @Override
