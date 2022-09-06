@@ -1,5 +1,6 @@
 package com.Rest.GolfMax.API.Controllers;
 
+import com.Rest.GolfMax.API.DTOs.UserDto;
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import org.springframework.http.HttpStatus;
