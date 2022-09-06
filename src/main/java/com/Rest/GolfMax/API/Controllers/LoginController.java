@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users/auth")
 public class LoginController {
 
+    @Autowired
+    private ModelMapper modelMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     private final UserService USER_SERVICE;
 
     public LoginController(UserService userService) {
@@ -22,10 +25,16 @@ public class LoginController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        if (USER_SERVICE.validateUser(user))
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        else
+    public ResponseEntity<UserDto> login(@RequestBody UserDto userRequest) {
+        User user = modelMapper.map(userRequest, User.class);
+        if (USER_SERVICE.isValid(user)) {
+            UserDto userResponse = modelMapper.map(user, UserDto.class);
+            String hashedPassword = bCryptPasswordEncoder.encode(userResponse.getPassword());
+            userResponse.setPassword(hashedPassword);
+            return new ResponseEntity<>(userResponse, HttpStatus.OK);
+        }
+        else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 }
