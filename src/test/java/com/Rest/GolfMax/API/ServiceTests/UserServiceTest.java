@@ -20,6 +20,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
+
     @Mock
     private UserRepository userRepository;
     @InjectMocks
@@ -61,7 +62,7 @@ public class UserServiceTest {
 
         when(userRepository.findById(userRequest.getId())).thenReturn(Optional.of(userRequest));
 
-        User userResponse = userService.getUserById(userRequest.getId()).get();
+        User userResponse = userService.getUserById(userRequest.getId());
 
         assertThat(userResponse.getId()).isSameAs(userRequest.getId());
 
