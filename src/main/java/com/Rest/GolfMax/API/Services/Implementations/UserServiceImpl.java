@@ -75,10 +75,7 @@ public class UserServiceImpl implements UserService {
         String password = user.getPassword();
         String username = user.getUsername();
 
-        if (bCryptPasswordEncoder.matches(password, hashedPassword) && USER_REPOSITORY.existsByUsername(username)) {
-            return true;
-        } else {
-            return false;
-        }
+        return bCryptPasswordEncoder.matches(password, hashedPassword)
+                && USER_REPOSITORY.existsByUsername(username);
     }
 }
