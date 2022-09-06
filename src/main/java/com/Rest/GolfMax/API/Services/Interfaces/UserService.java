@@ -11,6 +11,6 @@ public interface UserService {
     User createUser(User user);
     User getUserById(Long id);
     void deleteUser(Long id);
-    boolean validateUser(User user);
-    User findByUsernameEmail(User user);
+    boolean isValid(User user);
+    User findByUsernameEmail(String username, String password);
 }
