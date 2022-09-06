@@ -19,7 +19,7 @@ public class LoginController {
 
     @PostMapping("/signin")
     public ResponseEntity<User> login(@RequestBody User user) {
-        if (USER_SERVICE.getUserData(user) != null)
+        if (USER_SERVICE.validateUser(user))
             return new ResponseEntity<>(user, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
