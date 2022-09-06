@@ -6,7 +6,6 @@ import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Repositories.PlayerStatisticsRepository;
 import com.Rest.GolfMax.API.Repositories.ScoreRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.PlayerStatisticsService;
-import com.Rest.GolfMax.API.Services.Implementations.ScoreServiceImpl;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
@@ -19,6 +18,7 @@ import java.util.List;
 @Transactional
 @RequestScope
 public class PlayerStatisticsServiceImpl implements PlayerStatisticsService {
+
     private final PlayerStatisticsRepository STATS_REPOSITORY;
     private final ScoreRepository SCORE_REPOSITORY;
     private final ScoreServiceImpl SCORE_SERVICE;
