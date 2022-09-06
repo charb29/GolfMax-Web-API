@@ -217,7 +217,7 @@ public class ScoreControllerTest {
 
     @Test
     public void getScoresById_returns_HTTP_OK() throws Exception {
-        Mockito.when(scoreService.getScoreById(SCORE_1.getId())).thenReturn(Optional.of(SCORE_1));
+        Mockito.when(scoreService.getScoreById(SCORE_1.getId())).thenReturn(SCORE_1);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .get("/scores/ " + SCORE_1.getId())
