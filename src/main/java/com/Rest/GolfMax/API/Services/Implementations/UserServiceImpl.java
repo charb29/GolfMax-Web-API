@@ -6,6 +6,7 @@ import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -17,7 +18,9 @@ import java.util.List;
 @Transactional
 @RequestScope
 public class UserServiceImpl implements UserService {
+
     private final UserRepository USER_REPOSITORY;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public UserServiceImpl(UserRepository USER_REPOSITORY) {
         super();
@@ -30,9 +33,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
-        USER_REPOSITORY.save(user);
-        return user;
+    public User createUser(User userRequest) {
+        User userResponse = new User();
+        userResponse.setUsername(userRequest.getUsername());
+        userResponse.setEmail(userRequest.getEmail());
+        userResponse.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
+        USER_REPOSITORY.save(userResponse);
+
+        return userResponse;
+    }
+
+    @Override
+    public User findByUsernameEmail(User user) {
+        return USER_REPOSITORY.findByUsernameAndEmail(user.getUsername(), user.getEmail());
     }
 
     @Override
@@ -55,13 +68,17 @@ public class UserServiceImpl implements UserService {
         return USER_REPOSITORY.save(updatedUser);
     }
 
-    @Override
-    public boolean userExists(User user) {
-        return USER_REPOSITORY.existsByUsername(user.getUsername()) && !USER_REPOSITORY.existsByEmail(user.getEmail());
-    }
 
     @Override
-    public User getUserData(User user) {
-        return USER_REPOSITORY.findUserData(user.getUsername(), user.getPassword());
+    public boolean validateUser(User user) {
+        String hashedPassword = USER_REPOSITORY.getPasswordUsingUsername(user.getUsername());
+        String password = user.getPassword();
+        String username = user.getUsername();
+
+        if (bCryptPasswordEncoder.matches(password, hashedPassword) && USER_REPOSITORY.existsByUsername(username)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

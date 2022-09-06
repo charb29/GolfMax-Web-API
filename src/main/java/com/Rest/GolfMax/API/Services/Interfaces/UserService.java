@@ -11,6 +11,6 @@ public interface UserService {
     User createUser(User user);
     User getUserById(Long id);
     void deleteUser(Long id);
-    boolean userExists(User user);
-    User getUserData(User user);
+    boolean validateUser(User user);
+    User findByUsernameEmail(User user);
 }
