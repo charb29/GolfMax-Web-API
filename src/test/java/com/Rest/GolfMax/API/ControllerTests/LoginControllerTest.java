@@ -59,4 +59,13 @@ public class LoginControllerTest {
                 .andExpect(jsonPath("$.email", is("olivier@gmail.com")));
     }
 
+    @Test
+    public void stringPasswordMatchesHashedPassword() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String password = "password";
+        String hashedPassword = bCryptPasswordEncoder.encode(password);
+
+        assertTrue(bCryptPasswordEncoder.matches(password, hashedPassword));
+    }
+
 }
