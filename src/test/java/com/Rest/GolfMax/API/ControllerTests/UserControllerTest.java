@@ -1,14 +1,12 @@
 package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.UserController;
-import com.Rest.GolfMax.API.DTOs.UserDto;
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -39,14 +37,9 @@ public class UserControllerTest {
     private final User USER_2 = new User(2L, "Eric", "password", "eric@gmail.com");
     private final User USER_3 = new User(3L, "Anna", "password", "anna@gmail.com");
 
-    private final UserDto USER_DTO_1 = new UserDto(USER_1.getId(), USER_1.getUsername(), USER_1.getPassword(), USER_1.getEmail());
-    private final UserDto USER_DTO_2 = new UserDto(USER_2.getId(), USER_2.getUsername(), USER_2.getPassword(), USER_2.getEmail());
-    private final UserDto USER_DTO_3 = new UserDto(USER_3.getId(), USER_3.getUsername(), USER_3.getPassword(), USER_3.getEmail());
-
     @Test
     public void getAllUsers_returns_HTTP_OK() throws Exception {
-        List<UserDto> userRequest = new ArrayList<>(Arrays.asList(USER_DTO_1, USER_DTO_2, USER_DTO_3));
-        List<User> userResponse = new ArrayList<>(Collections.singletonList(modelMapper.map(userRequest, User.class)));
+        List<User> userResponse = new ArrayList<>(Arrays.asList(USER_1, USER_2, USER_3));
 
         Mockito.when(userService.getAllUsers()).thenReturn(userResponse);
 
@@ -62,7 +55,7 @@ public class UserControllerTest {
 
     @Test
     public void getUserById_returns_HTTP_OK() throws Exception {
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(Optional.of(USER_1));
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/1")
@@ -96,7 +89,7 @@ public class UserControllerTest {
 
     @Test
     public void deleteUser_returns_HTTP_OK() throws Exception {
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(Optional.of(USER_1));
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/users/1")

@@ -67,7 +67,7 @@ public class ScoreServiceTest {
 
         when(scoreRepository.findById(scoreRequest.getId())).thenReturn(Optional.of(scoreRequest));
 
-        Score scoreResponse = scoreService.getScoreById(scoreRequest.getId()).get();
+        Score scoreResponse = scoreService.getScoreById(scoreRequest.getId());
 
         assertThat(scoreResponse.getCourseRating()).isSameAs(scoreRequest.getCourseRating());
     }

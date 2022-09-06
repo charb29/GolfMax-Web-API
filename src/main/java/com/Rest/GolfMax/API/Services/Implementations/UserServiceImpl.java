@@ -11,7 +11,6 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -37,8 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
-        return USER_REPOSITORY.findById(id);
+    public User getUserById(Long id) {
+        return USER_REPOSITORY.findById(id).get();
     }
 
     @Override
@@ -55,10 +54,12 @@ public class UserServiceImpl implements UserService {
         updatedUser.setPassword(userRequest.getPassword());
         return USER_REPOSITORY.save(updatedUser);
     }
+
     @Override
     public boolean userExists(User user) {
         return USER_REPOSITORY.existsByUsername(user.getUsername()) && !USER_REPOSITORY.existsByEmail(user.getEmail());
     }
+
     @Override
     public User getUserData(User user) {
         return USER_REPOSITORY.findUserData(user.getUsername(), user.getPassword());
