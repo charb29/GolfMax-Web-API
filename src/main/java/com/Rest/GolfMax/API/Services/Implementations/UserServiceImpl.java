@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean validateUser(User user) {
+    public boolean isValid(User user) {
         String hashedPassword = USER_REPOSITORY.getPasswordUsingUsername(user.getUsername());
         String password = user.getPassword();
         String username = user.getUsername();
