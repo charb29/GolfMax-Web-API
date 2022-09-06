@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -50,5 +51,13 @@ public class RegistrationControllerTest {
                 .andExpect(jsonPath("$.username", is("Olivier")))
                 .andExpect(jsonPath("$.email", is("email")))
                 .andExpect(jsonPath("$.password", is("password")));
+    }
+
+    @Test
+    public void passwordIsSavedAsHash() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = bCryptPasswordEncoder.encode("password");
+
+        System.out.println("Hashed password: " + hashedPassword);
     }
 }
