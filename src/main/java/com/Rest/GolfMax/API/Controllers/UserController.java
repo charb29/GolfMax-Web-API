@@ -1,18 +1,24 @@
 package com.Rest.GolfMax.API.Controllers;
 
+import com.Rest.GolfMax.API.DTOs.UserDto;
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Services.Interfaces.UserService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
+    private ModelMapper modelMapper;
     private final UserService USER_SERVICE;
 
     public UserController(UserService userService) {
@@ -21,23 +27,29 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return USER_SERVICE.getAllUsers();
+    public List<UserDto> getAllUsers() {
+        return USER_SERVICE.getAllUsers().stream()
+                .map(user -> modelMapper.map(user, UserDto.class))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         try {
-            User userResponse = USER_SERVICE.getUserById(id);
-            return new ResponseEntity<>(userResponse, HttpStatus.OK);
+            User userRequest = USER_SERVICE.getUserById(id);
+            UserDto userResponse = modelMapper.map(userRequest, UserDto.class);
+            return new ResponseEntity<>(userResponse, HttpStatus.FOUND);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userRequest) {
-        User userResponse = USER_SERVICE.updateUser(userRequest, id);
+    public ResponseEntity<UserDto> updateUserInfo(@PathVariable Long id,
+                                                  @RequestBody UserDto userRequest) {
+        User user = modelMapper.map(userRequest, User.class);
+        User updatedUser = USER_SERVICE.updateUser(user, id);
+        UserDto userResponse = modelMapper.map(updatedUser, UserDto.class);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
