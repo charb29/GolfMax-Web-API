@@ -22,8 +22,11 @@ public class RegistrationController {
 
     @PostMapping("/signup")
     public ResponseEntity<User> registerUser(@RequestBody User userRequest) {
-        if (USER_SERVICE.userExists(userRequest)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        User existingUser = USER_SERVICE.findByUsernameEmail(userRequest);
+
+        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty() &&
+            existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         User userResponse = USER_SERVICE.createUser(userRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
