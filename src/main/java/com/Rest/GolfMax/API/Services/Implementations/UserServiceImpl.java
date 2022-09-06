@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("id"));
         updatedUser.setUsername(userRequest.getUsername());
         updatedUser.setEmail(userRequest.getEmail());
-        updatedUser.setPassword(userRequest.getPassword());
+        updatedUser.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
         return USER_REPOSITORY.save(updatedUser);
     }
 
