@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("id"));
         updatedUser.setUsername(userRequest.getUsername());
         updatedUser.setEmail(userRequest.getEmail());
-        updatedUser.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
+        updatedUser.setPassword(encryptPassword(userRequest.getPassword()));
         return USER_REPOSITORY.save(updatedUser);
     }
 
@@ -72,5 +72,22 @@ public class UserServiceImpl implements UserService {
 
         return bCryptPasswordEncoder.matches(password, hashedPassword)
                 && USER_REPOSITORY.existsByUsername(username);
+    }
+
+    @Override
+    public boolean isValidRegistrationRequest(String username, String email) {
+        return !isValidUsername(username) && !isValidEmail(email);
+    }
+
+    private String encryptPassword(String password) {
+        return bCryptPasswordEncoder.encode(password);
+    }
+
+    private boolean isValidUsername(String username) {
+        return USER_REPOSITORY.existsByUsername(username);
+    }
+
+    private boolean isValidEmail(String email) {
+        return USER_REPOSITORY.existsByEmail(email);
     }
 }
