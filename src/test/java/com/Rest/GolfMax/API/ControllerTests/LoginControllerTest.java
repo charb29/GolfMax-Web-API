@@ -12,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -41,7 +40,7 @@ public class LoginControllerTest {
         user.setPassword("password");
         user.setEmail("olivier@gmail.com");
 
-        Mockito.when(userService.isValid(Mockito.any(User.class))).thenReturn(true);
+        Mockito.when(userService.isValidLoginRequest(Mockito.any(User.class))).thenReturn(true);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post("/users/auth/signin")
