@@ -26,16 +26,15 @@ public class RegistrationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto) {
-        User existingUser = USER_SERVICE.findByUsernameEmail(userDto.getUsername(), userDto.getPassword());
-
-        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty() &&
-                existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
+    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userRequest) {
+        if (!USER_SERVICE.isValidRegistrationRequest(userRequest.getUsername(), userRequest.getEmail())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        User userRequest = modelMapper.map(userDto, User.class);
-        User savedUser = USER_SERVICE.createUser(userRequest);
-        UserDto userResponse = modelMapper.map(savedUser, UserDto.class);
-        return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+        else {
+            User user = modelMapper.map(userRequest, User.class);
+            User registeredUser = USER_SERVICE.createUser(user);
+            UserDto userResponse = modelMapper.map(registeredUser, UserDto.class);
+            return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+        }
     }
 }
