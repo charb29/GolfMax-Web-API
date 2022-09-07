@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isValidRegistrationRequest(String username, String email) {
-        return !isValidUsername(username) && !isValidEmail(email);
+        return !isValidUsername(username) && !isValidEmail(email) && isValidEmailFormat(email);
     }
 
     private String encryptPassword(String password) {
@@ -91,5 +91,14 @@ public class UserServiceImpl implements UserService {
 
     private boolean isValidEmail(String email) {
         return USER_REPOSITORY.existsByEmail(email);
+    }
+
+    private boolean isValidEmailFormat(String email) {
+        String regexPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(regexPattern);
+        if (email == null) {
+            return false;
+        }
+        return pattern.matcher(email).matches();
     }
 }
