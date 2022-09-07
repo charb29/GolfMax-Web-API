@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,7 +37,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         try {
-            User userRequest = USER_SERVICE.getUserById(id);
+            Optional<User> userRequest = USER_SERVICE.getUserById(id);
             UserDto userResponse = modelMapper.map(userRequest, UserDto.class);
             return new ResponseEntity<>(userResponse, HttpStatus.FOUND);
         } catch (NoSuchElementException e) {
