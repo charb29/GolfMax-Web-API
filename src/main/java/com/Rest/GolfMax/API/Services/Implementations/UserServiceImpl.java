@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         User userResponse = new User();
         userResponse.setUsername(userRequest.getUsername());
         userResponse.setEmail(userRequest.getEmail());
-        userResponse.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
+        userResponse.setPassword(encryptPassword(userRequest.getPassword()));
         USER_REPOSITORY.save(userResponse);
 
         return userResponse;
