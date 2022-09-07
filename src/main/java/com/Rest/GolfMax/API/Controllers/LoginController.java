@@ -27,7 +27,7 @@ public class LoginController {
     @PostMapping("/signin")
     public ResponseEntity<UserDto> login(@RequestBody UserDto userRequest) {
         User user = modelMapper.map(userRequest, User.class);
-        if (USER_SERVICE.isValid(user)) {
+        if (USER_SERVICE.isValidLoginRequest(user)) {
             UserDto userResponse = modelMapper.map(user, UserDto.class);
             String hashedPassword = bCryptPasswordEncoder.encode(userResponse.getPassword());
             userResponse.setPassword(hashedPassword);
