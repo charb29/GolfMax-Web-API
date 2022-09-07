@@ -55,7 +55,7 @@ public class UserControllerTest {
 
     @Test
     public void getUserById_returns_HTTP_OK() throws Exception {
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(Optional.of(USER_1));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/1")
@@ -89,7 +89,7 @@ public class UserControllerTest {
 
     @Test
     public void deleteUser_returns_HTTP_OK() throws Exception {
-        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(USER_1);
+        Mockito.when(userService.getUserById(USER_1.getId())).thenReturn(Optional.of(USER_1));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .delete("/users/1")
