@@ -12,6 +12,8 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -44,8 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) {
-        return USER_REPOSITORY.findById(id).get();
+    public Optional<User> getUserById(Long id) {
+        return USER_REPOSITORY.findById(id);
     }
 
     @Override
