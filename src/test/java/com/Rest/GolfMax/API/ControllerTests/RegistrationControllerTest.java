@@ -52,12 +52,4 @@ public class RegistrationControllerTest {
                 .andExpect(jsonPath("$.email", is("email")))
                 .andExpect(jsonPath("$.password", is("password")));
     }
-
-    @Test
-    public void passwordIsSavedAsHash() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = bCryptPasswordEncoder.encode("password");
-
-        System.out.println("Hashed password: " + hashedPassword);
-    }
 }
