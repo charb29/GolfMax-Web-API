@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +45,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void createUser_should_return_user() {
+    public void createUser_should_return_user() throws NoSuchAlgorithmException, InvalidKeySpecException {
         User userRequest = new User();
         userRequest.setUsername("Olivier");
         userRequest.setPassword("password");
