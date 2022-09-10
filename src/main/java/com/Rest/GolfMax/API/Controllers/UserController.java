@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -47,7 +49,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> updateUserInfo(@PathVariable Long id,
-                                                  @RequestBody UserDto userRequest) {
+                                                  @RequestBody UserDto userRequest) throws NoSuchAlgorithmException,
+            InvalidKeySpecException {
         User user = modelMapper.map(userRequest, User.class);
         User updatedUser = USER_SERVICE.updateUser(user, id);
         UserDto userResponse = modelMapper.map(updatedUser, UserDto.class);
