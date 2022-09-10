@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 @RestController
 @RequestMapping("/users/auth")
 public class LoginController {
@@ -25,7 +28,8 @@ public class LoginController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<UserDto> login(@RequestBody UserDto userRequest) {
+    public ResponseEntity<UserDto> login(@RequestBody UserDto userRequest) throws NoSuchAlgorithmException,
+            InvalidKeySpecException {
         User user = modelMapper.map(userRequest, User.class);
         if (USER_SERVICE.isValidLoginRequest(user)) {
             UserDto userResponse = modelMapper.map(user, UserDto.class);
