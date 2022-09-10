@@ -61,12 +61,15 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void stringPasswordMatchesHashedPassword() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String password = "password";
-        String hashedPassword = bCryptPasswordEncoder.encode(password);
+    public void stringPasswordMatchesEncryptedPassword() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        User user = new User(1L, "Olivier", "password", "email");
+        String password = user.getPassword();
+        String encryptedPassword = userService.encryptPassword(user.getPassword());
 
-        assertTrue(bCryptPasswordEncoder.matches(password, hashedPassword));
+        boolean expectedResult = true;
+        boolean actualResult = userService.validatePassword(password, encryptedPassword);
+
+        assertTrue(expectedResult, String.valueOf(actualResult));
     }
 
 }
