@@ -67,7 +67,7 @@ public class LoginControllerTest {
         String encryptedPassword = userService.encryptPassword(user.getPassword());
 
         boolean expectedResult = true;
-        boolean actualResult = userService.validatePassword(password, encryptedPassword);
+        boolean actualResult = userService.isValidPassword(password, encryptedPassword);
 
         assertTrue(expectedResult, String.valueOf(actualResult));
     }
