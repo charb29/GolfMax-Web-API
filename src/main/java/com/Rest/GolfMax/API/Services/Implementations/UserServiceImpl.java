@@ -146,8 +146,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private String toHex(byte[] array) throws NoSuchAlgorithmException {
-        BigInteger bi = new BigInteger(1, array);
-        String hex = bi.toString(16);
+        BigInteger bigInteger = new BigInteger(1, array);
+        String hex = bigInteger.toString(16);
 
         int paddingLength = (array.length * 2) - hex.length();
         if (paddingLength > 0) {
