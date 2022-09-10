@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 @RestController
 @RequestMapping("/users/auth")
 public class RegistrationController {
@@ -26,7 +29,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userRequest) {
+    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userRequest) throws NoSuchAlgorithmException, InvalidKeySpecException {
         if (!USER_SERVICE.isValidRegistrationRequest(userRequest.getUsername(), userRequest.getEmail())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
