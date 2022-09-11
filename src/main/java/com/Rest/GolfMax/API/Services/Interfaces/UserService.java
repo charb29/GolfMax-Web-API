@@ -15,7 +15,4 @@ public interface UserService {
     void deleteUser(Long id);
     boolean isValidLoginRequest(User user) throws NoSuchAlgorithmException, InvalidKeySpecException;
     boolean isValidRegistrationRequest(String username, String email);
-    String encryptPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException;
-    boolean isValidPassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException,
-            InvalidKeySpecException;
 }
