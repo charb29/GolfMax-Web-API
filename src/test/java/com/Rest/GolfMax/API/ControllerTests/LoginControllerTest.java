@@ -2,6 +2,7 @@ package com.Rest.GolfMax.API.ControllerTests;
 
 import com.Rest.GolfMax.API.Controllers.LoginController;
 import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Security.Password;
 import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -62,14 +63,13 @@ public class LoginControllerTest {
 
     @Test
     public void stringPasswordMatchesEncryptedPassword() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        Password password = new Password();
         User user = new User(1L, "Olivier", "password", "email");
-        String password = user.getPassword();
-        String encryptedPassword = userService.encryptPassword(user.getPassword());
+        String encryptedPassword = password.getEncrypted(user.getPassword());
 
         boolean expectedResult = true;
-        boolean actualResult = userService.isValidPassword(password, encryptedPassword);
+        boolean actualResult = password.isValid(user.getPassword(), encryptedPassword);
 
         assertTrue(expectedResult, String.valueOf(actualResult));
     }
-
 }
