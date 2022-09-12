@@ -46,7 +46,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         try {
-            Optional<User> userRequest = USER_SERVICE.getUserById(id);
+            User userRequest = USER_SERVICE.getUserById(id);
             UserDto userResponse = MODEL_MAPPER.map(userRequest, UserDto.class);
             return new ResponseEntity<>(userResponse, HttpStatus.FOUND);
         } catch (NoSuchElementException e) {
@@ -66,7 +66,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
-        Optional<User> user = USER_SERVICE.getUserById(id);
+        User user = USER_SERVICE.getUserById(id);
         UserDto userResponse = MODEL_MAPPER.map(user, UserDto.class);
         if (userResponse == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

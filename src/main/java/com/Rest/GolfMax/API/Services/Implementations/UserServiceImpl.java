@@ -21,7 +21,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 
@@ -29,7 +28,6 @@ import java.util.regex.Pattern;
 @Transactional
 @RequestScope
 public class UserServiceImpl implements UserService {
-
 
     private final JavaMailSender MAIL_SENDER;
     private final UserRepository USER_REPOSITORY;
@@ -48,21 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User userRequest) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        User userResponse = new User();
-        userResponse.setUsername(userRequest.getUsername());
-        userResponse.setEmail(userRequest.getEmail());
-        userResponse.setPassword(PASSWORD_SECURITY.getEncrypted(userRequest.getPassword()));
-        userResponse.setFirstName(userRequest.getFirstName());
-        userResponse.setLastName(userRequest.getLastName());
-        USER_REPOSITORY.save(userResponse);
-
-        return userResponse;
-    }
-
-    @Override
-    public Optional<User> getUserById(Long id) {
-        return USER_REPOSITORY.findById(id);
+    public User getUserById(Long id) {
+        return USER_REPOSITORY.findById(id).get();
     }
 
     @Override
@@ -81,19 +66,23 @@ public class UserServiceImpl implements UserService {
         return USER_REPOSITORY.save(updatedUser);
     }
 
-
     @Override
     public boolean isValidLoginRequest(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
         String encryptedPassword = USER_REPOSITORY.getPasswordUsingUsername(user.getUsername());
+        boolean isEnabled = USER_REPOSITORY.getIsEnabledUsingUsername(user.getUsername());
         String password = user.getPassword();
         String username = user.getUsername();
 
         if (encryptedPassword == null) {
             return false;
         }
-
-        return PASSWORD_SECURITY.isValid(password, encryptedPassword)
-                && USER_REPOSITORY.existsByUsername(username);
+        else if (!isEnabled) {
+            return false;
+        }
+        else {
+            return PASSWORD_SECURITY.isValid(password, encryptedPassword)
+                    && USER_REPOSITORY.existsByUsername(username);
+        }
     }
 
     @Override
