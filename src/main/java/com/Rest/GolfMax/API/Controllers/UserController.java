@@ -20,27 +20,34 @@ import java.util.stream.Collectors;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper MODEL_MAPPER;
     private final UserService USER_SERVICE;
 
-    public UserController(UserService userService) {
+    @Autowired
+    public UserController(UserService userService, ModelMapper modelMapper) {
         super();
         this.USER_SERVICE = userService;
+        this.MODEL_MAPPER = modelMapper;
     }
 
     @GetMapping
-    public List<UserDto> getAllUsers() {
-        return USER_SERVICE.getAllUsers().stream()
-                .map(user -> modelMapper.map(user, UserDto.class))
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> userResponse = USER_SERVICE.getAllUsers().stream()
+                .map(users -> MODEL_MAPPER.map(users, UserDto.class))
                 .collect(Collectors.toList());
+        if (userResponse.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity<>(userResponse, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         try {
             Optional<User> userRequest = USER_SERVICE.getUserById(id);
-            UserDto userResponse = modelMapper.map(userRequest, UserDto.class);
+            UserDto userResponse = MODEL_MAPPER.map(userRequest, UserDto.class);
             return new ResponseEntity<>(userResponse, HttpStatus.FOUND);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,14 +58,23 @@ public class UserController {
     public ResponseEntity<UserDto> updateUserInfo(@PathVariable Long id,
                                                   @RequestBody UserDto userRequest) throws NoSuchAlgorithmException,
             InvalidKeySpecException {
-        User user = modelMapper.map(userRequest, User.class);
+        User user = MODEL_MAPPER.map(userRequest, User.class);
         User updatedUser = USER_SERVICE.updateUser(user, id);
-        UserDto userResponse = modelMapper.map(updatedUser, UserDto.class);
+        UserDto userResponse = MODEL_MAPPER.map(updatedUser, UserDto.class);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        USER_SERVICE.deleteUser(id);
+    public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
+        Optional<User> user = USER_SERVICE.getUserById(id);
+        UserDto userResponse = MODEL_MAPPER.map(user, UserDto.class);
+        if (userResponse == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            USER_SERVICE.deleteUser(id);
+            return new ResponseEntity<>(userResponse, HttpStatus.OK);
+        }
     }
 }
+
