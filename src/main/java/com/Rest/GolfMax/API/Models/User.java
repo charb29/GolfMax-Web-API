@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -17,6 +18,12 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private PlayerStatistics playerStatistics;
 
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
@@ -25,6 +32,11 @@ public class User {
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "verificationCode", length = 64)
+    private String verificationCode;
+
+    private boolean isEnabled;
 
     public User() {}
 
@@ -66,4 +78,36 @@ public class User {
    public void setEmail(String email) {
         this.email = email;
    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
