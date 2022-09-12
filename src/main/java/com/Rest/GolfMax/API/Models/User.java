@@ -1,5 +1,6 @@
 package com.Rest.GolfMax.API.Models;
 
+
 import java.util.List;
 import javax.persistence.*;
 
@@ -36,6 +37,7 @@ public class User {
     @Column(name = "verificationCode", length = 64)
     private String verificationCode;
 
+    @Column(name = "isEnabled")
     private boolean isEnabled;
 
     public User() {}
