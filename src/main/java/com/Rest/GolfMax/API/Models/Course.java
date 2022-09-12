@@ -19,7 +19,7 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Score> scores;
 
-    @Column(name = "courseName", nullable = false)
+    @Column(name = "course_name", nullable = false)
     private String courseName;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

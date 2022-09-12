@@ -19,10 +19,10 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private PlayerStatistics playerStatistics;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "username", nullable = false, unique = true)
@@ -34,10 +34,10 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "verificationCode", length = 64)
+    @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
-    @Column(name = "isEnabled")
+    @Column(name = "is_enabled")
     private boolean isEnabled;
 
     public User() {}
