@@ -31,8 +31,6 @@ public class LoginController {
         User user = modelMapper.map(userRequest, User.class);
         if (USER_SERVICE.isValidLoginRequest(user)) {
             UserDto userResponse = modelMapper.map(user, UserDto.class);
-            String hashedPassword = bCryptPasswordEncoder.encode(userResponse.getPassword());
-            userResponse.setPassword(hashedPassword);
             return new ResponseEntity<>(userResponse, HttpStatus.OK);
         }
         else {
