@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -18,36 +19,42 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 @Controller
-@RequestMapping("/users/auth")
 public class RegistrationController {
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper MODEL_MAPPER;
     private final UserService USER_SERVICE;
 
-    public RegistrationController(UserService userService) {
+    @Autowired
+    public RegistrationController(UserService userService, ModelMapper modelMapper) {
         super();
         this.USER_SERVICE = userService;
+        this.MODEL_MAPPER = modelMapper;
     }
 
-    @PostMapping("/signup/verification")
+    @PostMapping("/users/auth/signup/verification")
     public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userRequest, HttpServletRequest request)
         throws UnsupportedEncodingException, MessagingException,
             NoSuchAlgorithmException, InvalidKeySpecException {
+
         if (!USER_SERVICE.isValidRegistrationRequest(userRequest.getUsername(), userRequest.getEmail())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         else {
-            User user = modelMapper.map(userRequest, User.class);
+            User user = MODEL_MAPPER.map(userRequest, User.class);
             User registeredUser = USER_SERVICE.registerUser(user, getSiteURL(request));
-            UserDto userResponse = modelMapper.map(registeredUser, UserDto.class);
+            UserDto userResponse = MODEL_MAPPER.map(registeredUser, UserDto.class);
             return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
         }
     }
 
     @GetMapping("/verify")
-    public String verifyUser(@Param("verificationCode") String verificationCode) {
-        if (USER_SERVICE.isValidVerificationCode(verificationCode)) {
+    public String verifyUser(@Param("code") String code, Model model) {
+        boolean verified = USER_SERVICE.isValidVerificationCode(code);
+
+        String pageTitle = verified ? "Successful Verification" : "Verification failed";
+        model.addAttribute("pageTitle", pageTitle);
+
+        if (verified) {
             return "successful_verification";
         }
         else {

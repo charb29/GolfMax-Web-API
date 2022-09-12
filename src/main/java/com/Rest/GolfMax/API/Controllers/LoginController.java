@@ -2,6 +2,7 @@ package com.Rest.GolfMax.API.Controllers;
 
 import com.Rest.GolfMax.API.DTOs.UserDto;
 import com.Rest.GolfMax.API.Models.User;
+import com.Rest.GolfMax.API.Repositories.UserRepository;
 import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +16,25 @@ import java.security.spec.InvalidKeySpecException;
 @RestController
 @RequestMapping("/users/auth")
 public class LoginController {
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper MODEL_MAPPER;
     private final UserService USER_SERVICE;
 
-    public LoginController(UserService userService) {
+    private final UserRepository USER_REPO;
+    @Autowired
+    public LoginController(UserService userService, ModelMapper modelMapper, UserRepository userRepository) {
         super();
         this.USER_SERVICE = userService;
+        this.MODEL_MAPPER = modelMapper;
+        this.USER_REPO = userRepository;
     }
 
     @PostMapping("/signin")
     public ResponseEntity<UserDto> login(@RequestBody UserDto userRequest) throws NoSuchAlgorithmException,
             InvalidKeySpecException {
-        User user = modelMapper.map(userRequest, User.class);
+        User user = MODEL_MAPPER.map(userRequest, User.class);
         if (USER_SERVICE.isValidLoginRequest(user)) {
-            UserDto userResponse = modelMapper.map(user, UserDto.class);
+            User userInfo = USER_REPO.findByUsername(user.getUsername());
+            UserDto userResponse = MODEL_MAPPER.map(userInfo, UserDto.class);
             return new ResponseEntity<>(userResponse, HttpStatus.OK);
         }
         else {

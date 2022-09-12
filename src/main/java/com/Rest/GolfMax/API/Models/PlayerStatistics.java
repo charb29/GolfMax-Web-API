@@ -3,7 +3,7 @@ package com.Rest.GolfMax.API.Models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "playerStatistics")
+@Table(name = "player_statistics")
 public class PlayerStatistics {
 
     @Id
@@ -14,13 +14,13 @@ public class PlayerStatistics {
     @OneToOne
     private User user;
 
-    @Column(name = "roundsPlayed")
+    @Column(name = "rounds_played")
     private int roundsPlayed;
 
-    @Column(name = "handicapIndex")
+    @Column(name = "handicap_index")
     private double handicapIndex;
 
-    @Column(name = "averageScore")
+    @Column(name = "average_score")
     private double averageScore;
 
     public PlayerStatistics() {}
