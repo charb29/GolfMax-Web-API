@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
-public class Password {
+public class PasswordSecurity {
 
     public String getEncrypted(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         return generateHash(password);
