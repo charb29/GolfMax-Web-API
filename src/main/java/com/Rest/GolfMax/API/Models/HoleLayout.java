@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "holeLayout")
+@Table(name = "holeLayouts")
 public class HoleLayout {
 
     @Id
@@ -25,22 +25,22 @@ public class HoleLayout {
     private Course course;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "layoutType")
+    @Column(name = "layout_type")
     private LayoutType layoutType;
 
-    @Column(name = "front9Yards")
+    @Column(name = "front_9_yards")
     private long front9Yards;
 
-    @Column(name = "back9Yards")
+    @Column(name = "back_9_yards")
     private long back9Yards;
 
-    @Column(name = "overallPar")
+    @Column(name = "overall_par")
     private int overallPar;
 
-    @Column(name = "courseRating")
+    @Column(name = "course_rating")
     private double courseRating;
 
-    @Column(name = "slopeRating")
+    @Column(name = "slope_rating")
     private double slopeRating;
 
     public HoleLayout() {

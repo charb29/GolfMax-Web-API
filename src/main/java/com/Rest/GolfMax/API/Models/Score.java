@@ -20,10 +20,10 @@ public class Score {
     @Column(name = "score", nullable = false)
     private int userScore;
 
-    @Column(name = "courseRating")
+    @Column(name = "course_rating")
     private double courseRating;
 
-    @Column(name = "slopeRating")
+    @Column(name = "slope_rating")
     private double slopeRating;
 
     public Score() {}

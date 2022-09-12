@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "hole")
+@Table(name = "holes")
 public class Hole {
 
     @Id
@@ -18,7 +18,7 @@ public class Hole {
     @JsonBackReference
     private HoleLayout holeLayout;
 
-    @Column(name = "holeNumber", nullable = false)
+    @Column(name = "hole_number", nullable = false)
     private int holeNumber;
 
     @Column(name = "yards", nullable = false)
