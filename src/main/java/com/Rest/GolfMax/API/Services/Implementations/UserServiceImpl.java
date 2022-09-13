@@ -2,7 +2,7 @@ package com.Rest.GolfMax.API.Services.Implementations;
 
 import com.Rest.GolfMax.API.Models.User;
 import com.Rest.GolfMax.API.Repositories.UserRepository;
-import com.Rest.GolfMax.API.Security.PasswordSecurity;
+import com.Rest.GolfMax.API.Security.GolfMax.PasswordSecurity;
 import com.Rest.GolfMax.API.Services.Interfaces.UserService;
 import net.bytebuddy.utility.RandomString;
 import org.apache.velocity.exception.ResourceNotFoundException;
