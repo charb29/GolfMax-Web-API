@@ -7,19 +7,19 @@ oauth2:
       google:
         clientId: ${GOOGLE_CLIENT_ID}
         clientSecret: ${GOOGLE_CLIENT_SECRET}
-        redirectUri: https://localhost:8443/login/oauth/google/authorize
+        redirectUri: https://localhost:8443/login/oauth2/code/google
         scope: email profile
 
       facebook:
         clientId: ${FACEBOOK_CLIENT_ID}
         clientSecret: ${FACEBOOK_CLIENT_SECRET}
-        redirectUri: https://localhost:8443/login/oauth/facebook/authorize
+        redirectUri: https://localhost:8443/login/oauth2/code/facebook
         scope: email public_profile
 
       github:
         clientId: ${GITHUB_CLIENT_ID}
         clientSecret: ${GITHUB_CLIENT_SECRET}
-        redirectUri: https://localhost:8443/login/oauth/github/authorize
+        redirectUri: https://localhost:8443/login/oauth2/code/github
         scope: read:user
 
     provider:
