@@ -1,16 +1,9 @@
 package com.Rest.GolfMax.API.Models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "scores")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Score {
 
     @Id
@@ -33,12 +26,62 @@ public class Score {
     @Column(name = "slope_rating")
     private double slopeRating;
 
+    public Score() {}
+
     public Score(Long id, User user, Course course, int userScore, double courseRating, double slopeRating) {
         this.id = id;
         this.userScore = userScore;
         this.user = user;
         this.course = course;
         this.courseRating = courseRating;
+        this.slopeRating = slopeRating;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long scoreId) {
+        this.id = scoreId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public int getUserScore() {
+        return userScore;
+    }
+
+    public void setUserScore(int userScore) {
+        this.userScore = userScore;
+    }
+
+    public double getCourseRating() {
+        return courseRating;
+    }
+
+    public void setCourseRating(double courseRating) {
+        this.courseRating = courseRating;
+    }
+
+    public double getSlopeRating() {
+        return slopeRating;
+    }
+
+    public void setSlopeRating(double slopeRating) {
         this.slopeRating = slopeRating;
     }
 }
