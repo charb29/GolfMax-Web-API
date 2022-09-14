@@ -40,7 +40,6 @@ public class OAuth2ServiceFactory {
     }
 
     @RequiredArgsConstructor
-
     public class OAuth2Api extends DefaultApi20 {
 
         private final OAuth2Properties.Provider PROVIDER;
