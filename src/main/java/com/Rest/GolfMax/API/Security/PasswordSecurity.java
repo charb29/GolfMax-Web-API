@@ -1,4 +1,4 @@
-package com.Rest.GolfMax.API.Security.GolfMax;
+package com.Rest.GolfMax.API.Security;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
