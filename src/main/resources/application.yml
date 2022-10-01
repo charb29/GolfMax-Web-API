@@ -1,0 +1,31 @@
+server:
+  port: 8443
+
+oauth2:
+  client:
+    registration:
+      google:
+        client-id: 365708531754-uap0pus0sdsmcuv4ucedtf6rcgp7p1ld.apps.googleusercontent.com
+        client-secret: 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
+        redirect-uri: https://localhost:8443/login/oauth2/code/google
+        scope: email profile
+
+      github:
+        client-id: a1ab3689dbc2d516cf0b
+        client-secret: 6f95ec956cb5071b5bd814059b8bdff8d2aef139
+        redirect-uri: https://localhost:8443/login/oauth2/code/github
+        scope: read:user
+
+    provider:
+      github:
+        name: github
+        authorizationUri: https://github.com/login/oauth/authorize
+        tokenUri: https://github.com/login/oauth/access_token
+        userInfoUri: https://api.github.com/user
+
+      google:
+        name: google
+        authorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+        tokenUri: https://oauth2.googleapis.com/token
+        userInfoUri: https://openidconnect.googleapis.com/v1/userinfo
+        revokeTokenUri: https://oauth2.googleapis.com/revoke

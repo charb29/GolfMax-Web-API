@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  server:
+    image: golfmax
+    ports:
+      - "8443:8443"
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/golfmaxdb?useSSL=false
+    networks:
+      - golfmax-network
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:5.7
+    networks:
+      - golfmax-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=Olivier7
+      - MYSQL_DATABASE=golfmaxdb
+      - MYSQL_PASSWORD=Olivier7
+
+networks:
+  golfmax-network:
