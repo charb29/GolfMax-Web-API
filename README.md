@@ -1,7 +1,7 @@
 # GolfMax-Web-API
 
 ### Current features
-- Authentication - very basic and not secure yet, will improve later
+- Authentication
 - Updating the user's information
 - Get user by id
 - Get all users
@@ -13,10 +13,7 @@
 - MySQL database created with Hibernate
 
 ### Future features
-- OpenID and OAuth 2.0 for a more secure authorization
-- Password hashing
-- Spring Security
-- Deploying the API as a Docker container
+- Deploying API onto the cloud
 
 ### Routes
 #### Scores
