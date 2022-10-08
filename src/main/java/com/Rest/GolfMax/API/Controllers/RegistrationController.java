@@ -33,8 +33,9 @@ public class RegistrationController {
     public ResponseEntity<User> registerUser(@RequestBody User userRequest, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException, NoSuchAlgorithmException, InvalidKeySpecException {
 
-        if (!userService.isValidRegistrationRequest(userRequest.getUsername(), userRequest.getEmail()))
+        if (!userService.isValidRegistrationRequest(userRequest.getUsername(), userRequest.getEmail())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         else {
             User userResponse = userService.registerUser(userRequest, getVerificationSiteUrl(request));
             return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
@@ -47,10 +48,12 @@ public class RegistrationController {
         String pageTitle = verified ? "Successful Verification" : "Verification failed";
         model.addAttribute("pageTitle", pageTitle);
 
-        if (verified)
+        if (verified) {
             return "successful_verification";
-        else
+        }
+        else {
             return "failed_verification";
+        }
 
     }
 
