@@ -21,6 +21,9 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         super();
+        if (userService == null) {
+            throw new NullPointerException("User Service");
+        }
         this.userService = userService;
     }
 

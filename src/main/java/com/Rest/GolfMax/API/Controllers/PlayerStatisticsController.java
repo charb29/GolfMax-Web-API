@@ -16,6 +16,9 @@ public class PlayerStatisticsController {
 
     public PlayerStatisticsController(PlayerStatisticsService playerStatisticsService) {
         super();
+        if (playerStatisticsService == null) {
+            throw new NullPointerException("Player Statistics Service");
+        }
         this.statisticsService = playerStatisticsService;
     }
 

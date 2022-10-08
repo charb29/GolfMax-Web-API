@@ -16,6 +16,9 @@ public class ScoreController {
 
     public ScoreController(ScoreService scoreService) {
         super();
+        if (scoreService == null) {
+            throw new NullPointerException("Score Service");
+        }
         this.scoreService = scoreService;
     }
 

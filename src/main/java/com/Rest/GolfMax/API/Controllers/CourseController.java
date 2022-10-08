@@ -17,6 +17,9 @@ public class CourseController {
 
     public CourseController(CourseService courseService) {
         super();
+        if (courseService == null) {
+            throw new NullPointerException("Course Service");
+        }
         this.courseService = courseService;
     }
 
@@ -32,8 +35,9 @@ public class CourseController {
 
     @PostMapping("")
     public ResponseEntity<Course> addNewCourse(@RequestBody @NotNull Course courseRequest) {
-        if (courseService.isValidCourse(courseRequest.getCourseName()))
+        if (courseService.isValidCourse(courseRequest.getCourseName())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         else {
             Course courseResponse = courseService.createCourse(courseRequest);
             return new ResponseEntity<>(courseResponse, HttpStatus.CREATED);

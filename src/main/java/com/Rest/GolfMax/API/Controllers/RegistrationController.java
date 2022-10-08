@@ -26,6 +26,9 @@ public class RegistrationController {
     @Autowired
     public RegistrationController(UserService userService) {
         super();
+        if (userService == null) {
+            throw new NullPointerException("User Service");
+        }
         this.userService = userService;
     }
 

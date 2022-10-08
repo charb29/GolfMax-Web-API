@@ -19,14 +19,21 @@ public class LoginController {
     @Autowired
     public LoginController(UserService userService) {
         super();
+        if (userService == null) {
+            throw new NullPointerException("User Service");
+        }
         this.userService = userService;
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<User> login(@RequestBody User userRequest) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        if (userService.isValidLoginRequest(userRequest))
+    public ResponseEntity<User> login(@RequestBody User userRequest)
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+
+        if (userService.isValidLoginRequest(userRequest)) {
             return new ResponseEntity<>(userRequest, HttpStatus.OK);
-        else
+        }
+        else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 }
