@@ -44,7 +44,7 @@ public class LoginControllerTest {
         user.setPassword("password");
         user.setEmail("olivier@gmail.com");
 
-        Mockito.when(userService.isValidLoginRequest(Mockito.any(User.class))).thenReturn(true);
+        Mockito.when(userService.isValidPassword(Mockito.any(User.class))).thenReturn(true);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .post("/user/sign-in")

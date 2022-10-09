@@ -66,25 +66,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isValidLoginRequest(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        String encryptedPassword = userRepository.getPasswordUsingUsername(user.getUsername());
-        boolean isEnabled = userRepository.getIsEnabledUsingUsername(user.getUsername());
+    public boolean isValidPassword(User user) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String encryptedPassword = null;
+        boolean isEnabled = false;
         String password = user.getPassword();
-        String username = user.getUsername();
 
-        if (encryptedPassword == null)
+        if (userRepository.existsByUsername(user.getUsername())) {
+            encryptedPassword = userRepository.getPasswordUsingUsername(user.getUsername());
+            isEnabled = userRepository.getIsEnabledUsingUsername(user.getUsername());
+        }
+        if (encryptedPassword == null && !isEnabled) {
             return false;
-        else if (!isEnabled)
-            return false;
+        }
         else {
-            return passwordSecurity.isValid(password, encryptedPassword)
-                    && userRepository.existsByUsername(username);
+            return passwordSecurity.isValid(password, encryptedPassword);
         }
     }
 
     @Override
-    public boolean isValidRegistrationRequest(String username, String email) {
-        return !isValidUsername(username) && !isValidEmail(email) && isValidFormat(email);
+    public boolean isValidUsername(User user) {
+        String username = user.getUsername();
+        return !userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean isValidLoginRequest(User user) {
+        String username = user.getUsername();
+        String password = userRepository.getPasswordUsingUsername(username);
+        return password != null;
+    }
+
+    @Override
+    public boolean isValidEmail(User user) {
+        String email = user.getEmail();
+        if (!isValidFormat(email)) {
+            return false;
+        }
+        return !userRepository.existsByEmail(email);
     }
 
     @Override
@@ -117,14 +135,6 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             return true;
         }
-    }
-
-    private boolean isValidUsername(String username) {
-        return userRepository.existsByUsername(username);
-    }
-
-    private boolean isValidEmail(String email) {
-        return userRepository.existsByEmail(email);
     }
 
     private boolean isValidFormat(String email) {

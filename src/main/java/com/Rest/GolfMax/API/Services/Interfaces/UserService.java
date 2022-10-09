@@ -13,8 +13,10 @@ public interface UserService {
     User updateUser(User user, Long id) throws NoSuchAlgorithmException, InvalidKeySpecException;
     User getUserById(Long id);
     void deleteUserById(Long id);
-    boolean isValidLoginRequest(User user) throws NoSuchAlgorithmException, InvalidKeySpecException;
-    boolean isValidRegistrationRequest(String username, String email);
+    boolean isValidPassword(User user) throws NoSuchAlgorithmException, InvalidKeySpecException;
+    boolean isValidUsername(User user);
+    boolean isValidLoginRequest(User user);
+    boolean isValidEmail(User user);
     User registerUser(User user, String siteURL)
             throws UnsupportedEncodingException, MessagingException,
             NoSuchAlgorithmException, InvalidKeySpecException;

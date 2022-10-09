@@ -33,15 +33,21 @@ public class RegistrationController {
     }
 
     @PostMapping("/user/signup/verification")
-    public ResponseEntity<User> registerUser(@RequestBody User userRequest, HttpServletRequest request)
+    public ResponseEntity registerUser(@RequestBody User userRequest, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException, NoSuchAlgorithmException, InvalidKeySpecException {
 
-        if (!userService.isValidRegistrationRequest(userRequest.getUsername(), userRequest.getEmail())) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        boolean isValidUsername = userService.isValidUsername(userRequest);
+        boolean isValidEmail = userService.isValidEmail(userRequest);
+
+        if (!isValidUsername) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Username is already taken.");
+        }
+        else if (!isValidEmail) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email is already taken.");
         }
         else {
             User userResponse = userService.registerUser(userRequest, getVerificationSiteUrl(request));
-            return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
         }
     }
 

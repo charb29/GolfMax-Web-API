@@ -29,14 +29,24 @@ public class LoginController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<User> login(@RequestBody User userRequest)
+    public ResponseEntity login(@RequestBody User userRequest)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
 
-        if (userService.isValidLoginRequest(userRequest)) {
-            return new ResponseEntity<>(userRequest, HttpStatus.OK);
+        boolean isValidUsername = userService.isValidUsername(userRequest);
+        boolean isValidPassword = userService.isValidPassword(userRequest);
+        boolean isValidLoginRequest = userService.isValidLoginRequest(userRequest);
+
+        if (isValidUsername && isValidPassword && isValidLoginRequest) {
+            return ResponseEntity.status(HttpStatus.OK).body(userRequest);
         }
-        else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        else if (!isValidUsername && !isValidPassword) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
+        }
+        else if (!isValidUsername) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Username is invalid.");
+        }
+        else  {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password is invalid.");
         }
     }
 }
