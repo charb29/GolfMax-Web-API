@@ -12,9 +12,6 @@
 - Delete score
 - MySQL database created with Hibernate
 
-### Future features
-- Deploying API onto the cloud
-
 ### Routes
 #### Scores
 - GET /scores
